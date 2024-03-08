@@ -1,0 +1,42 @@
+{% extends base.html %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block body %}
+<div id="profile-pic-section">
+    <img id="profile-pic" src="" alt="Profile Picture">
+
+    <!-- Buttons need to be modified so theyre only available for loggin in user on their own user page-->
+    <div id="profile-buttons">
+        <input type="file" id="upload-button" accept="image/*">
+        <button id="remove-button" onclick="">Remove Picture</button>
+    </div>
+</div>
+
+<div id="bio-section">
+    <h2>Biography</h2>
+    <p id="bio-content">User biography is written here.</p>
+
+    <!-- Button for logged-in user -->
+    <button id="edit-bio-button" onclick="">Edit Biography</button>
+</div>
+
+<div id="liked-posts-section">
+    <h2>Liked Posts</h2>
+    <ul id="liked-posts-list">
+        <li>Post 1</li>
+        <li>Post 2</li>
+    </ul>
+</div>
+
+<div id="posted-posts-section">
+    <h2>Posted Posts</h2>
+    <ul id="posted-posts-list">
+        <li>My Post 1</li>
+        <li>My Post 2</li>
+    </ul>
+</div>
+
+{% endblock %}

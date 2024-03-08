@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+{% load GUFilmmaking_template_tags %}
+
+<html>
+
+<head>
+    <title>
+        {% block title %}
+        GU Filmmaking Society
+        {% endblock title %}
+    </title>
+</head>
+
+<body>
+    <div id="top banner">
+        <img src="" alt="GU Filmmaking Logo" id="logo">
+        <span>{% block website_name %}GU Filmmaking Society{% endblock %}</span>
+        <div id="navigation-links">
+            <a href="#">Movies</a>
+            <a href="#">Posters</a>
+            <a href="#">Behind the Scenes</a>
+            <a href="#">Sign Up</a>
+            <a href="#">Log In</a>
+        </div>
+        <div id="search-bar">
+            <form action="#" method="get">
+                <input type="text" name="search" placeholder="Search GU Filmmaking...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+    <div id="bottom-banner">
+        <div id="bottom-links">
+            <a href="#">Home</a>
+            <a href="#">Users</a>
+            <a href="#">Profile</a>
+        </div>
+        <div id="support-us">
+            <span>Support Us:</span>
+            <a href="">TikTok</a>
+            <a href="https://www.youtube.com/channel/UC3ZZNaKIOgTL1W3QsRmA-HA">YouTube</a>
+            <a href="https://www.instagram.com/gufilmmaking/">Instagram</a>
+        </div>
+    </div>
+</body>
+
+</html>

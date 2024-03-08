@@ -62,3 +62,15 @@ body {
     text-decoration: none;
     color: black;
 }
+
+footer {
+    border: 1px solid black;
+    display: flex; /* Use flexbox */
+    justify-content: space-evenly; /* Horizontally center align the items */
+    align-items: center; /* Vertically center align the items */
+    width: 100%; /* Ensure the footer spans the entire width */
+}
+
+footer a {
+    margin-right: 10px;
+}

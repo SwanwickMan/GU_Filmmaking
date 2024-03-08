@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
+from GUFilmmakingApp import views
 
 urlpatterns = [
+    path('', views.home, name='home'),
     path('admin/', admin.site.urls),
+    path('GUFilmmakingApp/', include('GUFilmmakingApp.urls')),
+    #The above maps any URLs starting with GUFilmmakingApp/ to be handled by GUFilmmakingApp
 ]

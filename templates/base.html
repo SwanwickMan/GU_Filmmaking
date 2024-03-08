@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-
 {% load GUFilmmaking_template_tags %}
 
 <html lang="EN-GB">
@@ -15,7 +14,7 @@
 
 <body>
     <div id="top banner">
-        <img src="" alt="GU Filmmaking Logo" id="logo">
+        <img src="{% static "images/logo.jpg" %}" alt="GU Filmmaking Logo" id="logo" height="30" width="30">
         <span>{% block website_name %}GU Filmmaking Society{% endblock %}</span>
         <div id="navigation-links">
             <a href="#">Movies</a>

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "GUFilmmakingApp.apps.GUFilmmakingAppConfig"
+    "GUFilmmakingApp.apps.GUFilmmakingAppConfig",
 ]
 
 MIDDLEWARE = [
@@ -118,7 +118,11 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
+# media files storage
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/media/'
 
+
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [STATIC_DIR, ]

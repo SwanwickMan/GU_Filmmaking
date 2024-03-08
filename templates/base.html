@@ -5,6 +5,7 @@
 <html lang="EN-GB">
 
 <head>
+    <link rel="stylesheet" href={% static "style/base.css" %}>
     <title>
         {% block title %}
             GU Filmmaking Society
@@ -12,27 +13,35 @@
     </title>
 </head>
 
-<body>
-    <div id="top banner">
-        <img src="{% static "images/logo.jpg" %}" alt="GU Filmmaking Logo" id="logo" height="30" width="30">
-        <span>{% block website_name %}GU Filmmaking Society{% endblock %}</span>
+<header >
+    <div id="top-header-section">
+
+        <form action="#" method="get" id="searchbar">
+            <input type="text" name="search" placeholder="Search GU Filmmaking...">
+            <button type="submit">Search</button>
+        </form>
+        <a href="#">Sign Up</a>
+        <a href="#">Log In</a>
+    </div>
+
+    <div id="bottom-header-section">
+        <img src="{% static "images/logo.jpg" %}" alt="GU Filmmaking Logo" id="logo">
+        <h1>{% block website_name %}GU Filmmaking Society{% endblock %}</h1>
         <div id="navigation-links">
-            <a href="#">Movies</a>
+            <a href="#" >Movies</a>
             <a href="#">Posters</a>
             <a href="#">Behind the Scenes</a>
-            <a href="#">Sign Up</a>
-            <a href="#">Log In</a>
-        </div>
-        <div id="search-bar">
-            <form action="#" method="get">
-                <input type="text" name="search" placeholder="Search GU Filmmaking...">
-                <button type="submit">Search</button>
-            </form>
         </div>
     </div>
-    <div id="content">
-        {% block content %}{% endblock %}
+</header>
+
+<body>
+    <div>
+        {% block main_content %}{% endblock %}
     </div>
+</body>
+
+<footer>
     <div id="bottom-banner">
         <div id="bottom-links">
             <a href="#">Home</a>
@@ -46,6 +55,6 @@
             <a href="https://www.instagram.com/gufilmmaking/">Instagram</a>
         </div>
     </div>
-</body>
+</footer>
 
 </html>

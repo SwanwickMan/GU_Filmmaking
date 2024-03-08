@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load GUFilmmaking_template_tags %}
 
-<html lang="EN-GB">
+<html lang="en">
 
 <head>
     <link rel="stylesheet" href={% static "style/base.css" %}>
@@ -29,7 +29,7 @@
             <img src="{% static "images/logo.jpg" %}" alt="GU Filmmaking Logo" id="logo">
             <h1>{% block website_name %}GU Filmmaking Society{% endblock %}</h1>
             <div id="navigation-links">
-                <a href="#" >Movies</a>
+                <a href="{% url 'GUFilmmakingApp:movies' "movie" %}" >Movies</a>
                 <a href="#">Posters</a>
                 <a href="#">Behind the Scenes</a>
             </div>

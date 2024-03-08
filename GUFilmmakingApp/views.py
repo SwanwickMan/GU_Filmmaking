@@ -44,29 +44,29 @@ def categories(request):
     return response
 
 
-#implement slugs later
-def long_movies(request, category_name_slug):
+# implement slugs later
+def long_movies(request, content_name_slug):
     context_dict = {}
-    response = render(request, 'long_movies.html', context=context_dict)
+    response = render(request, 'content_page.html', context=context_dict)
 
     return response
 
 
-def short_movies(request, category_name_slug):
+def short_movies(request, content_name_slug):
     context_dict = {}
     response = render(request, 'short_movies.html', context=context_dict)
 
     return response
 
 
-def posters(request, category_name_slug):
+def posters(request, content_name_slug):
     context_dict = {}
     response = render(request, 'posters.html', context=context_dict)
 
     return response
 
 
-def behind_the_scenes(request, category_name_slug):
+def behind_the_scenes(request, content_name_slug):
     context_dict = {}
     response = render(request, 'behind_the_scenes.html', context=context_dict)
 

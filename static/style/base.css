@@ -17,18 +17,6 @@ body {
     width: 100%;
 }
 
-#searchbar {
-    margin-top: 10px;
-    flex-grow: 3;
-    display: flex; /* Use flexbox */
-    justify-content: center; /* Center align the form horizontally */
-    align-items: center; /* Align items vertically in the center */
-}
-
-#searchbar input[type="text"] {
-    width: 30%; /* Adjust the width of the input field */
-}
-
 #top-header-section a {
     margin-left: 5px; /* Add margin between links */
     margin-right: 5px;
@@ -43,9 +31,21 @@ body {
     width: 100%;
 }
 
+#searchbar {
+    margin-top: 10px;
+    flex-grow: 3;
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center align the form horizontally */
+    align-items: center; /* Align items vertically in the center */
+}
+
+#searchbar input[type="text"] {
+    width: 30%; /* Adjust the width of the input field */
+}
+
 #bottom-header-section img {
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
 }
 
 #bottom-header-section h1 {

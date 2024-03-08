@@ -16,20 +16,6 @@ def search(request):
         return render(request, 'signup.html')
 
 
-def most_viewed(request):
-    context_dict = {}
-    response = render(request, 'most_viewed.html', context=context_dict)
-
-    return response
-
-
-def most_liked(request):
-    context_dict = {}
-    response = render(request, 'most_liked.html', context=context_dict)
-
-    return response
-
-
 def profile(request):
     context_dict = {}
     response = render(request, 'profile.html', context=context_dict)

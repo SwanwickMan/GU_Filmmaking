@@ -2,21 +2,23 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-
+{% block extra_style_sheet %}
+    <link rel="stylesheet" href={% static "style/content_page.css" %}>
+{% endblock %}
 {% block title %}
     Media Content Page
 {% endblock %}
 
 
 {% block main_content %}
-    <h2>{% block header %} Poster header {% endblock %}</h2>
+    <h2 id="content-header">{% block header %} Poster header {% endblock %}</h2>
 
     {% block image %}
-        <img src="{{ MEDIA_URL }}" alt="poster"/>
+        <img src="{{ MEDIA_URL }}poster2022-2023.jpg" alt="poster" id="media-content" onclick="this.requestFullscreen()"/>
     {% endblock %}
 
     {% block description %}
-        <p> very descriptive description about poster </p>
+        <p id="description"> very descriptive description about poster </p>
     {% endblock %}
 
 {% endblock %}

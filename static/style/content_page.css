@@ -1,0 +1,19 @@
+#content-header{
+    font-size: 50px;
+    text-align: center;
+}
+
+#media-content{
+    height: 75vh;
+    margin: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#description{
+    border: 1px black;
+    height: 75vh;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 20px;
+}

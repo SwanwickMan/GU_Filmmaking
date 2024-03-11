@@ -1,19 +1,91 @@
-#content-header{
+#content-header {
     font-size: 50px;
     text-align: center;
 }
 
-#media-content{
-    height: 75vh;
+/* Main body content */
+#main-content {
+    display: flex;
+    align-items: flex-start;
     margin: 20px;
-    display: inline-block;
-    vertical-align: top;
 }
 
-#description{
-    border: 1px black;
-    height: 75vh;
-    display: inline-block;
-    vertical-align: top;
+#media-content {
+    width: auto;
+    margin-right: 20px;
+}
+
+#media-content img {
+    max-height: 90vh;
+    width: auto;
+    display: block;
+    margin-right: 15px;
+}
+
+#description-content {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#right-side-content {
+    padding: 5px;
     font-size: 20px;
+    flex-grow: 1;
+}
+/* Likes and views section */
+#likes-and-views{
+    display: flex; /* Use flexbox */
+    justify-content: space-evenly; /* Distribute items evenly along the main axis */
+    align-items: center; /* Align items vertically in the center */
+    width: 100%;
+}
+
+#likes-and-views div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#likes-and-views img{
+    height: 30px;
+}
+
+#likes-and-views p{
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+
+/* Copy button section */
+#share-section {
+    width: 200px;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#share-section p {
+    font-size: 16px;
+    color: #333; /* Adjust color as needed */
+    text-align: center;
+}
+
+#share-section button{
+    display: inline-block;
+}
+
+#Copy {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff; /* Blue color for the button */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#Copy:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
 }

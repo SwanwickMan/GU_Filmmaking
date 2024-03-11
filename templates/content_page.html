@@ -13,9 +13,11 @@
 {% block main_content %}
     <h2 id="content-header">{% block header %} Poster header {% endblock %}</h2>
 
-    {% block image %}
+    {% block mediaContent %}
         <img src="{{ MEDIA_URL }}poster2022-2023.jpg" alt="poster" id="media-content" onclick="this.requestFullscreen()"/>
     {% endblock %}
+
+        <p id="author"> By {% block author %} AuthorName {% endblock %}</p>
 
     {% block description %}
         <p id="description"> very descriptive description about poster </p>

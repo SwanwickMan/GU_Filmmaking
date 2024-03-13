@@ -9,13 +9,13 @@
     {% block extra_style_sheet %} {% endblock %}
     <title>
         {% block title %}
-            GU Filmmaking Society
+        GU Filmmaking Society
         {% endblock title %}
     </title>
 </head>
 
 <body>
-    <header >
+    <header>
         <div id="top-header-section">
 
             <form action="#" method="get" id="searchbar">
@@ -27,12 +27,12 @@
         </div>
 
         <div id="bottom-header-section">
-            <img src="{% static "images/logo.jpg" %}" alt="GU Filmmaking Logo" id="logo">
+            <img src="{% static " images/logo.jpg" %}" alt="GU Filmmaking Logo" id="logo">
             <h1>{% block website_name %}GU Filmmaking Society{% endblock %}</h1>
             <div id="navigation-links">
-                <a href="{% url 'GUFilmmakingApp:movies' "movie" %}" >Movies</a>
-                <a href="{% url 'GUFilmmakingApp:posters' "movie" %}">Posters</a>
-                <a href="{% url 'GUFilmmakingApp:behind_the_scenes' "movie" %}">Behind the Scenes</a>
+                <a href="{% url 'GUFilmmakingApp:movies' " movie" %}">Movies</a>
+                <a href="{% url 'GUFilmmakingApp:posters' " movie" %}">Posters</a>
+                <a href="{% url 'GUFilmmakingApp:behind_the_scenes' " movie" %}">Behind the Scenes</a>
             </div>
         </div>
     </header>
@@ -47,7 +47,7 @@
         <a href="{% url 'GUFilmmakingApp:profile' %}">Profile</a>
         <div id="support-us">
             <span>Support Us:</span>
-            <a href="">TikTok</a>
+            <a href="https://www.tiktok.com/@gufilmsociety">TikTok</a>
             <a href="https://www.youtube.com/channel/UC3ZZNaKIOgTL1W3QsRmA-HA">YouTube</a>
             <a href="https://www.instagram.com/gufilmmaking/">Instagram</a>
         </div>

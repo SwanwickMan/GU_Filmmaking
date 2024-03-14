@@ -1,7 +1,6 @@
 from django.contrib import admin
-from GUFilmmakingApp.models import Category, Movie, Poster, BehindTheScene
+from GUFilmmakingApp.models import Category, Post, UserProfile
 
 admin.site.register(Category)
-admin.site.register(Movie)
-admin.site.register(Poster)
-admin.site.register(BehindTheScene)
+admin.site.register(Post)
+admin.site.register(UserProfile)

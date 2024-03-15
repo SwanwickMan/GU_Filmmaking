@@ -32,10 +32,18 @@
 }
 
 #content {
-  justify-content: center;
+  display: flex; /* Use flexbox */
+  justify-content: space-evenly; /* Distribute items evenly along the main axis */
+  align-items: center; /* Align items vertically in the center */
+  width: 100%;
+
   padding: 0 18px;
   background-color: white;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
+}
+
+.radio-options {
+  padding-right: 20px;
 }

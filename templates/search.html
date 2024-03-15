@@ -17,7 +17,33 @@
         </div>
 
         <div id="content">
-            <p> Misc search button here </p>
+            <div class ="radio-options">
+                <p>Search Within: </p>
+                <input type="radio" id="Movies" name="search_for" value="Movies">
+                    <label for="Movies">Movies</label><br>
+                <input type="radio" id="Shorts" name="search_for" value="Shorts">
+                    <label for="Shorts">Shorts</label><br>
+                <input type="radio" id="Posters" name="search_for" value="Posters">
+                    <label for="Posters">Posters</label><br>
+                <input type="radio" id="Users" name="search_for" value="Users">
+                    <label for="Users">Users</label><br>
+                <input type="radio" id="All" name="search_for" value="All" checked>
+                    <label for="All">All</label>
+            </div>
+
+            <div class ="radio-options">
+                <p>Sort By: </p>
+                <input type="radio" id="most-likes" name="sort_by" value="most-likes">
+                    <label for="most-likes">Most Likes</label><br>
+                <input type="radio" id="least-likes" name="sort_by" value="least-likes">
+                    <label for="least-likes">Least Likes</label><br>
+                <input type="radio" id="most-views" name="sort_by" value="most-views">
+                    <label for="most-views">Most Views</label><br>
+                <input type="radio" id="least-views" name="sort_by" value="least-views">
+                    <label for="least-views">Least Views</label><br>
+                <input type="radio" id="relevancy" name="sort_by" value="relevancy" checked>
+                    <label for="relevancy">Relevancy</label>
+            </div>
         </div>
     </div>
 

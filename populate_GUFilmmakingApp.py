@@ -58,6 +58,14 @@ def populate(author):
                    '2023-24' : {'bts' : behind_the_scenes_2023_24 }
     }
 
+    users = [
+        {'username': 'User1', 'email':'example1@filmmaking.com', 'password': 'password1', 'userID': '00001', 'filepath': '/profile1.jpg', 'bio': 'Example Bio User1'},
+        {'username': 'User2', 'email':'example2@filmmaking.com', 'password': 'password2', 'userID': '00002', 'filepath': '/profile2.jpg', 'bio': 'Example Bio User2'},
+        {'username': 'User3', 'email':'example3@filmmaking.com', 'password': 'password3', 'userID': '00003', 'filepath': '/profile3.jpg', 'bio': 'Example Bio User3'},
+        {'username': 'User4', 'email':'example4@filmmaking.com', 'password': 'password4', 'userID': '00004', 'filepath': '/profile4.jpg', 'bio': 'Example Bio User4'},
+        {'username': 'User5', 'email':'example5@filmmaking.com', 'password': 'password5', 'userID': '00005', 'filepath': '/profile5.jpg', 'bio': 'Example Bio User5'}
+    ]
+
     
     for cat, cat_data in movie_cats.items():
         for year, movies_data in cat_data.items():
@@ -74,6 +82,11 @@ def populate(author):
         c = add_cat(cat)
         for b in cat_data['bts']:
             add_post(c, b['title'], b['filepath'], b['description'], year, author)
+
+    for user_data in users:
+        user = User.objects.create_user(username=user_data['username'], email=user_data['email'], password=user_data['password'])
+        user_profile = UserProfile.objects.create(user=user, userID=user_data['userID'], profileImage=settings.MEDIA_DIR + user_data['filepath'], bio=user_data['bio'])
+        user_profile.save()
 
    
 def add_cat(name):

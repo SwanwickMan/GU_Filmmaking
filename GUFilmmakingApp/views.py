@@ -1,5 +1,7 @@
 from django.shortcuts import render
-
+from GUFilmmakingApp.forms import PosterForm, MovieForm, BTSForm
+from django.shortcuts import redirect
+from django.urls import reverse
 
 # Create your views here.
 def index(request):
@@ -43,7 +45,6 @@ def categories(request):
 
     return response
 
-
 # implement slugs later
 def long_movies(request, content_name_slug):
     context_dict = {}
@@ -58,6 +59,19 @@ def short_movies(request, content_name_slug):
 
     return response
 
+def add_movie(request):
+
+    form = MovieForm()
+
+    if request.method == 'POST':
+        form = MovieForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(reverse('GUFilmmakingApp:home'))
+        else:
+            print(form.errors)
+    
+    return render(request, 'rango/add_movie.html', {'form': form})
 
 def posters(request, content_name_slug):
     context_dict = {}
@@ -65,12 +79,40 @@ def posters(request, content_name_slug):
 
     return response
 
+def add_poster(request):
+
+    form = PosterForm()
+
+    if request.method == 'POST':
+        form = PosterForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(reverse('GUFilmmakingApp:posters'))
+        else:
+            print(form.errors)
+    
+    return render(request, 'rango/add_poster.html', {'form': form})
+
 
 def behind_the_scenes(request, content_name_slug):
     context_dict = {}
     response = render(request, 'behind_the_scenes.html', context=context_dict)
 
     return response
+
+def add_bts(request):
+
+    form = BTSForm()
+
+    if request.method == 'POST':
+        form = BTSForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(reverse('GUFilmmakingApp:behind_the_scenes'))
+        else:
+            print(form.errors)
+    
+    return render(request, 'rango/add_bts.html', {'form': form})
 
 
 def user_login(request):

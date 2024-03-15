@@ -1,9 +1,12 @@
+import os
+
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
 
+
 class Category(models.Model):
-    #added these MAX_LENGTH things for form.py and i think it counts as clean code
+    # added these MAX_LENGTH things for form.py and i think it counts as clean code
     CATEGORY_MAX_LENGTH=128
     name = models.CharField(max_length=CATEGORY_MAX_LENGTH, unique=True)
     
@@ -15,7 +18,7 @@ class Category(models.Model):
     
 
 class Movie(models.Model):
-    MOVIE_MAX_LENGTH=200
+    MOVIE_MAX_LENGTH = 200
     title = models.CharField(max_length=MOVIE_MAX_LENGTH)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -27,8 +30,9 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 
+
 class Poster(models.Model):
-    POSTER_MAX_LENGTH=200
+    POSTER_MAX_LENGTH = 200
     title = models.CharField(max_length=POSTER_MAX_LENGTH)
     image = models.ImageField(upload_to='posters/', validators=
     [FileExtensionValidator(allowed_extensions=['png', 'jpg'])]) #ensures only png & jpg image is uploaded
@@ -36,12 +40,12 @@ class Poster(models.Model):
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
 
-
     def __str__(self):
         return f"Poster {self.id}"
 
+
 class BehindTheScene(models.Model):
-    BTS_MAX_LENGTH=200
+    BTS_MAX_LENGTH = 200
     title = models.CharField(max_length=BTS_MAX_LENGTH)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -58,7 +62,8 @@ class BehindTheScene(models.Model):
     
     def __str__(self):
         return self.description
-    
+
+
 class Post(models.Model):
 
     POST_TYPES = [
@@ -79,7 +84,8 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     userID = models.IntegerField()

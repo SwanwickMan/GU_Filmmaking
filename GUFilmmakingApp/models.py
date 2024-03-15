@@ -13,21 +13,6 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    userID = models.IntegerField()
-    profileImage = models.ImageField()
-    verified = models.BooleanField(default=False)
-    bio = models.CharField(max_length=200)
-    myPosts = models.ForeignKey(Post, related_name='posted_by', on_delete=models.CASCADE, blank=True, null=True)
-    myLikes = models.ManyToManyField(Post, related_name='liked_by', blank=True)
-
-    def __str__(self):
-        return self.user.username
-    
-    def is_admin(self):
-        return self.user.is_staff
-    
 
 class Movie(models.Model):
     MOVIE_MAX_LENGTH=200
@@ -94,3 +79,18 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    userID = models.IntegerField()
+    profileImage = models.ImageField()
+    verified = models.BooleanField(default=False)
+    bio = models.CharField(max_length=200)
+    myPosts = models.ForeignKey(Post, related_name='posted_by', on_delete=models.CASCADE, blank=True, null=True)
+    myLikes = models.ManyToManyField(Post, related_name='liked_by', blank=True)
+
+    def __str__(self):
+        return self.user.username
+    
+    def is_admin(self):
+        return self.user.is_staff

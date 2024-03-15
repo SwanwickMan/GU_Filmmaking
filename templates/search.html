@@ -9,10 +9,15 @@
 {% endblock %}
 
 {% block main_content %}
-    <div>
-        <button id="drop-button" class="collapsible">Dropdown</button>
-        <div class="content">
-            <p> Misc search button here </p>
+    <div id="search-menu">
+        <input type="text" name="search" placeholder="Search GU Filmmaking...">
+        <button type="submit">Search</button>
+        <div id="collapsable-menu">
+            <button id="drop-button" class="collapsible">Dropdown</button>
+
+            <div class="content">
+                <p> Misc search button here </p>
+            </div>
         </div>
     </div>
 

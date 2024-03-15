@@ -1,3 +1,10 @@
+#search-menu{
+  display: flex; /* Use flexbox */
+  justify-content: right; /* Distribute items evenly along the main axis */
+  align-items: center; /* Align items vertically in the center */
+  width: 100%;
+}
+
 .collapsible {
   background-color: #eee;
   color: #444;

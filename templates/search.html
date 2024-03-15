@@ -1,9 +1,24 @@
-{% extends base.html %}
+{% extends 'base.html' %}
+{% load staticfiles %}
 
+{% block extra_style_sheet %}
+    <link rel="stylesheet" href="{% static 'style/search.css' %}">
+{% endblock %}
 {% block title %}
-Search
+    Search...
 {% endblock %}
 
-{% block content %}
+{% block main_content %}
+    <div>
+        <button id="drop-button" class="collapsible">Dropdown</button>
+        <div class="content">
+            <p> Misc search button here </p>
+        </div>
+    </div>
 
+    <div id="below-content">
+        test content
+    </div>
+
+    <script src="{% static 'scripts/search_menu.js' %}"></script>
 {% endblock %}

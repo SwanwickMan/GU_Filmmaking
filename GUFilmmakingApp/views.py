@@ -16,7 +16,7 @@ def search(request):
     if request.method == 'POST':
         pass
     else:
-        return render(request, 'signup.html')
+        return render(request, 'search.html')
 
 
 def profile(request):

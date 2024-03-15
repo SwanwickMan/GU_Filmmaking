@@ -36,13 +36,13 @@ def populate(author):
         {'title' : 'Do You Believe In Santa Claus? Poster', 'filepath' : settings.MEDIA_DIR + '/BYBISCposter.jpg', 'description': 'Cool Movie Poster'}
     ]
 
-    behind_the_scenes_vids = [
+    behind_the_scenes_2022_23 = [
         {'title' : "tiktok1", 'filepath' : settings.MEDIA_DIR + '/bts.mp4', 'description' : 'Our First TikTok!', 'description': 'A day on set'},
-        {'title' : 'tiktok2', 'filepath' : settings.MEDIA_DIR + '/guFilmTiktok.mp4', 'description' : 'Our Second TikTok!', 'description': 'behind the scenes on our shoots'}
+        {'title' : 'FourPlay Party Photos', 'filepath' : settings.MEDIA_DIR + '/FourPlayBTS.jpg', 'description' : 'BTS Party Scene Fourplay 2023'}
     ]
 
-    behind_the_scenes_pics = [
-        {'title' : 'FourPlay Party Photos', 'filepath' : settings.MEDIA_DIR + '/FourPlayBTS.jpg', 'description' : 'BTS Party Scene Fourplay 2023'},
+    behind_the_scenes_2023_24 = [
+        {'title' : 'tiktok2', 'filepath' : settings.MEDIA_DIR + '/guFilmTiktok.mp4', 'description' : 'Our Second TikTok!', 'description': 'behind the scenes on our shoots'},
         {'title' : 'Santa Claus Shoot Photos', 'filepath' : settings.MEDIA_DIR + '/bts.jpg', 'description' : 'BTS on DYBISC 2024 first shoot'}
     ]
 
@@ -54,8 +54,8 @@ def populate(author):
                    '2023-24' : {'posters' : posters_2023_24 }
     }
 
-    behind_the_scenes_cats = {'videos' : {'bts' :behind_the_scenes_vids},
-                   'pictures' : {'bts' : behind_the_scenes_pics }
+    behind_the_scenes_cats = {'2022-23' : {'bts' :behind_the_scenes_2022_23},
+                   '2023-24' : {'bts' : behind_the_scenes_2023_24 }
     }
 
     

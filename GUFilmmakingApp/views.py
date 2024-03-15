@@ -71,13 +71,15 @@ def add_movie(request):
         else:
             print(form.errors)
     
-    return render(request, 'rango/add_movie.html', {'form': form})
+    return render(request, 'add_movie.html', {'form': form})
+
 
 def posters(request, content_name_slug):
     context_dict = {}
     response = render(request, 'posters.html', context=context_dict)
 
     return response
+
 
 def add_poster(request):
 
@@ -91,7 +93,7 @@ def add_poster(request):
         else:
             print(form.errors)
     
-    return render(request, 'rango/add_poster.html', {'form': form})
+    return render(request, 'add_poster.html', {'form': form})
 
 
 def behind_the_scenes(request, content_name_slug):
@@ -99,6 +101,7 @@ def behind_the_scenes(request, content_name_slug):
     response = render(request, 'behind_the_scenes.html', context=context_dict)
 
     return response
+
 
 def add_bts(request):
 
@@ -112,7 +115,7 @@ def add_bts(request):
         else:
             print(form.errors)
     
-    return render(request, 'rango/add_bts.html', {'form': form})
+    return render(request, 'add_bts.html', {'form': form})
 
 
 def user_login(request):

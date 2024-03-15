@@ -73,3 +73,24 @@ class BehindTheScene(models.Model):
     
     def __str__(self):
         return self.description
+    
+class Post(models.Model):
+
+    POST_TYPES = [
+        ('movie', 'Movie'),
+        ('poster', 'Poster'),
+        ('bts', 'Behind the Scenes'),
+    ]
+
+    year = models.CharField(max_length=7)
+    author = models.ForeignKey('GUFilmmakingApp.UserProfile', on_delete=models.CASCADE)
+    post_type = models.CharField(max_length=20, choices=POST_TYPES)
+    file = models.FileField(upload_to='files/', blank=True, null=True)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    views = models.IntegerField(default=0)
+    likes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.title

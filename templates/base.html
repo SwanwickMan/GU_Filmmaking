@@ -28,7 +28,11 @@
 
         <div id="bottom-header-section">
             <img src="{% static  'images/logo.jpg' %}" alt="GU Filmmaking Logo" id="logo">
-            <h1>{% block website_name %}GU Filmmaking Society{% endblock %}</h1>
+            <h1>
+                <a href="{% url 'GUFilmmakingApp:index' %}">{% block website_name %}
+                    GU Filmmaking Society
+                    {%endblock%}</a>
+            </h1>
             <div id="navigation-links">
                 <a href="{% url 'GUFilmmakingApp:short_movies' 'movie' %}">Movies</a>
                 <a href="{% url 'GUFilmmakingApp:posters' 'movie' %}">Posters</a>

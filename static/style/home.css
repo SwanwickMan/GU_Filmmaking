@@ -1,0 +1,29 @@
+#home-photo {
+    padding: 15px;
+    width: 300px;
+    height: auto;
+    border-radius: 25px;
+    float: left;
+}
+
+#about-text {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#about-text h2 {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#home-page {
+    display: flex;
+    flex-direction: column;
+    /* Arrange children elements in a column */
+    align-items: center;
+    /* Center items horizontally */
+    padding-left: 80px;
+    padding-right: 80px;
+
+}

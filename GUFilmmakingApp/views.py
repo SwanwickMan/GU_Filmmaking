@@ -3,6 +3,7 @@ from GUFilmmakingApp.forms import PosterForm, MovieForm, BTSForm
 from django.shortcuts import redirect
 from django.urls import reverse
 
+
 # Create your views here.
 def index(request):
     context_dict = {}
@@ -45,6 +46,7 @@ def categories(request):
 
     return response
 
+
 # implement slugs later
 def long_movies(request, content_name_slug):
     context_dict = {}
@@ -58,6 +60,7 @@ def short_movies(request, content_name_slug):
     response = render(request, 'short_movies.html', context=context_dict)
 
     return response
+
 
 def add_movie(request):
 

@@ -27,8 +27,10 @@ urlpatterns = [
     path('signup/', views.user_signup, name='signup'),
     path('profile/', views.profile, name='profile'),
     path('categories/', views.categories, name='categories'),
-    path('categories/behind_the_scenes/<slug:content_name_slug>/', views.behind_the_scenes, name='behind_the_scenes'),
+    path('behind_the_scenes/', views.behind_the_scenes, name='behind_the_scenes'),
     path('categories/movies/<slug:content_name_slug>/', views.long_movies, name='movies'),
     path('categories/shorts/<slug:content_name_slug>/', views.short_movies, name='short_movies'),
     path('categories/posters/<slug:content_name_slug>/', views.posters, name='posters'),
+    path('add_poster/', views.add_poster, name='add_poster'),
+    path('add_post/', views.add_post, name='add_post'),
 ]

@@ -24,6 +24,7 @@
             </form>
             <a href="{%  url 'GUFilmmakingApp:signup' %}">Sign Up</a>
             <a href="{%  url 'GUFilmmakingApp:login' %}">Log In</a>
+            <a href="{%  url 'GUFilmmakingApp:add_post' %}">post</a>
         </div>
 
         <div id="bottom-header-section">
@@ -36,7 +37,7 @@
             <div id="navigation-links">
                 <a href="{% url 'GUFilmmakingApp:short_movies' 'movie' %}">Movies</a>
                 <a href="{% url 'GUFilmmakingApp:posters' 'movie' %}">Posters</a>
-                <a href="{% url 'GUFilmmakingApp:behind_the_scenes' 'movie' %}">Behind the Scenes</a>
+                <a href="{% url 'GUFilmmakingApp:behind_the_scenes' %}">Behind the Scenes</a>
             </div>
         </div>
     </header>

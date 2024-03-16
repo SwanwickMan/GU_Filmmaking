@@ -1,0 +1,24 @@
+{% extends 'GUFilmmakingApp/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Short Movies
+{% endblock %}
+
+{% block main_content %}
+
+    <h1>Short Movies Posts</h1>
+
+    {% if posts %}
+    <ul>
+        {% for post in posts %}
+        <li><a href="{% url 'GUFilmmakingApp:page' %}">{{ post.title }}</a> </li>
+        {% endfor %}
+    </ul>    
+    {% else %}
+        <li><strong>There are no Short Movies posts</strong></li>
+    {% endif %}
+    
+
+
+{% endblock %}

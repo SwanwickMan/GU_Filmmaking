@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from GUFilmmakingApp.forms import PosterForm, MovieForm, BTSForm
+from GUFilmmakingApp.forms import PostForm, PosterForm, MovieForm, BTSForm
 from django.shortcuts import redirect
 from django.urls import reverse
 from datetime import datetime
-from GUFilmmakingApp.models import Category
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
+from GUFilmmakingApp.models import Category, Post, UserProfile
 
 # Create your views here.
 def index(request):
@@ -103,9 +105,13 @@ def add_poster(request):
     return render(request, 'add_poster.html', {'form': form})
 
 
-def behind_the_scenes(request, content_name_slug):
+def behind_the_scenes(request):
     context_dict = {}
-    response = render(request, 'behind_the_scenes.html', context=context_dict)
+
+    posts = Post.objects.filter(post_type="bts")
+    context_dict['posts'] = posts
+
+    response = render(request, 'GUFilmmakingApp/behind_the_scenes.html', context=context_dict)
 
     return response
 
@@ -124,12 +130,46 @@ def add_bts(request):
     
     return render(request, 'add_bts.html', {'form': form})
 
+def add_post(request):
+
+    form = PostForm()
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = UserProfile.objects.get(user=request.user)
+            post.author_id = UserProfile.objects.get(user=request.user).userID
+            post.category = Category.objects.get(name=request.POST.get('category'))
+            post.views = 0
+            post.likes = 0
+            post.save()
+            return redirect(reverse('GUFilmmakingApp:index'))
+        else:
+            print(form.errors)
+    
+    return render(request, 'GUFilmmakingApp/add_post.html', {'form': form})
+
 
 def user_login(request):
     if request.method == 'POST':
-        pass
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return redirect(reverse('GUFilmmakingApp:index'))
+            else:
+                # An inactive account was used - no logging in!
+                return HttpResponse("Your account is disabled.")
+        else:
+            # Bad login details were provided. So we can't log the user in.
+            print(f"Invalid login details: {username}, {password}")
+            return HttpResponse("Invalid login details supplied.")
     else:
-        return render(request, 'login.html')
+        return render(request, 'GUFilmmakingApp/login.html')
 
 
 def user_signup(request):

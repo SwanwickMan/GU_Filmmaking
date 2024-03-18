@@ -1,5 +1,6 @@
 import os
 
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -25,13 +26,13 @@ class Post(models.Model):
         ('bts', 'Behind the Scenes'),
     ]
 
-    year = models.CharField(max_length=7)
     author = models.ForeignKey('GUFilmmakingApp.UserProfile', on_delete=models.CASCADE)
     post_type = models.CharField(max_length=20, choices=POST_TYPES)
     file = models.FileField(upload_to='files/', blank=True, null=True)
     title = models.CharField(max_length=200)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    thumbnail = models.ImageField(upload_to='media/thumbnails/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])], blank=True, null=True)
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
 

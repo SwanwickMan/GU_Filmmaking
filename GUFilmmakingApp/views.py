@@ -10,12 +10,15 @@ from GUFilmmakingApp.models import Category, Post, UserProfile
 
 # Create your views here.
 def index(request):
-    category_list = Category.objects.order_by('-views')[:3]
-    context_dict = {}
-    context_dict['category'] = category_list
+    most_liked_posts = Post.objects.all().order_by('-likes')[:3]
+    most_viewed_posts = Post.objects.all().order_by('-views')[:3]
+    context_dict = {
+        'most_liked_posts': most_liked_posts,
+        'most_viewed_posts': most_viewed_posts
+    }
     visitor_cookie_handler(request)
     context_dict['visits'] = request.session['visits']
-    response = render(request, 'home.html', context=context_dict)
+    response = render(request, 'GUFilmmakingApp/home.html', context=context_dict)
     return response
 
 
@@ -83,7 +86,7 @@ def add_movie(request):
     form = MovieForm()
 
     if request.method == 'POST':
-        form = MovieForm(request.POST)
+        form = MovieForm(request.POST, request.FILES)
         if form.is_valid():
             form.save(commit=True)
             return redirect(reverse('GUFilmmakingApp:home'))
@@ -129,7 +132,7 @@ def add_bts(request):
     form = BTSForm()
 
     if request.method == 'POST':
-        form = BTSForm(request.POST)
+        form = BTSForm(request.POST, request.FILES)
         if form.is_valid():
             form.save(commit=True)
             return redirect(reverse('GUFilmmakingApp:behind_the_scenes'))

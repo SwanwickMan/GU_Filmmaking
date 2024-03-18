@@ -23,6 +23,7 @@ class MovieForm(forms.ModelForm):
     video = forms.FileField(validators=
     [FileExtensionValidator(allowed_extensions=['mp4'])], help_text="Please enter an mp4 video.")
     category = forms.ChoiceField(choices=CAT_MOVIE_CHOICES, help_text="Please select the year.")
+    thumbnail = forms.ImageField(required=False, help_text="Optional: Upload a thumbnail image")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     post_type = forms.CharField(widget=forms.HiddenInput(), initial='movie')
@@ -32,7 +33,7 @@ class MovieForm(forms.ModelForm):
     class Meta:
         # associate the form with the Movie model
         model = Post
-        fields = ('title', 'description', 'video', 'category', 'post_type')
+        fields = ('title', 'description', 'video', 'category', 'post_type', 'thumbnail')
 
 
 class PosterForm(forms.ModelForm):
@@ -43,6 +44,7 @@ class PosterForm(forms.ModelForm):
     [FileExtensionValidator(allowed_extensions=['png', 'jpg'])],
                              help_text="Please upload a png or jpg image file.")
     category = forms.ChoiceField(choices=CAT_YEAR_CHOICES, help_text="Please select the year.")
+    thumbnail = image
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     post_type = forms.CharField(widget=forms.HiddenInput(), initial='poster') 
@@ -51,7 +53,7 @@ class PosterForm(forms.ModelForm):
     class Meta:
         # associate the form with the Poster model
         model = Post
-        fields = ('title', 'description', 'image', 'category', 'post_type')
+        fields = ('title', 'description', 'image', 'category', 'post_type', 'thumbnail')
 
 
 class BTSForm(forms.ModelForm):
@@ -59,13 +61,14 @@ class BTSForm(forms.ModelForm):
                             help_text="Please enter the title.")
     description = forms.CharField(help_text="Please enter a description.")
     category = forms.ChoiceField(choices=CAT_YEAR_CHOICES, help_text="Please select the year.")
+    thumbnail = forms.ImageField(required=False, help_text="Optional: Upload a thumbnail image")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     file = forms.FileField()
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     post_type = forms.CharField(widget=forms.HiddenInput(), initial='bts')
     class Meta:
         model = Post
-        fields = ('title', 'description', 'file', 'category', 'post_type')
+        fields = ('title', 'description', 'file', 'category', 'post_type', 'thumbnail')
 
 
 class UserForm(forms.ModelForm):

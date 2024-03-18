@@ -32,7 +32,7 @@ def search(request):
         search_results = search_results.order_by(sort_by)
 
     print("searchTerms: ", search_term, search_for, sort_by)
-    for result in search_results: print(result.post_type, "||||||||||||||", result)
+    for result in search_results: print(result.post_type, "|", result)
     return render(request, 'GUFilmmakingApp/search.html')
 
 

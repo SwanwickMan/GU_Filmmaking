@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from GUFilmmakingApp.models import Category, Post, UserProfile
 
+
 # Create your views here.
 def index(request):
     category_list = Category.objects.order_by('-views')[:3]
@@ -22,12 +23,12 @@ def search(request):
     if request.method == 'POST':
         pass
     else:
-        return render(request, 'search.html')
+        return render(request, 'GUFilmmakingApp/search.html')
 
 
 def profile(request):
     context_dict = {}
-    response = render(request, 'profile.html', context=context_dict)
+    response = render(request, 'GUFilmmakingApp/profile.html', context=context_dict)
 
     return response
 
@@ -56,14 +57,14 @@ def categories(request):
 # implement slugs later
 def long_movies(request, content_name_slug):
     context_dict = {}
-    response = render(request, 'content_page.html', context=context_dict)
+    response = render(request, 'GUFilmmakingApp/content_page.html', context=context_dict)
 
     return response
 
 
 def short_movies(request, content_name_slug):
     context_dict = {}
-    response = render(request, 'short_movies.html', context=context_dict)
+    response = render(request, 'GUFilmmakingApp/short_movies.html', context=context_dict)
 
     return response
 
@@ -85,7 +86,7 @@ def add_movie(request):
 
 def posters(request, content_name_slug):
     context_dict = {}
-    response = render(request, 'posters.html', context=context_dict)
+    response = render(request, 'GUFilmmakingApp/posters.html', context=context_dict)
 
     return response
 
@@ -176,7 +177,7 @@ def user_signup(request):
     if request.method == 'POST':
         pass
     else:
-        return render(request, 'signup.html')
+        return render(request, 'GUFilmmakingApp/signup.html')
 
 
 def get_server_side_cookie(request, cookie, default_val=None):
@@ -184,6 +185,7 @@ def get_server_side_cookie(request, cookie, default_val=None):
     if not val:
         val = default_val
     return val
+
 
 def visitor_cookie_handler(request):
     visits = int(get_server_side_cookie(request, 'visits', '1'))

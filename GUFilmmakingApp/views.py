@@ -92,7 +92,7 @@ def add_movie(request):
         else:
             print(form.errors)
 
-    return render(request, 'add_movie.html', {'form': form})
+    return render(request, 'GUFilmmakingApp/add_movie.html', {'form': form})
 
 
 def posters(request, content_name_slug):
@@ -113,7 +113,7 @@ def add_poster(request):
         else:
             print(form.errors)
 
-    return render(request, 'add_poster.html', {'form': form})
+    return render(request, 'GUFilmmakingApp/add_poster.html', {'form': form})
 
 
 def behind_the_scenes(request):
@@ -138,7 +138,7 @@ def add_bts(request):
         else:
             print(form.errors)
 
-    return render(request, 'add_bts.html', {'form': form})
+    return render(request, 'GUFilmmakingApp/add_bts.html', {'form': form})
 
 
 def user_login(request):

@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block main_content %}
-    <form id="search-menu" action="" method="get">
+    <form id="search-menu" action="{% url 'GUFilmmakingApp:search' %}" method="get">
         <div id="search-bar">
             <input type="text" name="search" placeholder="Search GU Filmmaking...">
             <button type="submit">Search</button>

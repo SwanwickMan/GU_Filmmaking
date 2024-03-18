@@ -19,7 +19,8 @@ class Category(models.Model):
 class Post(models.Model):
     POST_MAX_LENGTH = 200
     POST_TYPES = [
-        ('movie', 'Movie'),
+        ('shorter_movie', 'Shorter Movie'),
+        ('longer_movie', 'Longer Movie'),
         ('poster', 'Poster'),
         ('bts', 'Behind the Scenes'),
     ]

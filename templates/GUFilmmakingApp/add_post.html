@@ -1,30 +1,20 @@
-<DOCTYPE html!>
-    <html>
-    
-    {% block title_block %}
-    Add a Post
-    {% endblock %}
-    
-    {% block body_block %}
-    <h1>Add a Post</h1>
-    
-    <div>
-        <form id="post_form" method="post" action="/GUFilmmakingApp/add_post/">
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-            {% endfor %}
-    
-            {% for field in form.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }}
-            {{ field }}
-            {% endfor %}
-    
-            <input type="submit" name="submit" value="Create Post"/>
-        </form>
-    </div>
-    
-    </html>
-    {% endblock %}
+{% extends "GUFilmmakingApp/base.html" %}
+{% load staticfiles %}
+{% load GUFilmmaking_template_tags %}
+
+
+{% block title %}
+Add Post
+{% endblock %}
+
+{% block extra_style_sheet %}
+<link rel="stylesheet" href="{% static 'style/add_post.css' %}">
+{% endblock %}
+
+{% block main_content %}
+    <a href="{%  url 'GUFilmmakingApp:add_movie' %}">Post Movie</a>
+    <a href="{%  url 'GUFilmmakingApp:add_poster' %}">Post Poster</a>
+    <a href="{%  url 'GUFilmmakingApp:add_behind_the_scenes' %}">Post Behind The Scenes</a>
+{% endblock %}
+{% load GUFilmmaking_template_tags %}
     

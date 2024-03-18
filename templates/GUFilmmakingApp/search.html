@@ -9,11 +9,11 @@
 {% endblock %}
 
 {% block main_content %}
-    <div id="search-menu">
+    <form id="search-menu" action="" method="get">
         <div id="search-bar">
             <input type="text" name="search" placeholder="Search GU Filmmaking...">
             <button type="submit">Search</button>
-            <button id="drop-button" class="collapsible">Dropdown</button>
+            <button type="button" id="drop-button" class="collapsible">Dropdown</button>
         </div>
 
         <div id="content">
@@ -33,19 +33,19 @@
 
             <div class ="radio-options">
                 <p>Sort By: </p>
-                <input type="radio" id="most-likes" name="sort_by" value="most-likes">
+                <input type="radio" id="most-likes" name="sort_by" value="-likes">
                     <label for="most-likes">Most Likes</label><br>
-                <input type="radio" id="least-likes" name="sort_by" value="least-likes">
+                <input type="radio" id="least-likes" name="sort_by" value="likes">
                     <label for="least-likes">Least Likes</label><br>
-                <input type="radio" id="most-views" name="sort_by" value="most-views">
+                <input type="radio" id="most-views" name="sort_by" value="-views">
                     <label for="most-views">Most Views</label><br>
-                <input type="radio" id="least-views" name="sort_by" value="least-views">
+                <input type="radio" id="least-views" name="sort_by" value="views">
                     <label for="least-views">Least Views</label><br>
                 <input type="radio" id="relevancy" name="sort_by" value="relevancy" checked>
                     <label for="relevancy">Relevancy</label>
             </div>
         </div>
-    </div>
+    </form>
 
     <div id="below-content">
         test content

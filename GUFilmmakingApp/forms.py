@@ -19,7 +19,7 @@ CAT_MOVIE_CHOICES = [
 class MovieForm(forms.ModelForm):
     title = forms.CharField(max_length=Post.POST_MAX_LENGTH,
                             help_text="Please enter the movie's title.")
-    description = forms.CharField()
+    description = forms.CharField(help_text="Please enter a description.")
     video = forms.FileField(validators=
     [FileExtensionValidator(allowed_extensions=['mp4'])], help_text="Please enter an mp4 video.")
     category = forms.ChoiceField(choices=CAT_MOVIE_CHOICES, help_text="Please select the year.")
@@ -38,7 +38,7 @@ class MovieForm(forms.ModelForm):
 class PosterForm(forms.ModelForm):
     title = forms.CharField(max_length=Post.POST_MAX_LENGTH,
                             help_text="Please enter the poster's title.")
-    description = forms.CharField()
+    description = forms.CharField(help_text="Please enter a description.")
     image = forms.ImageField(validators=
     [FileExtensionValidator(allowed_extensions=['png', 'jpg'])],
                              help_text="Please upload a png or jpg image file.")
@@ -57,7 +57,7 @@ class PosterForm(forms.ModelForm):
 class BTSForm(forms.ModelForm):
     title = forms.CharField(max_length=Post.POST_MAX_LENGTH,
                             help_text="Please enter the title.")
-    description = forms.CharField()
+    description = forms.CharField(help_text="Please enter a description.")
     category = forms.ChoiceField(choices=CAT_YEAR_CHOICES, help_text="Please select the year.")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     file = forms.FileField()

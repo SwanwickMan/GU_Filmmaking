@@ -63,8 +63,6 @@ def categories(request):
 
     return response
 
-def add_post(request):
-    return render(request, 'GUFilmmakingApp/add_post.html')
 
 # implement slugs later
 def long_movies(request, content_name_slug):
@@ -139,6 +137,10 @@ def add_bts(request):
             print(form.errors)
 
     return render(request, 'GUFilmmakingApp/add_bts.html', {'form': form})
+
+
+def add_post(request):
+    return render(request, 'GUFilmmakingApp/add_post.html')
 
 
 def user_login(request):

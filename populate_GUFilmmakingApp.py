@@ -96,14 +96,14 @@ def add_cat(name):
     return c
 
 
-def add_post(cat, title, media, description, year, author, views=0, likes=0 ):
+def add_post(cat, title, media, description, year, author, post_type, views=0, likes=0 ):
     print("Adding post with author:", author)
     p = Post.objects.get_or_create(category=cat, title=title, author=author)[0]
     p.description = description
     p.year = year
     p.views = random.randint(0,100)
     p.likes = random.randint(0,100)
-    p.post_type()
+    p.post_type = post_type
     p.file = media
     p.save()
     return p

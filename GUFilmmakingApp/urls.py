@@ -25,6 +25,7 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('login/', views.user_login, name='login'),
     path('signup/', views.user_signup, name='signup'),
+    path('logout/', views.user_logout, name='logout'),
     path('profile/', views.profile, name='profile'),
     path('categories/', views.categories, name='categories'),
     path('behind_the_scenes/', views.behind_the_scenes, name='behind_the_scenes'),
@@ -32,7 +33,5 @@ urlpatterns = [
     path('categories/shorts/<slug:content_name_slug>/', views.short_movies, name='short_movies'),
     path('categories/posters/<slug:content_name_slug>/', views.posters, name='posters'),
     path('add_poster/', views.add_poster, name='add_poster'),
-    path('add_movie/', views.add_movie, name='add_movie'),
-    path('add_behind_the_scenes/', views.add_bts, name='add_behind_the_scenes'),
     path('add_post/', views.add_post, name='add_post'),
 ]

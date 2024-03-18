@@ -18,28 +18,30 @@
     <header>
         <div id="top-header-section">
 
-            <form id="searchbar" action="{% url 'GUFilmmakingApp:search' %}" method="get">
+            <form action="#" method="get" id="searchbar">
                 <input type="text" name="search" placeholder="Search GU Filmmaking...">
                 <button type="submit">Search</button>
             </form>
-            <a href="{%  url 'GUFilmmakingApp:signup' %}">Sign Up</a>
-            <a href="{%  url 'GUFilmmakingApp:login' %}">Log In</a>
-            <a href="{%  url 'GUFilmmakingApp:add_post' %}">Post</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'GUFilmmakingApp:logout' %}">Logout</a>
+            {% else %}
+                <a href="{%  url 'GUFilmmakingApp:signup' %}">Sign Up</a>
+                <a href="{%  url 'GUFilmmakingApp:login' %}">Log In</a>
+                <a href="{%  url 'GUFilmmakingApp:add_post' %}">post</a>
+            {% endif %}
         </div>
 
         <div id="bottom-header-section">
-            <a href="{% url 'GUFilmmakingApp:index' %}">
-                <img src="{% static 'images/logo.jpg' %}" alt="GU Filmmaking Logo" id="logo">
-            </a>
+            <img src="{% static  'images/logo.jpg' %}" alt="GU Filmmaking Logo" id="logo">
             <h1>
                 <a href="{% url 'GUFilmmakingApp:index' %}">{% block website_name %}
                     GU Filmmaking Society
                     {%endblock%}</a>
             </h1>
             <div id="navigation-links">
-                <a href="{% url 'GUFilmmakingApp:search' %}?search_for=Movies">Movies</a>
-                <a href="{% url 'GUFilmmakingApp:search' %}?search_for=Posters">Posters</a>
-                <a href="{% url 'GUFilmmakingApp:search' %}?search_for=Behind_The_Scenes">Behind the Scenes</a>
+                <a href="{% url 'GUFilmmakingApp:short_movies' 'movie' %}">Movies</a>
+                <a href="{% url 'GUFilmmakingApp:posters' 'movie' %}">Posters</a>
+                <a href="{% url 'GUFilmmakingApp:behind_the_scenes' %}">Behind the Scenes</a>
             </div>
         </div>
     </header>

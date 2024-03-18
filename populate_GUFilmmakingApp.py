@@ -1,4 +1,5 @@
 import os
+import random
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'GU_Filmmaking.settings')
 import django
@@ -94,16 +95,19 @@ def add_cat(name):
     c.save()
     return c
 
+
 def add_post(cat, title, media, description, year, author, views=0, likes=0 ):
     print("Adding post with author:", author)
     p = Post.objects.get_or_create(category=cat, title=title, author=author)[0]
     p.description = description
     p.year = year
-    p.views = views
-    p.likes = likes
+    p.views = random.randint(0,100)
+    p.likes = random.randint(0,100)
+    p.post_type()
     p.file = media
     p.save()
     return p
+
 
 if __name__ == '__main__':
     print('Starting population script...')

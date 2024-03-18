@@ -41,8 +41,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #edited here (Manav)
+    'social_django',
     "GUFilmmakingApp.apps.GUFilmmakingAppConfig",
 ]
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '745510145538-onl53ncb809varo6lbh2q0e5mq41flt7.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,6 +83,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'GU_Filmmaking.wsgi.application'
+#edited here (Manav)
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'login'
 
 
 # Database

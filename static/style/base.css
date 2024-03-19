@@ -13,6 +13,7 @@ body {
 
 #main-body {
     position: relative;
+    margin-bottom: 50px;
 }
 
 header a {

@@ -1,12 +1,10 @@
 from django.shortcuts import render
-from GUFilmmakingApp.forms import PosterForm, MovieForm, BTSForm
+from GUFilmmakingApp.forms import PosterForm, MovieForm, BTSForm, UserForm
 from django.shortcuts import redirect
 from django.urls import reverse
 from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
-#edited here(Manav)
 from django.contrib.auth.models import User
-
 from django.http import HttpResponse
 from GUFilmmakingApp.models import Category, Post, UserProfile
 from django.http import JsonResponse
@@ -28,10 +26,20 @@ def index(request):
 
 
 def search(request):
-    if request.method == 'POST':
-        pass
-    else:
-        return render(request, 'GUFilmmakingApp/search.html')
+    search_term = request.GET.get('search', '')
+    search_for = request.GET.get('search_for', 'All')
+    sort_by = request.GET.get('sort_by', 'relevancy')
+
+    # begin to filter and sort search results
+    search_results = Post.objects.filter(title__icontains=search_term)
+    if search_for != 'All':
+        search_results = search_results.filter(post_type=search_for)
+    if sort_by != 'relevancy':
+        search_results = search_results.order_by(sort_by)
+
+    print("searchTerms: ", search_term, search_for, sort_by)
+    for result in search_results: print(result.post_type, "|", result)
+    return render(request, 'GUFilmmakingApp/search.html')
 
 
 def profile(request):
@@ -84,7 +92,6 @@ def short_movies(request):
 
 
 def add_movie(request):
-
     form = MovieForm()
 
     if request.method == 'POST':
@@ -106,7 +113,6 @@ def posters(request):
 
 
 def add_poster(request):
-
     form = PosterForm()
 
     if request.method == 'POST':
@@ -132,7 +138,6 @@ def behind_the_scenes(request):
 
 
 def add_bts(request):
-
     form = BTSForm()
 
     if request.method == 'POST':
@@ -143,28 +148,11 @@ def add_bts(request):
         else:
             print(form.errors)
     
-    return render(request, 'add_bts.html', {'form': form})
+    return render(request, 'GUFilmmakingApp/add_bts.html', {'form': form})
 
 
 def add_post(request):
-
-    form = PostForm()
-
-    if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = UserProfile.objects.get(user=request.user)
-            post.author_id = UserProfile.objects.get(user=request.user).userID
-            post.category = Category.objects.get(name=request.POST.get('category'))
-            post.views = 0
-            post.likes = 0
-            post.save()
-            return redirect(reverse('GUFilmmakingApp:index'))
-        else:
-            print(form.errors)
-    
-    return render(request, 'GUFilmmakingApp/add_post.html', {'form': form})
+    return render(request, 'GUFilmmakingApp/add_post.html')
 
 
 def user_login(request):

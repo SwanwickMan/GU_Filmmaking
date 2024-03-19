@@ -47,3 +47,36 @@
 .radio-options {
   padding-right: 20px;
 }
+
+
+.popular-posts{
+    border: 1px solid black;
+    width: 90%
+}
+
+.post {
+    width: 40%;
+    border: 1px solid black;
+}
+
+.post img {
+    height: 30px;
+    width: auto;
+}
+
+/*search results*/
+
+.search-results-section{
+    border: 1px solid black;
+    width: 90%
+}
+
+.result {
+    width: 40%;
+    border: 1px solid black;
+}
+
+.result img {
+    height: 30px;
+    width: auto;
+}

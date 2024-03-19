@@ -49,8 +49,16 @@
         </div>
     </form>
 
-    <div id="below-content">
-        test content
+    <div class="search-results-section">
+        <h2>Most Liked Posts</h2>
+        {% for result in results %}
+            <div class="result">
+                <h3>{{ post.title}}</h3>
+                <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
+                <p>Description: {{ post.description }}</p>
+                <p>Likes: {{ post.likes }}</p>
+            </div>
+        {% endfor %}
     </div>
 
     <script src="{% static 'scripts/search_menu.js' %}"></script>

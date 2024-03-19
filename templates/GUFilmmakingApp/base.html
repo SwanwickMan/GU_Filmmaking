@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="{% static 'style/base.css' %}">
     <link rel="stylesheet" href="{% static 'style/theme.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{% static 'scripts/ajax_update.js' %}"></script>
+    <script src="{% static 'scripts/update_ajax.js' %}"></script>
     {% block extra_style_sheet %} {% endblock %}
 
     <title>
         {% block title %}
-        GU Filmmaking Society
+            GU Filmmaking Society
         {% endblock title %}
     </title>
 </head>
@@ -22,30 +22,30 @@
     <header>
         <div id="top-header-section">
 
-            <form action="#" method="get" id="searchbar">
+            <form id="searchbar" action="{% url 'GUFilmmakingApp:search' %}" method="get">
                 <input type="text" name="search" placeholder="Search GU Filmmaking...">
                 <button type="submit">Search</button>
             </form>
             {% if user.is_authenticated %}
-            <a href="{% url 'GUFilmmakingApp:logout' %}">Logout</a>
+                <a href="{% url 'GUFilmmakingApp:logout' %}">Logout</a>
             {% else %}
-            <a href="{%  url 'GUFilmmakingApp:signup' %}">Sign Up</a>
-            <a href="{%  url 'GUFilmmakingApp:login' %}">Log In</a>
-            <a href="{%  url 'GUFilmmakingApp:add_post' %}">post</a>
+                <a href="{%  url 'GUFilmmakingApp:signup' %}">Sign Up</a>
+                <a href="{%  url 'GUFilmmakingApp:login' %}">Log In</a>
             {% endif %}
+            <a href="{%  url 'GUFilmmakingApp:add_post' %}">Post</a>
         </div>
 
         <div id="bottom-header-section">
-            <img src="{% static  'images/logo.jpg' %}" alt="GU Filmmaking Logo" id="logo">
+            <a href="{% url 'GUFilmmakingApp:index' %}">
+                <img src="{% static 'images/logo.jpg' %}" alt="GU Filmmaking Logo" id="logo">
+            </a>
             <h1>
-                <a href="{% url 'GUFilmmakingApp:index' %}">{% block website_name %}
-                    GU Filmmaking Society
-                    {%endblock%}</a>
+                <a href="{% url 'GUFilmmakingApp:index' %}"> GU Filmmaking Society </a>
             </h1>
             <div id="navigation-links">
-                <a href="{% url 'GUFilmmakingApp:short_movies' %}">Movies</a>
-                <a href="{% url 'GUFilmmakingApp:posters' %}">Posters</a>
-                <a href="{% url 'GUFilmmakingApp:behind_the_scenes' %}">Behind the Scenes</a>
+                <a href="{% url 'GUFilmmakingApp:search' %}?search_for=Movies">Movies</a>
+                <a href="{% url 'GUFilmmakingApp:search' %}?search_for=Posters">Posters</a>
+                <a href="{% url 'GUFilmmakingApp:search' %}?search_for=Behind_The_Scenes">Behind the Scenes</a>
             </div>
         </div>
     </header>

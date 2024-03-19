@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from GUFilmmakingApp.forms import PostForm, PosterForm, MovieForm, BTSForm
+from GUFilmmakingApp.forms import PosterForm, MovieForm, BTSForm
 from django.shortcuts import redirect
 from django.urls import reverse
 from datetime import datetime
@@ -35,7 +35,7 @@ def search(request):
 
 def profile(request):
     context_dict = {}
-    response = render(request, 'profile.html', context=context_dict)
+    response = render(request, 'GUFilmmakingApp/profile.html', context=context_dict)
 
     return response
 

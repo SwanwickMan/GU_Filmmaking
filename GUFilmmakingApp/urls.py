@@ -34,6 +34,6 @@ urlpatterns = [
     path('categories/posters/<slug:content_name_slug>/', views.posters, name='posters'),
     path('add_poster/', views.add_poster, name='add_poster'),
     path('add_movie/', views.add_movie, name='add_movie'),
-    path(''),
+    #path(''),
     path('add_post/', views.add_post, name='add_post'),
 ]

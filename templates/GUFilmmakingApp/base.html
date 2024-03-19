@@ -13,7 +13,7 @@
 
     <title>
         {% block title %}
-            GU Filmmaking Society
+        GU Filmmaking Society
         {% endblock title %}
     </title>
 </head>
@@ -27,10 +27,10 @@
                 <button type="submit">Search</button>
             </form>
             {% if user.is_authenticated %}
-                <a href="{% url 'GUFilmmakingApp:logout' %}">Logout</a>
+            <a href="{% url 'GUFilmmakingApp:logout' %}">Logout</a>
             {% else %}
-                <a href="{%  url 'GUFilmmakingApp:signup' %}">Sign Up</a>
-                <a href="{%  url 'GUFilmmakingApp:login' %}">Log In</a>
+            <a href="{%  url 'GUFilmmakingApp:signup' %}">Sign Up</a>
+            <a href="{%  url 'GUFilmmakingApp:login' %}">Log In</a>
             {% endif %}
             <a href="{%  url 'GUFilmmakingApp:add_post' %}">Post</a>
         </div>
@@ -38,6 +38,8 @@
         <div id="bottom-header-section">
             <a href="{% url 'GUFilmmakingApp:index' %}">
                 <img src="{% static 'images/logo.jpg' %}" alt="GU Filmmaking Logo" id="logo">
+                <img src="{% static 'images/src.jpg' %}" alt="SCR Logo" id="src-logo">
+                <img src="{% static 'images/uog.jpg' %}" alt="UOG Logo" id="uog-logo">
             </a>
             <h1>
                 <a href="{% url 'GUFilmmakingApp:index' %}"> GU Filmmaking Society </a>
@@ -51,7 +53,7 @@
         </div>
     </header>
 
-    <div>
+    <div id="main-body">
         {% block main_content %} No body block found{% endblock %}
     </div>
 

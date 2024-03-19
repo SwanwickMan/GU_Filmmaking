@@ -19,13 +19,13 @@
         <div id="content">
             <div class ="radio-options">
                 <p>Search Within: </p>
-                <input type="radio" id="Movies" name="search_for" value="Movies">
+                <input type="radio" id="Movies" name="search_for" value="longer_movie">
                     <label for="Movies">Movies</label><br>
-                <input type="radio" id="Shorts" name="search_for" value="Shorts">
+                <input type="radio" id="Shorts" name="search_for" value="shorter_movie">
                     <label for="Shorts">Shorts</label><br>
-                <input type="radio" id="Posters" name="search_for" value="Posters">
+                <input type="radio" id="Posters" name="search_for" value="poster">
                     <label for="Posters">Posters</label><br>
-                <input type="radio" id="Behind-the-Scenes" name="Behind-the-Scenes" value="BTS">
+                <input type="radio" id="Behind-the-Scenes" name="search_for" value="bts">
                     <label for="Behind-the-Scenes">Behind the Scenes</label><br>
                 <input type="radio" id="Users" name="search_for" value="Users">
                     <label for="Users">Users</label><br>
@@ -51,12 +51,12 @@
 
     <div class="search-results-section">
         <h2>Most Liked Posts</h2>
-        {% for result in results %}
+        {% for result in search_results %}
             <div class="result">
-                <h3>{{ post.title}}</h3>
-                <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
-                <p>Description: {{ post.description }}</p>
-                <p>Likes: {{ post.likes }}</p>
+                <h3>{{ result.title}}</h3>
+                <img src="{{ result.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
+                <p>Description: {{ result.description }}</p>
+                <p>Likes: {{ result.likes }}</p>
             </div>
         {% endfor %}
     </div>

@@ -67,12 +67,22 @@
 /*search results*/
 
 .search-results-section{
+    margin-left: auto;
+    margin-right: auto;
     border: 1px solid black;
-    width: 90%
+    width: 75%;
+    margin-bottom: 15px;
+}
+
+.search-results-section h2{
+    text-align: center;
 }
 
 .result {
-    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    width: 60%;
     border: 1px solid black;
 }
 

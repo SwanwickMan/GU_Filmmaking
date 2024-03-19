@@ -39,7 +39,9 @@ def search(request):
 
     print("searchTerms: ", search_term, search_for, sort_by)
     for result in search_results: print(result.post_type, "|", result)
-    return render(request, 'GUFilmmakingApp/search.html')
+    context_dict = {"search_results": search_results}
+
+    return render(request, 'GUFilmmakingApp/search.html', context=context_dict)
 
 
 def profile(request):

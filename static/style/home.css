@@ -27,13 +27,22 @@
 
 
 .popular-posts {
+    display: flex;
+    justify-content: space-around;
     border: 1px solid black;
-    width: 90%
+    width: 90%;
+    height: auto;
+}
+
+.posts {
+    margin: 20px;
+    width: 40%;
 }
 
 .post {
-    width: 40%;
+    width: 100%;
     border: 1px solid black;
+    margin: 5px;
 }
 
 .post img {

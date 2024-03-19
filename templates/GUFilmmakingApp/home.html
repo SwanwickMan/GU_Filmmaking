@@ -39,24 +39,30 @@ Home
 
     <div id="most-liked-posts-section">
         <h2>Most Liked Posts</h2>
-    <div class="posts">
-        {% for post in most_liked_posts %}
-        <div class="post">
-            <h3>{{ post.title }}</h3>
-            <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
-            <p>Description: {{ post.description }}</p>
-        </div>
-        {% endfor %}
-        <h2>Most Viewed Posts</h2>
         <div class="posts">
-            {% for post in most_viewed_posts %}
+            {% for post in most_liked_posts %}
             <div class="post">
                 <h3>{{ post.title }}</h3>
                 <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
                 <p>Description: {{ post.description }}</p>
+                <p>Likes: {{ post.likes }}</p>
             </div>
+            {% endfor %}
+            <h2>Most Viewed Posts</h2>
+            <div class="posts">
+                {% for post in most_viewed_posts %}
+                <div class="post">
+                    <h3>{{ post.title }}</h3>
+                    <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
+                    <p>Description: {{ post.description }}</p>
+                    <p>Views: {{ post.views }}</p>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        {% endblock %}
     </div>
+
+    {% block extra_js %}
+    <script src="{% static 'scripts/ajax_update.js' %}"></script>
     {% endblock %}
-</div>

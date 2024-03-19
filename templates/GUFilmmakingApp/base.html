@@ -6,7 +6,10 @@
 
 <head>
     <link rel="stylesheet" href="{% static 'style/base.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'scripts/ajax_update.js' %}"></script>
     {% block extra_style_sheet %} {% endblock %}
+    {% block extra_js %} {% endblock %}
     <title>
         {% block title %}
         GU Filmmaking Society
@@ -23,11 +26,11 @@
                 <button type="submit">Search</button>
             </form>
             {% if user.is_authenticated %}
-                <a href="{% url 'GUFilmmakingApp:logout' %}">Logout</a>
+            <a href="{% url 'GUFilmmakingApp:logout' %}">Logout</a>
             {% else %}
-                <a href="{%  url 'GUFilmmakingApp:signup' %}">Sign Up</a>
-                <a href="{%  url 'GUFilmmakingApp:login' %}">Log In</a>
-                <a href="{%  url 'GUFilmmakingApp:add_post' %}">post</a>
+            <a href="{%  url 'GUFilmmakingApp:signup' %}">Sign Up</a>
+            <a href="{%  url 'GUFilmmakingApp:login' %}">Log In</a>
+            <a href="{%  url 'GUFilmmakingApp:add_post' %}">post</a>
             {% endif %}
         </div>
 

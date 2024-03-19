@@ -1,0 +1,62 @@
+/* CSS for profile top row grid */
+#profile-top-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Two equal columns */
+    gap: 20px;
+    /* Spacing between columns */
+    margin-bottom: 20px;
+    /* Add some spacing between rows */
+}
+
+#profile-pic {
+
+    width: 150px;
+    /* Set a fixed width */
+    height: 150px;
+    /* Set a fixed height */
+    border: 1px solid #ccc;
+    /* Add a border for styling */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 150px;
+    margin-top: 30px;
+}
+
+#profile-pic img {
+    max-width: 100%;
+    /* Ensure the image doesn't exceed the container */
+    max-height: 100%;
+    /* Ensure the image doesn't exceed the container */
+}
+
+
+/* CSS for posts bottom row grid */
+#posts-bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Two equal columns */
+    gap: 20px;
+    /* Spacing between columns */
+    justify-content: center;
+    /* Horizontally center the grid */
+}
+
+
+
+#profile-buttons {
+    margin-top: 10px;
+    /* Add space between profile pic and buttons */
+    display: flex;
+    align-items: center;
+    /* Center items horizontally */
+    margin-left: 50px;
+}
+
+#liked-posts-section,
+#posted-posts-section {
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}

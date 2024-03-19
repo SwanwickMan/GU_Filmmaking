@@ -50,10 +50,10 @@ def populate(author):
 
 
     for data in movies_longer:
-        add_post(data["category"], data['title'], data['filepath'], data['description'], "2023-24", author, "movie")
+        add_post(data["category"], data['title'], data['filepath'], data['description'], "2023-24", author, "longer_movie")
 
     for data in shorter_movies:
-        add_post(data["category"], data['title'], data['filepath'], data['description'], "2023-24", author, "movie")
+        add_post(data["category"], data['title'], data['filepath'], data['description'], "2023-24", author, "shorter_movie")
 
     for data in posters:
         add_post(data["category"], data['title'], data['filepath'], data['description'], "2023-24", author, "poster")

@@ -19,21 +19,21 @@ def populate(author):
     ]
 
     shorter_movies = [
-        {'title' : 'FourPlay', 'filepath' : settings.MEDIA_DIR + '/FourPlayMovie.mp4', 'description' : 'Romance',"category": categories[0]},
+        {'title': 'FourPlay', 'filepath' : settings.MEDIA_DIR + '/FourPlayMovie.mp4', 'description' : 'Romance',"category": categories[0]},
         {'title': 'Do You Believe In Santa Claus?', 'filepath': settings.MEDIA_DIR + '/SantaFilm.mp4','description': 'Satire & Comedy',"category": categories[1]}
 
     ]
 
     posters = [
-        {'title' : 'Circa 2008 Poster', 'filepath' : settings.MEDIA_DIR + '/poster2022-2023.jpg', 'description' : 'Our beautiful poster',"category": categories[0]},
-        {'title' : 'FourPlay Poster', 'filepath' : settings.MEDIA_DIR + '/FourPlayPoster.jpg', 'description': 'cool kids poster!',"category": categories[0]},
+        {'title': 'Circa 2008 Poster', 'filepath' : settings.MEDIA_DIR + '/poster2022-2023.jpg', 'description' : 'Our beautiful poster',"category": categories[0]},
+        {'title': 'FourPlay Poster', 'filepath' : settings.MEDIA_DIR + '/FourPlayPoster.jpg', 'description': 'cool kids poster!',"category": categories[0]},
         {'title': 'Fortune Cookie', 'filepath': settings.MEDIA_DIR + '/poster2023-2024.jpg','description': 'so proud of this beautiful poster!',"category": categories[1]},
         {'title': 'Do You Believe In Santa Claus? Poster', 'filepath': settings.MEDIA_DIR + '/BYBISCposter.jpg','description': 'Cool Movie Poster',"category": categories[1]}
     ]
 
     behind_the_scenes = [
-        {'title' : "tiktok1", 'filepath' : settings.MEDIA_DIR + '/bts.mp4', 'description' : 'Our First TikTok!', 'description': 'A day on set',"category": categories[0]},
-        {'title' : 'FourPlay Party Photos', 'filepath' : settings.MEDIA_DIR + '/FourPlayBTS.jpg', 'description' : 'BTS Party Scene Fourplay 2023',"category": categories[0]},
+        {'title': "tiktok1", 'filepath' : settings.MEDIA_DIR + '/bts.mp4', 'description' : 'Our First TikTok!', 'description': 'A day on set',"category": categories[0]},
+        {'title': 'FourPlay Party Photos', 'filepath' : settings.MEDIA_DIR + '/FourPlayBTS.jpg', 'description' : 'BTS Party Scene Fourplay 2023',"category": categories[0]},
         {'title': 'tiktok2', 'filepath': settings.MEDIA_DIR + '/guFilmTiktok.mp4', 'description': 'Our Second TikTok!', 'description': 'behind the scenes on our shoots',"category": categories[1]},
         {'title': 'Santa Claus Shoot Photos', 'filepath': settings.MEDIA_DIR + '/bts.jpg', 'description': 'BTS on DYBISC 2024 first shoot',"category": categories[1]}
     ]

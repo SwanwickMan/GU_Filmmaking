@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Q
 from GUFilmmakingApp.forms import PosterForm, MovieForm, BTSForm, UserForm
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -73,7 +74,7 @@ def categories(request):
 
 
 # implement slugs later
-def long_movies(request):
+def long_movie(request, content_name_slug):
     context_dict = {}
     posts = Post.objects.filter(post_type="Longer Movie")
     context_dict['posts'] = posts
@@ -83,7 +84,7 @@ def long_movies(request):
     return response
 
 
-def short_movies(request):
+def short_movie(request, content_name_slug):
     context_dict = {}
     posts = Post.objects.filter(post_type="Shorter Movie")
     context_dict['posts'] = posts
@@ -107,9 +108,28 @@ def add_movie(request):
     return render(request, 'GUFilmmakingApp/add_movie.html', {'form': form})
 
 
-def posters(request):
-    context_dict = {}
-    response = render(request, 'GUFilmmakingApp/posters.html', context=context_dict)
+def poster(request, content_name_slug):
+    try:
+        search_results = Post.objects.filter(post_type="poster")
+        search_results = search_results.get(slug=content_name_slug)
+    except Post.DoesNotExist:
+        return redirect("GUFilmmakingApp:index")
+
+    context_dict = {"poster": search_results}
+    response = render(request, 'GUFilmmakingApp/poster.html', context=context_dict)
+
+    return response
+
+
+def movie(request, content_name_slug):
+    try:
+        search_results = Post.objects.filter(Q(post_type="longer_movie") | Q(post_type="shorter_movie"))
+        search_results = search_results.get(slug=content_name_slug)
+    except Post.DoesNotExist:
+        return redirect("GUFilmmakingApp:index")
+
+    context_dict = {"movie": search_results}
+    response = render(request, 'GUFilmmakingApp/poster.html', context=context_dict)
 
     return response
 

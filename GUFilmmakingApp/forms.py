@@ -41,14 +41,13 @@ class PosterForm(forms.ModelForm):
                             help_text="Please enter the poster's title.")
     description = forms.CharField(help_text="Please enter a description.")
     image = forms.ImageField(validators=
-    [FileExtensionValidator(allowed_extensions=['png', 'jpg'])],
+                             [FileExtensionValidator(allowed_extensions=['png', 'jpg'])],
                              help_text="Please upload a png or jpg image file.")
     category = forms.ChoiceField(choices=CAT_YEAR_CHOICES, help_text="Please select the year.")
     thumbnail = image
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     post_type = forms.CharField(widget=forms.HiddenInput(), initial='poster') 
-
 
     class Meta:
         # associate the form with the Poster model
@@ -66,6 +65,7 @@ class BTSForm(forms.ModelForm):
     file = forms.FileField()
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     post_type = forms.CharField(widget=forms.HiddenInput(), initial='bts')
+
     class Meta:
         model = Post
         fields = ('title', 'description', 'file', 'category', 'post_type', 'thumbnail')
@@ -73,6 +73,7 @@ class BTSForm(forms.ModelForm):
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
+
     class Meta:
         model = User
         fields = ('username', 'email', 'password',)

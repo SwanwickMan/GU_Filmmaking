@@ -12,13 +12,14 @@ from GUFilmmakingApp.models import Category, Post, UserProfile
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
+
 # Create your views here.
 def index(request):
     most_liked_posts = Post.objects.all().order_by('-likes')[:3]
     most_viewed_posts = Post.objects.all().order_by('-views')[:3]
     context_dict = {
         'most_liked_posts': most_liked_posts,
-        'most_viewed_posts': most_viewed_posts
+        'most_viewed_posts': most_viewed_posts,
     }
     visitor_cookie_handler(request)
     context_dict['visits'] = request.session['visits']
@@ -30,7 +31,7 @@ def search(request):
     if request.method == 'POST':
         pass
     else:
-        return render(request, 'search.html')
+        return render(request, 'GUFilmmakingApp/search.html')
 
 
 def profile(request):
@@ -93,8 +94,8 @@ def add_movie(request):
             return redirect(reverse('GUFilmmakingApp:home'))
         else:
             print(form.errors)
-    
-    return render(request, 'add_movie.html', {'form': form})
+
+    return render(request, 'GUFilmmakingApp/add_movie.html', {'form': form})
 
 
 def posters(request):
@@ -116,7 +117,7 @@ def add_poster(request):
         else:
             print(form.errors)
     
-    return render(request, 'add_poster.html', {'form': form})
+    return render(request, 'GUFilmmakingApp/add_poster.html', {'form': form})
 
 
 def behind_the_scenes(request):
@@ -143,6 +144,7 @@ def add_bts(request):
             print(form.errors)
     
     return render(request, 'add_bts.html', {'form': form})
+
 
 def add_post(request):
 
@@ -185,7 +187,7 @@ def user_login(request):
     else:
         return render(request, 'GUFilmmakingApp/login.html')
 
-#edited here(Manav)
+
 def user_signup(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
@@ -207,6 +209,7 @@ def user_signup(request):
         form = UserForm()
     return render(request, 'signup.html', {'form': form})
 
+
 def user_logout(request):
     logout(request)
     return redirect('GUFilmmakingApp:index')  # Redirect to the home page after logout
@@ -218,6 +221,7 @@ def get_server_side_cookie(request, cookie, default_val=None):
         val = default_val
     return val
 
+
 def visitor_cookie_handler(request):
     visits = int(get_server_side_cookie(request, 'visits', '1'))
     last_visit_cookie = get_server_side_cookie(request,'last_visit', str(datetime.now()))
@@ -228,6 +232,7 @@ def visitor_cookie_handler(request):
     else:
         request.session['last_visit'] = last_visit_cookie
         request.session['visits'] = visits
+
 
 def update_likes(request):
     if request.method == 'POST':

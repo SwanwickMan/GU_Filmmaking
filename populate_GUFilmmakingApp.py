@@ -96,3 +96,6 @@ if __name__ == '__main__':
     user = User.objects.create_user(username='filmmaking_populate_user', email='example@email.com',password='example_password123')
     user_profile = UserProfile.objects.create(user=user, userID=123, profileImage=settings.MEDIA_DIR + '/profilePhoto.jpg', verified=True, bio='Example User Bio')
     populate(author=user_profile)
+
+    # temporary superuser
+    User.objects.create_superuser('1', 'admin@example.com', '1')

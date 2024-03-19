@@ -24,3 +24,20 @@
     padding-left: 80px;
     padding-right: 80px;
 }
+
+/* all popular posts styles */
+
+.popular-posts{
+    border: 1px solid black;
+    width: 90%
+}
+
+.post {
+    width: 40%;
+    border: 1px solid black;
+}
+
+.post img {
+    height: 30px;
+    width: auto;
+}

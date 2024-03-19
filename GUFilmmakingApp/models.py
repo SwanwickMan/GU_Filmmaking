@@ -32,15 +32,19 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    thumbnail = models.ImageField(upload_to='media/thumbnails/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])], blank=True, null=True)
+    thumbnail = models.ImageField(upload_to='media/thumbnails/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
+                                  blank=True, null=False)
     views = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     likes = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     
     def save(self, *args, **kwargs):
         if self.likes < 0:
-            self.likes=0
+            self.likes = 0
         if self.views < 0:
-            self.views=0
+            self.views = 0
+        if not self.thumbnail:  # If thumbnail is not set
+            self.thumbnail = 'thumbnails/default_thumbnail.png'
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

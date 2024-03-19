@@ -10,26 +10,26 @@ Media Content Page
 
 
 {% block main_content %}
-<h2 id="content-header">{% block header %} Poster header {% endblock %}</h2>
+<h2 id="content-header">{% block header %} {{ poster.title }} {% endblock %}</h2>
 
 <div id="main-content">
     <div id="media-content">
-        <img src="{{ MEDIA_URL }}poster2022-2023.jpg" alt="poster" id="media-content"
+        <img src="{{ poster.file.url }}" alt="poster" id="media-content"
             onclick="this.requestFullscreen()" />
         <div id="likes-and-views">
             <div>
-                <p>5</p> <img src="{% static " images/likes.png" %}" alt="GU Filmmaking Logo" id="logo">
+                <p>{{ poster.likes }}</p> <img src="{% static "images/likes.png" %}" alt="GU Filmmaking Logo" id="likes">
             </div>
             <div>
-                <p>11</p> <img src="{% static " images/views.png" %}" alt="GU Filmmaking Logo" id="logo">
+                <p>{{ poster.views }}</p> <img src="{% static "images/views.png" %}" alt="GU Filmmaking Logo" id="views">
             </div>
         </div>
     </div>
 
     <div id="right-side-content">
         <div id="description-content">
-            <p id="author"> Author: AuthorName </p>
-            <p id="description"> very descriptive description about poster </p>
+            <p id="author"> Author: {{ poster.author }} </p>
+            <p id="description"> {{ poster.description}} </p>
         </div>
 
         <div id="share-section">

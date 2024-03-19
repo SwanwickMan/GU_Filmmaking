@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from GUFilmmakingApp.forms import PosterForm, MovieForm, BTSForm, UserForm
+from GUFilmmakingApp.forms import PosterForm, MovieForm, BTSForm
 from django.shortcuts import redirect
 from django.urls import reverse
 from datetime import datetime
@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 
 from django.http import HttpResponse
 from GUFilmmakingApp.models import Category, Post, UserProfile
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index(request):
@@ -33,7 +35,7 @@ def search(request):
 
 def profile(request):
     context_dict = {}
-    response = render(request, 'profile.html', context=context_dict)
+    response = render(request, 'GUFilmmakingApp/profile.html', context=context_dict)
 
     return response
 
@@ -227,4 +229,19 @@ def visitor_cookie_handler(request):
         request.session['last_visit'] = last_visit_cookie
         request.session['visits'] = visits
 
+def update_likes(request):
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        post = Post.objects.get(pk=post_id)
+        post.likes += 1
+        post.save()
+        return JsonResponse({'likes': post.likes})
 
+@csrf_exempt
+def update_views(request):
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        post = Post.objects.get(pk=post_id)
+        post.views += 1
+        post.save()
+        return JsonResponse({'views': post.views})

@@ -73,27 +73,6 @@ def categories(request):
     return response
 
 
-# implement slugs later
-def long_movie(request, content_name_slug):
-    context_dict = {}
-    posts = Post.objects.filter(post_type="Longer Movie")
-    context_dict['posts'] = posts
-
-    response = render(request, 'GUFilmmakingApp/long_movies.html', context=context_dict)
-
-    return response
-
-
-def short_movie(request, content_name_slug):
-    context_dict = {}
-    posts = Post.objects.filter(post_type="Shorter Movie")
-    context_dict['posts'] = posts
-
-    response = render(request, 'GUFilmmakingApp/short_movies.html', context=context_dict)
-
-    return response
-
-
 def add_movie(request):
     form = MovieForm()
 
@@ -129,7 +108,18 @@ def movie(request, content_name_slug):
         return redirect("GUFilmmakingApp:index")
 
     context_dict = {"movie": search_results}
-    response = render(request, 'GUFilmmakingApp/poster.html', context=context_dict)
+    response = render(request, 'GUFilmmakingApp/movie.html', context=context_dict)
+
+    return response
+
+
+def behind_the_scenes(request):
+    context_dict = {}
+
+    posts = Post.objects.filter(post_type="bts")
+    context_dict['posts'] = posts
+
+    response = render(request, 'GUFilmmakingApp/behind_the_scenes.html', context=context_dict)
 
     return response
 
@@ -146,17 +136,6 @@ def add_poster(request):
             print(form.errors)
     
     return render(request, 'GUFilmmakingApp/add_poster.html', {'form': form})
-
-
-def behind_the_scenes(request):
-    context_dict = {}
-
-    posts = Post.objects.filter(post_type="bts")
-    context_dict['posts'] = posts
-
-    response = render(request, 'GUFilmmakingApp/behind_the_scenes.html', context=context_dict)
-
-    return response
 
 
 def add_bts(request):

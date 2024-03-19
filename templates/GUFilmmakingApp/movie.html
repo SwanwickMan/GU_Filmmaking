@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra_style_sheet %}
-<link rel="stylesheet" href={% static "style/poster.css" %}>
+<link rel="stylesheet" href={% static "style/movie.css" %}>
 {% endblock %}
 {% block title %}
 Media Content Page
@@ -10,26 +10,25 @@ Media Content Page
 
 
 {% block main_content %}
-<h2 id="content-header">{% block header %} {{ poster.title }} {% endblock %}</h2>
+<h2 id="content-header">{% block header %} {{ movie.title }} {% endblock %}</h2>
 
 <div id="main-content">
     <div id="media-content">
-        <img src="{{ poster.file.url }}" alt="poster" id="media-content"
-            onclick="this.requestFullscreen()" />
+        <video src="{{ movie.file.url }}" width="320" height="240" controls> </video>
         <div id="likes-and-views">
             <div>
-                <p>{{ poster.likes }}</p> <img src="{% static "images/likes.png" %}" alt="GU Filmmaking Logo" id="likes">
+                <p>{{ movie.likes }}</p> <img src="{% static "images/likes.png" %}" alt="GU Filmmaking Logo" id="likes">
             </div>
             <div>
-                <p>{{ poster.views }}</p> <img src="{% static "images/views.png" %}" alt="GU Filmmaking Logo" id="views">
+                <p>{{ movie.views }}</p> <img src="{% static "images/views.png" %}" alt="GU Filmmaking Logo" id="views">
             </div>
         </div>
     </div>
 
-    <div id="right-side-content">
+    <div id="bottom-content">
         <div id="description-content">
-            <p id="author"> Author: {{ poster.author }} </p>
-            <p id="description"> {{ poster.description}} </p>
+            <p id="author"> Author: {{ movie.author }} </p>
+            <p id="description"> {{ movie.description}} </p>
         </div>
 
         <div id="share-section">

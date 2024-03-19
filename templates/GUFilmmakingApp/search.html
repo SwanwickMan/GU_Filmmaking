@@ -52,7 +52,7 @@
     <div class="search-results-section">
         <h2>Most Liked Posts</h2>
         {% for result in search_results %}
-            <div class="result">
+            <div class="result" onclick="window.location.href = 'https://www.openai.com'">
                 <h3>{{ result.title}}</h3>
                 <img src="{{ result.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
                 <p>Description: {{ result.description }}</p>

@@ -79,11 +79,17 @@
 }
 
 .result {
+    padding: 5px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
     width: 60%;
     border: 1px solid black;
+    cursor: pointer;
+}
+
+.result:hover{
+    border: 3px solid black;
 }
 
 .result img {

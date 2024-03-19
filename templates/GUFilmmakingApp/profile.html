@@ -14,19 +14,23 @@ Profile
     <div id="profile-pic-section">
         <img id="profile-pic" src="" alt="Profile Picture">
 
-        <!-- Buttons need to be modified so theyre only available for loggin in user on their own user page-->
+        {% if user.is_authenticated and user == profile_user %}
         <div id="profile-buttons">
             <input type="file" id="upload-button" accept="image/*">
             <button id="remove-button" onclick="">Remove Picture</button>
         </div>
+        {% endif %}
+
     </div>
 
     <div id="bio-section">
         <h2>Biography</h2>
         <p id="bio-content">User biography is written here.</p>
 
-        <!-- Button for logged-in user -->
+        {% if user.is_authenticated and user == profile_user %}
         <button id="edit-bio-button" onclick="">Edit Biography</button>
+        {% endif %}
+
     </div>
 </div>
 <div id="posts-bottom-row">
@@ -46,6 +50,29 @@ Profile
         </ul>
     </div>
 </div>
+
+<script>// Function to handle profile picture upload
+    document.getElementById('upload-button').addEventListener('change', function () {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('profile-pic').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // Function to handle profile picture removal
+    function removeProfilePicture() {
+        document.getElementById('profile-pic').src = ''; // Clearing the source
+    }
+
+    // Function to handle biography editing
+    function editBio() {
+        var newBio = prompt("Enter your new biography:");
+        if (newBio !== null) {
+            document.getElementById('bio-content').innerText = newBio;
+        }
+    }</script>
 
 
 {% endblock %}

@@ -6,8 +6,8 @@
 }
 
 #profile-pic {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border: 1px solid #ccc;
     display: flex;
     align-items: center;

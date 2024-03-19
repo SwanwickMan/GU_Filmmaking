@@ -2,19 +2,31 @@
 {% load static %}
 
 {% block title %}
-    Login
+Login
 {% endblock %}
+
+{% block extra_style_sheet %}
+<link rel="stylesheet" href="{% static 'style/login.css' %}">
+
+{% endblock %}
+
 
 {% block main_content %}
-<h1>Welcome back!</h1>
-<form id="login_form" method="post" action="{% url 'GUFilmmakingApp:login' %}">
-    {% csrf_token %}
-    Username: <input type="text" name="username" value="" size="50" />
-    <br />
-    Password: <input type="password" name="password" value="" size="50" />
-    <br />
-    <input type="submit" value="submit" />
-</form>
-<a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
-{% endblock %}
+<div id="container">
 
+    <h1 id="message">Welcome back!</h1>
+    <div id="main">
+        <form id="login_form" method="post" action="{% url 'GUFilmmakingApp:login' %}">
+            {% csrf_token %}
+            Username: <input type="text" name="username" value="" size="50" />
+            <br />
+            Password: <input type="password" name="password" value="" size="50" />
+            <br />
+            <div id="submit-button">
+                <input type="submit" value="submit" />
+            </div>
+        </form>
+        <a href="{% url 'social:begin' 'google-oauth2' %}" id="google-link">Login with Google</a>
+    </div>
+</div>
+{% endblock %}

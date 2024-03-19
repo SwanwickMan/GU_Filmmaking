@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block title %}
-    Long Movies
+Long Movies
 {% endblock %}
 
 {% block main_content %}
-
+<div id="post-section">
+    <button id="switch-movies">Switch to Short Movies</button>
     <h1>Long Movies Posts</h1>
 
     {% if posts %}
@@ -14,11 +15,24 @@
         {% for post in posts %}
         <li><a href="{% url 'GUFilmmakingApp:page' %}">{{ post.title }}</a> </li>
         {% endfor %}
-    </ul>    
+    </ul>
     {% else %}
-        <li><strong>There are no Long Movies posts</strong></li>
+    <li><strong>There are no Long Movies posts</strong></li>
     {% endif %}
-    
+</div>
+
+<script>
+    document.getElementById("switch-movies").addEventListener("click", function () {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                document.getElementById("post-section").innerHTML = xhr.responseText;
+            }
+        };
+        xhr.open("GET", "{% url 'GUFilmmakingApp:short_movies' %}", true);
+        xhr.send();
+    });
+</script>
 
 
 {% endblock %}

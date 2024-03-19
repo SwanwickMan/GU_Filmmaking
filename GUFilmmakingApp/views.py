@@ -77,7 +77,7 @@ def short_movies(request):
     posts = Post.objects.filter(post_type="Shorter Movie")
     context_dict['posts'] = posts
 
-    response = render(request, 'GUFilmmakingApp/short_movies.html', context=context_dict)
+    response = render(request, 'GUFilmmakingApp/short_movies.html',context=context_dict)
 
     return response
 
@@ -245,3 +245,4 @@ def update_views(request):
         post.views += 1
         post.save()
         return JsonResponse({'views': post.views})
+    

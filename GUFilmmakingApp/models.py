@@ -1,6 +1,6 @@
 import os
 
-from django.core.validators import FileExtensionValidator
+from django.core.validators import FileExtensionValidator, MinValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -33,8 +33,14 @@ class Post(models.Model):
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     thumbnail = models.ImageField(upload_to='media/thumbnails/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])], blank=True, null=True)
-    views = models.IntegerField(default=0)
-    likes = models.IntegerField(default=0)
+    views = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    likes = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    
+    def save(self, *args, **kwargs):
+        if self.likes < 0:
+            self.likes=0
+        if self.views < 0:
+            self.views=0
 
     def __str__(self):
         return self.title

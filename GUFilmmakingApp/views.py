@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from GUFilmmakingApp.forms import PostForm, PosterForm, MovieForm, BTSForm
+from GUFilmmakingApp.forms import PosterForm, MovieForm, BTSForm, UserForm
 from django.shortcuts import redirect
 from django.urls import reverse
 from datetime import datetime
@@ -60,16 +60,22 @@ def categories(request):
 
 
 # implement slugs later
-def long_movies(request, content_name_slug):
+def long_movies(request):
     context_dict = {}
-    response = render(request, 'content_page.html', context=context_dict)
+    posts = Post.objects.filter(post_type="Longer Movie")
+    context_dict['posts'] = posts
+
+    response = render(request, 'GUFilmmakingApp/long_movies.html', context=context_dict)
 
     return response
 
 
-def short_movies(request, content_name_slug):
+def short_movies(request):
     context_dict = {}
-    response = render(request, 'short_movies.html', context=context_dict)
+    posts = Post.objects.filter(post_type="Shorter Movie")
+    context_dict['posts'] = posts
+
+    response = render(request, 'GUFilmmakingApp/short_movies.html', context=context_dict)
 
     return response
 
@@ -89,9 +95,9 @@ def add_movie(request):
     return render(request, 'add_movie.html', {'form': form})
 
 
-def posters(request, content_name_slug):
+def posters(request):
     context_dict = {}
-    response = render(request, 'posters.html', context=context_dict)
+    response = render(request, 'GUFilmmakingApp/posters.html', context=context_dict)
 
     return response
 

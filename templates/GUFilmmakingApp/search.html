@@ -52,7 +52,7 @@
     <div class="search-results-section">
         <h2>Most Liked Posts</h2>
         {% for result in search_results %}
-            <div class="result" onclick="window.location.href = 'https://www.openai.com'">
+            <div class="result" onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' result.slug  %}'">
                 <h3>{{ result.title}}</h3>
                 <img src="{{ result.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
                 <p>Description: {{ result.description }}</p>

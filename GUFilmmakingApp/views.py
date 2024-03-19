@@ -113,11 +113,14 @@ def movie(request, content_name_slug):
     return response
 
 
-def behind_the_scenes(request):
-    context_dict = {}
+def behind_the_scenes(request, content_name_slug):
+    try:
+        search_results = Post.objects.filter(post_type="bts")
+        search_results = search_results.get(slug=content_name_slug)
+    except Post.DoesNotExist:
+        return redirect("GUFilmmakingApp:index")
 
-    posts = Post.objects.filter(post_type="bts")
-    context_dict['posts'] = posts
+    context_dict = {"bts": search_results}
 
     response = render(request, 'GUFilmmakingApp/behind_the_scenes.html', context=context_dict)
 
@@ -239,3 +242,23 @@ def update_views(request):
         post.views += 1
         post.save()
         return JsonResponse({'views': post.views})
+
+
+# helper url to enable linking to site content more easily
+def redirect_from_slug(request, content_name_slug):
+    try:
+        post = Post.objects.get(slug=content_name_slug)
+    except Post.DoesNotExist:
+        return redirect("GUFilmmakingApp:index")
+    if post.post_type in ("longer_movie", "shorter_movie"):
+        url = reverse('GUFilmmakingApp:movies', kwargs={'content_name_slug': content_name_slug})
+    elif post.post_type == "poster":
+        url = reverse('GUFilmmakingApp:posters', kwargs={'content_name_slug': content_name_slug})
+    elif post.post_type == "bts":
+        url = reverse('GUFilmmakingApp:behind_the_scenes', kwargs={'content_name_slug': content_name_slug})
+    else:
+        return redirect('GUFilmmakingApp:index')
+
+    return redirect(url)
+
+

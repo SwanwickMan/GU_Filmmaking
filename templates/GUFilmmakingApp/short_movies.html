@@ -2,23 +2,23 @@
 {% load static %}
 
 {% block title %}
-    Short Movies
+Short Movies
 {% endblock %}
 
+
 {% block main_content %}
+<div id="post-section">
 
     <h1>Short Movies Posts</h1>
-
     {% if posts %}
     <ul>
         {% for post in posts %}
         <li><a href="{% url 'GUFilmmakingApp:page' %}">{{ post.title }}</a> </li>
         {% endfor %}
-    </ul>    
+    </ul>
     {% else %}
-        <li><strong>There are no Short Movies posts</strong></li>
+    <li><strong>There are no Short Movies posts</strong></li>
     {% endif %}
-    
-
+</div>
 
 {% endblock %}

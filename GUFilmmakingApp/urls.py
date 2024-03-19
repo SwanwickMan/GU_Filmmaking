@@ -35,4 +35,5 @@ urlpatterns = [
     path('add_poster/', views.add_poster, name='add_poster'),
     path('add_movie/', views.add_movie, name='add_movie'),
     path('add_post/', views.add_post, name='add_post'),
+
 ]

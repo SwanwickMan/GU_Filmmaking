@@ -7,7 +7,6 @@ Long Movies
 
 {% block main_content %}
 <div id="post-section">
-    <button id="switch-movies">Switch to Short Movies</button>
     <h1>Long Movies Posts</h1>
 
     {% if posts %}
@@ -21,18 +20,6 @@ Long Movies
     {% endif %}
 </div>
 
-<script>
-    document.getElementById("switch-movies").addEventListener("click", function () {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                document.getElementById("post-section").innerHTML = xhr.responseText;
-            }
-        };
-        xhr.open("GET", "{% url 'GUFilmmakingApp:short_movies' %}", true);
-        xhr.send();
-    });
-</script>
 
 
 {% endblock %}

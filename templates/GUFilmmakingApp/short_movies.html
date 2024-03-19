@@ -6,11 +6,9 @@ Short Movies
 {% endblock %}
 
 
-
 {% block main_content %}
 <div id="post-section">
 
-    <button id="switch-movies">Switch to Long Movies</button>
     <h1>Short Movies Posts</h1>
     {% if posts %}
     <ul>
@@ -22,10 +20,5 @@ Short Movies
     <li><strong>There are no Short Movies posts</strong></li>
     {% endif %}
 </div>
-
-{% block extra_js %}
-<script src="{% static 'scripts/switch_movie_to_long.js' %}"></script>
-{% endblock %}
-
 
 {% endblock %}

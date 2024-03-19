@@ -10,7 +10,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'scripts/ajax_update.js' %}"></script>
     {% block extra_style_sheet %} {% endblock %}
-    {% block extra_js %} {% endblock %}
 
     <title>
         {% block title %}
@@ -66,6 +65,9 @@
             <a href="https://www.instagram.com/gufilmmaking/">Instagram</a>
         </div>
     </footer>
+
+    {% block extra_js %} {% endblock %}
+
 </body>
 
 </html>

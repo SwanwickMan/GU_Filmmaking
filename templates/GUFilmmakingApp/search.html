@@ -50,15 +50,28 @@
     </form>
 
     <div class="search-results-section">
-        <h2>Most Liked Posts</h2>
-        {% for result in search_results %}
-            <div class="result" onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' result.slug  %}'">
-                <h3>{{ result.title}}</h3>
-                <img src="{{ result.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
-                <p>Description: {{ result.description }}</p>
-                <p>Likes: {{ result.likes }}</p>
-            </div>
-        {% endfor %}
+        {% if type == "post" %}
+            <h2>Most Liked Posts</h2>
+            {% for result in search_results %}
+                <div class="result" onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' result.slug  %}'">
+                    <h3>{{ result.title}}</h3>
+                    <img src="{{ result.thumbnail.url }}" alt="Thumbnail">
+                    <p>Description: {{ result.description }}</p>
+                    <p>Likes: {{ result.likes }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if type == "user" %}
+            <h2>Most Liked Users</h2>
+            {% for result in search_results %}
+                <div class="result" onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'profile' result.slug  %}'">
+                    <h3>{{ result.user}}</h3>
+                    <img src="{{ result.profileImage.url }}" alt="Thumbnail">
+                    <p>Description: {{ result.bio }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 
     <script src="{% static 'scripts/search_menu.js' %}"></script>

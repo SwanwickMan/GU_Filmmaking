@@ -31,27 +31,29 @@ def search(request):
     search_term = request.GET.get('search', '')
     search_for = request.GET.get('search_for', 'All')
     sort_by = request.GET.get('sort_by', 'relevancy')
+    print("searchTerms: ", search_term, search_for, sort_by)
 
     # begin to filter and sort search results
-    search_results = Post.objects.filter(title__icontains=search_term)
-    if search_for != 'All':
-        search_results = search_results.filter(post_type=search_for)
-    if sort_by != 'relevancy':
-        search_results = search_results.order_by(sort_by)
-
-    print("searchTerms: ", search_term, search_for, sort_by)
-    for result in search_results: print(result.post_type, "|", result)
-    context_dict = {"search_results": search_results}
+    if search_for == "Users":
+        search_results = search_for_users(search_term)
+        for result in search_results: print(result.user, "|", result.slug)
+        context_dict = {"search_results": search_results, "type": "user"}
+    else:
+        search_results = search_for_posts(search_term, search_for, sort_by)
+        for result in search_results: print(result.post_type, "|", result)
+        context_dict = {"search_results": search_results, "type": "post"}
 
     return render(request, 'GUFilmmakingApp/search.html', context=context_dict)
 
 
 @login_required
-def profile(request):
-    context_dict = {}
-    response = render(request, 'GUFilmmakingApp/profile.html', context=context_dict)
-
-    return response
+def profile(request, content_name_slug):
+    try:
+        user_profile = UserProfile.objects.get(slug=content_name_slug)
+    except UserProfile.DoesNotExist:
+        return redirect("GUFilmmakingApp:index")
+    context_dict = {"profile": user_profile}
+    return render(request, 'GUFilmmakingApp/profile.html', context=context_dict)
 
 
 def user_liked(request):
@@ -247,21 +249,27 @@ def update_views(request):
 
 
 # helper url to enable linking to site content more easily
-def redirect_from_slug(request, content_name_slug):
-    try:
-        post = Post.objects.get(slug=content_name_slug)
-    except Post.DoesNotExist:
-        return redirect("GUFilmmakingApp:index")
-    if post.post_type in ("longer_movie", "shorter_movie"):
-        url = reverse('GUFilmmakingApp:movies', kwargs={'content_name_slug': content_name_slug})
-    elif post.post_type == "poster":
-        url = reverse('GUFilmmakingApp:posters', kwargs={'content_name_slug': content_name_slug})
-    elif post.post_type == "bts":
-        url = reverse('GUFilmmakingApp:behind_the_scenes', kwargs={'content_name_slug': content_name_slug})
+def redirect_from_slug(request, content_type_slug, content_name_slug):
+    if content_type_slug == "post":
+        try:
+            post = Post.objects.get(slug=content_name_slug)
+        except Post.DoesNotExist:
+            return redirect("GUFilmmakingApp:index")
+        if post.post_type in ("longer_movie", "shorter_movie"):
+            url = reverse('GUFilmmakingApp:movies', kwargs={'content_name_slug': content_name_slug})
+        elif post.post_type == "poster":
+            url = reverse('GUFilmmakingApp:posters', kwargs={'content_name_slug': content_name_slug})
+        elif post.post_type == "bts":
+            url = reverse('GUFilmmakingApp:behind_the_scenes', kwargs={'content_name_slug': content_name_slug})
+        else:
+            return redirect('GUFilmmakingApp:index')
+
+        return redirect(url)
+    elif content_type_slug == "profile":
+        url = reverse('GUFilmmakingApp:profile', kwargs={'content_name_slug': content_name_slug})
+        return redirect(url)
     else:
         return redirect('GUFilmmakingApp:index')
-
-    return redirect(url)
 
 
 def get_file_extension(post):
@@ -272,3 +280,16 @@ def get_file_extension(post):
         return "video"
     else:
         return "bad type"
+
+
+def search_for_posts(search_term, search_for,sort_by):
+    search_results = Post.objects.filter(title__icontains=search_term)
+    if search_for != 'All':
+        search_results = search_results.filter(post_type=search_for)
+    if sort_by != 'relevancy':
+        search_results = search_results.order_by(sort_by)
+    return search_results
+
+
+def search_for_users(search_term):
+    return UserProfile.objects.filter(user__username__icontains=search_term)

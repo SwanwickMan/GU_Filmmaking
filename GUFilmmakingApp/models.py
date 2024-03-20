@@ -53,13 +53,18 @@ class Post(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
     userID = models.IntegerField()
+    slug = models.SlugField(unique=True)
     profileImage = models.ImageField()
     verified = models.BooleanField(default=False)
     bio = models.CharField(max_length=200)
     myPosts = models.ForeignKey(Post, related_name='posted_by', on_delete=models.CASCADE, blank=True, null=True)
     myLikes = models.ManyToManyField(Post, related_name='liked_by', blank=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.user.username)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.user.username

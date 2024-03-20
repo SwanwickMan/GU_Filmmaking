@@ -43,6 +43,11 @@
     width: 100%;
     border: 1px solid black;
     margin: 5px;
+    cursor: pointer;
+}
+
+.post:hover{
+    border: 3px solid black;
 }
 
 .post img {

@@ -11,7 +11,7 @@ Profile
 
 {% block main_content %}
 <div id="username-section">
-    <h1>{{ profile.username }}</h1>
+    <h1>username : {{ profile.user.username }}</h1>
 </div>
 <div id="profile-top-row">
     <div id="profile-pic-section">
@@ -28,7 +28,7 @@ Profile
 
     <div id="bio-section">
         <h2>Biography</h2>
-        <p id="bio-content">User biography is written here.</p>
+        <p id="bio-content">{{ profile.bio }}</p>
 
         {% if user.is_authenticated and user == profile %}
         <button id="edit-bio-button" onclick="">Edit Biography</button>

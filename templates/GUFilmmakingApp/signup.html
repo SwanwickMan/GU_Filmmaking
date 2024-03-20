@@ -8,6 +8,11 @@ Signup
 <link rel="stylesheet" href="{% static 'style/signup.css' %}">
 {% endblock %}
 
+{% block extra_js %}
+<script src="{% static 'scripts/signup.js' %}"></script>
+{% endblock %}
+
+
 {% block main_content %}
 <div id="signup-container">
     <div id="signup-box">
@@ -25,8 +30,8 @@ Signup
             <br />
             Password: <input type="password" name="password" value="" size="50" />
             <br />
-
-
+            Confirm Password: <input type="password" name="confirm_password" id="confirm_password" value="" size="50" />
+            <br />
             <div id="submit-button">
                 <input type="submit" name="submit" value="Register" />
             </div>
@@ -35,3 +40,18 @@ Signup
     </div>
 </div>
 {% endblock %}
+
+
+<script>
+    function validateForm() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+
+</script>

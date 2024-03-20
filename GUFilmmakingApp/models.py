@@ -5,18 +5,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Category(models.Model):
-    # added these MAX_LENGTH things for form.py and i think it counts as clean code
-    CATEGORY_MAX_LENGTH=128
-    name = models.CharField(max_length=CATEGORY_MAX_LENGTH, unique=True)
-    
-    class Meta:
-        verbose_name_plural = 'Categories'
-
-    def __str__(self):
-        return self.name
-
-
 class Post(models.Model):
     POST_MAX_LENGTH = 200
     POST_TYPES = [
@@ -32,7 +20,6 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     thumbnail = models.ImageField(upload_to='media/thumbnails/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
                                   blank=True, null=False)
     views = models.IntegerField(default=0, validators=[MinValueValidator(0)])

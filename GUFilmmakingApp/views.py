@@ -7,7 +7,7 @@ from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from GUFilmmakingApp.models import Category, Post, UserProfile
+from GUFilmmakingApp.models import Post, UserProfile
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -31,6 +31,7 @@ def search(request):
     search_term = request.GET.get('search', '')
     search_for = request.GET.get('search_for', 'All')
     sort_by = request.GET.get('sort_by', 'relevancy')
+    context_dict = {}
 
     # begin to filter and sort search results
     search_results = Post.objects.filter(title__icontains=search_term)
@@ -41,7 +42,7 @@ def search(request):
 
     print("searchTerms: ", search_term, search_for, sort_by)
     for result in search_results: print(result.post_type, "|", result)
-    context_dict = {"search_results": search_results}
+    context_dict["search_results"] = search_results
 
     return render(request, 'GUFilmmakingApp/search.html', context=context_dict)
 
@@ -66,14 +67,6 @@ def user_posts(request):
     response = render(request, 'user_posts.html', context=context_dict)
 
     return response
-
-
-def categories(request):
-    context_dict = {}
-    response = render(request, 'categories.html', context=context_dict)
-
-    return response
-
 
 def add_movie(request):
     form = MovieForm()

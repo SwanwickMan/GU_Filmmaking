@@ -128,7 +128,7 @@ def add_poster(request):
     form = PosterForm()
 
     if request.method == 'POST':
-        form = PosterForm(request.POST)
+        form = PosterForm(request.POST, request.FILES)
         if form.is_valid():
             form.save(commit=True)
             return redirect(reverse('GUFilmmakingApp:posters'))

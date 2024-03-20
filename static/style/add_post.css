@@ -1,12 +1,12 @@
-/* Centering the options */
 #main {
     display: flex;
     justify-content: center;
 }
 
-/* Styling the boxes */
 .post-option {
     margin: 20px;
+    position: relative;
+
 }
 
 .post-option-box {
@@ -20,7 +20,5 @@
 
 .post-option-box img {
     width: 100px;
-    /* Adjust size as needed */
     height: 100px;
-    /* Adjust size as needed */
 }

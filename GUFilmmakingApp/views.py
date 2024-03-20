@@ -199,7 +199,7 @@ def user_signup(request):
             return redirect('GUFilmmakingApp:index')  # Redirect to a home page
     else:
         form = UserForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'GUFilmmakingApp/signup.html', {'form': form})
 
 
 def user_logout(request):

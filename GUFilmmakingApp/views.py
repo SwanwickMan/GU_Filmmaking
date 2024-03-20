@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from GUFilmmakingApp.models import Category, Post, UserProfile
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -45,6 +46,7 @@ def search(request):
     return render(request, 'GUFilmmakingApp/search.html', context=context_dict)
 
 
+@login_required
 def profile(request):
     context_dict = {}
     response = render(request, 'GUFilmmakingApp/profile.html', context=context_dict)

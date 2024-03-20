@@ -46,7 +46,6 @@ def search(request):
     return render(request, 'GUFilmmakingApp/search.html', context=context_dict)
 
 
-@login_required
 def profile(request, content_name_slug):
     try:
         user_profile = UserProfile.objects.get(slug=content_name_slug)
@@ -262,6 +261,14 @@ def redirect_from_slug(request, content_type_slug, content_name_slug):
         return redirect(url)
     else:
         return redirect('GUFilmmakingApp:index')
+
+
+# another helper view to get user page
+@login_required
+def get_user_profile(request, user_name_slug):
+    current_profile = UserProfile.objects.get(user__username=user_name_slug)
+    url = reverse('GUFilmmakingApp:profile', kwargs={'content_name_slug': current_profile.slug})
+    return redirect(url)
 
 
 def get_file_extension(post):

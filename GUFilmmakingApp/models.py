@@ -35,8 +35,8 @@ class Post(models.Model):
             ext = os.path.splitext(self.file.name)[1].lower()
             if ext in ['.jpg', '.jpeg', '.png']:
                 self.thumbnail = self.file
-        if not self.thumbnail:  # If thumbnail is not set
-            self.thumbnail = 'thumbnails/default_thumbnail.png'
+            else:  # If thumbnail is not set
+                self.thumbnail = 'thumbnails/default_thumbnail.png'
         super().save(*args, **kwargs)
 
     def __str__(self):

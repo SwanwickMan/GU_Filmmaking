@@ -1,8 +1,9 @@
 function changeImage() {
-    var img = document.getElementById('likes-image');
-    if (img.src.match("empty_like.png")) {
-        img.src = "likes.png"; // Change this to the path of your new image
+    var img = document.getElementById('likes-img');
+    var fileName = img.src.split("/")[img.src.split("/").length - 1];
+    if (fileName === "empty_like.png") {
+        img.src = " /static/images/likes.png"; // Change this to the path of your new image
     } else {
-        img.src = "likes.png"; // Change this to the path of your original image
+        img.src = " /static/images/empty_like.png"; // Change this to the path of your original image
     }
 }

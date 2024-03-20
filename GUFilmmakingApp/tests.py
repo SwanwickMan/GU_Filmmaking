@@ -4,6 +4,7 @@ from GUFilmmakingApp.views import *
 from django.contrib.auth.models import User
 from GU_Filmmaking import settings
 from django.urls import reverse
+from GUFilmmakingApp.models import Post
 
 # Create your tests here.
 
@@ -74,21 +75,25 @@ class MoviesViewTests(TestCase):
 
 class SearchViewTests(TestCase):
     def test_no_posts(self):
-        #movie = movie_set_up()
+        number_of_posts = len(Post.objects.all())
+        print(number_of_posts)
 
-        self.factory = RequestFactory()
-        url = '{url}?{filter}={value}'.format(
-        url=reverse('search'),
-        filter='search_for', value='longer_movie')
+        url = reverse('GUFilmmakingApp:search') + '?search='
 
-        #request = self.client.get(url)
-        request = self.factory.get('?search_for=longer_movie')
+        # Make a GET request to the URL
         response = self.client.get(url)
-        #response.client = Client()
 
+        # Check if the status code is 200 (OK)
         self.assertEqual(response.status_code, 200)
-        self.assertQuerysetEqual(response.context["search_results"], [])
 
+        # Check if 'search_results' is present in the context dictionary
+        self.assertIn('search_results', response.context)
+
+        # Get the search results from the context dictionary
+        search_results = response.context['search_results']
+
+        # Assert the number of search results
+        self.assertEqual(len(search_results), number_of_posts)
 class ProfileViewTests(TestCase):
     def test_profile(self):
         user = User.objects.create_user(username='filmmaking_populate_user', email='example@email.com',password='example_password123')

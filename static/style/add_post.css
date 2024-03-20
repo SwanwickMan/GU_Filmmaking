@@ -1,5 +1,3 @@
-/* add_post.css */
-
 /* Centering the options */
 #main {
     display: flex;
@@ -8,6 +6,21 @@
 
 /* Styling the boxes */
 .post-option {
+    margin: 20px;
+}
+
+.post-option-box {
     text-align: center;
-    margin: 100px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 150px;
+    height: 170px;
+    border-radius: 10px;
+}
+
+.post-option-box img {
+    width: 100px;
+    /* Adjust size as needed */
+    height: 100px;
+    /* Adjust size as needed */
 }

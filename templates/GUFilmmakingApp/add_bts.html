@@ -5,11 +5,15 @@
 Add a Behind The Scenes
 {% endblock %}
 
+{% block extra_style_sheet %}
+<link rel="stylesheet" href="{% static 'style/add_post_form.css' %}">
+{% endblock %}
+
 {% block main_content %}
 <h1>Add a Behind The Scenes</h1>
 
 <div>
-    <form id="bts_form" method="post" action="{% url 'GUFilmmakingApp:add_behind_the_scenes' %}">
+    <form id="form" method="post" action="{% url 'GUFilmmakingApp:add_behind_the_scenes' %}">
         {% csrf_token %}
         {% for hidden in form.hidden_fields %}
         {{ hidden }}
@@ -21,7 +25,7 @@ Add a Behind The Scenes
         {{ field }}
         {% endfor %}
 
-        <input type="submit" name="submit" value="Create Behind The Scenes"/>
+        <input type="submit" name="submit" value="Create Behind The Scenes" />
     </form>
 </div>
 

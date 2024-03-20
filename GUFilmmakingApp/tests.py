@@ -4,6 +4,7 @@ from GUFilmmakingApp.views import *
 from django.contrib.auth.models import User
 from GU_Filmmaking import settings
 from django.urls import reverse
+from GUFilmmakingApp.models import Post
 
 # Create your tests here.
 
@@ -74,7 +75,10 @@ class MoviesViewTests(TestCase):
 
 class SearchViewTests(TestCase):
     def test_no_posts(self):
-        url = reverse('GUFilmmakingApp:search') + '?search=test_no_results_cause_no_posts_called_this'
+        number_of_posts = len(Post.objects.all())
+        print(number_of_posts)
+
+        url = reverse('GUFilmmakingApp:search') + '?search='
 
         # Make a GET request to the URL
         response = self.client.get(url)
@@ -89,7 +93,7 @@ class SearchViewTests(TestCase):
         search_results = response.context['search_results']
 
         # Assert the number of search results
-        self.assertEqual(len(search_results), 0)
+        self.assertEqual(len(search_results), number_of_posts)
 class ProfileViewTests(TestCase):
     def test_profile(self):
         user = User.objects.create_user(username='filmmaking_populate_user', email='example@email.com',password='example_password123')

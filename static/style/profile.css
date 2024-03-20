@@ -28,10 +28,10 @@
 }
 
 #profile-buttons {
-    margin-top: 10px;
     display: flex;
-    align-items: center;
-    margin-left: 50px;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-right: 60px;
 }
 
 #liked-posts-section,

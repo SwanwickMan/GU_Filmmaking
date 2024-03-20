@@ -12,9 +12,12 @@ Add Post
 {% endblock %}
 
 {% block main_content %}
-    <a href="{%  url 'GUFilmmakingApp:add_movie' %}">Post Movie</a>
-    <a href="{%  url 'GUFilmmakingApp:add_poster' %}">Post Poster</a>
-    <a href="{%  url 'GUFilmmakingApp:add_behind_the_scenes' %}">Post Behind The Scenes</a>
+<div id="main">
+    <a class="post-option" href="{%  url 'GUFilmmakingApp:add_movie' %}">Post Movie</a>
+    <a class="post-option" href="{%  url 'GUFilmmakingApp:add_poster' %}">Post Poster</a>
+    <a class="post-option" href="{%  url 'GUFilmmakingApp:add_behind_the_scenes' %}">Post Behind The Scenes</a>
+</div>
+
+
 {% endblock %}
 {% load GUFilmmaking_template_tags %}
-    

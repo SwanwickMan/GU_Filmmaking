@@ -1,0 +1,13 @@
+/* add_post.css */
+
+/* Centering the options */
+#main {
+    display: flex;
+    justify-content: center;
+}
+
+/* Styling the boxes */
+.post-option {
+    text-align: center;
+    margin: 100px;
+}

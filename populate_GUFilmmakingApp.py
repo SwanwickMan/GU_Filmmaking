@@ -76,6 +76,9 @@ def add_post(title, media, description, thumbnail, author, post_type, views=0, l
     p.post_type = post_type
     p.file = media
     p.save()
+
+    author.myLikes.add(p)
+
     return p
 
 

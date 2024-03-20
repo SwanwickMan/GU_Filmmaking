@@ -49,9 +49,11 @@ def search(request):
 def profile(request, content_name_slug):
     try:
         user_profile = UserProfile.objects.get(slug=content_name_slug)
+        profile_posts = Post.objects.filter(author=user_profile)
     except UserProfile.DoesNotExist:
         return redirect("GUFilmmakingApp:index")
-    context_dict = {"profile": user_profile}
+    context_dict = {"profile": user_profile, "profile_posts": profile_posts, "liked_posts": user_profile.myLikes.values()}
+
     return render(request, 'GUFilmmakingApp/profile.html', context=context_dict)
 
 

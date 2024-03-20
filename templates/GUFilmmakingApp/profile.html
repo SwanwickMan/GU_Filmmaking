@@ -36,21 +36,32 @@ Profile
 
     </div>
 </div>
-<div id="posts-bottom-row">
-    <div id="liked-posts-section">
+
+<div class="popular-posts">
+    <div class="posts">
         <h2>Liked Posts</h2>
-        <ul id="liked-posts-list">
-            <li>Post 1</li>
-            <li>Post 2</li>
-        </ul>
+        {% for post in liked_posts %}
+            <div class="post"
+                onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
+                <h3>{{ post.title}}</h3>
+                <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
+                <p>Description: {{ post.description }}</p>
+                <p>Likes: {{ post.likes }}</p>
+            </div>
+        {% endfor %}
     </div>
 
-    <div id="posted-posts-section">
+    <div class="posts">
         <h2>Posted Posts</h2>
-        <ul id="posted-posts-list">
-            <li>My Post 1</li>
-            <li>My Post 2</li>
-        </ul>
+        {% for post in profile_posts %}
+            <div class="post"
+                onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
+                <h3>{{ post.title }}</h3>
+                <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
+                <p>Description: {{ post.description }}</p>
+                <p>Views: {{ post.views }}</p>
+            </div>
+        {% endfor %}
     </div>
 </div>
 

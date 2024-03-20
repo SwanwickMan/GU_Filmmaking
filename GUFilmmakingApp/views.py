@@ -120,7 +120,7 @@ def behind_the_scenes(request, content_name_slug):
     except Post.DoesNotExist:
         return redirect("GUFilmmakingApp:index")
 
-    context_dict = {"bts": search_results}
+    context_dict = {"bts": search_results, "file_type": get_file_extension(search_results)}
 
     response = render(request, 'GUFilmmakingApp/behind_the_scenes.html', context=context_dict)
 
@@ -262,3 +262,11 @@ def redirect_from_slug(request, content_name_slug):
     return redirect(url)
 
 
+def get_file_extension(post):
+    file_type = post.file.name.split(".")[-1]
+    if file_type in ("jpg", "jpeg", "png"):
+        return "image"
+    elif file_type == "mp4":
+        return "video"
+    else:
+        return "bad type"

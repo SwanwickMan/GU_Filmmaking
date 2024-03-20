@@ -23,6 +23,14 @@
     margin-left: auto;
 }
 
+#media-content img {
+    width: 70%;
+    height: auto;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 #description-content {
     border: 1px solid black;
     border-radius: 10px;

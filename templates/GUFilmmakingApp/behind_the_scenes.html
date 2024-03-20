@@ -1,24 +1,51 @@
 {% extends 'GUFilmmakingApp/base.html' %}
 {% load static %}
 
+{% block extra_style_sheet %}
+<link rel="stylesheet" href={% static "style/movie.css" %}>
+{% endblock %}
 {% block title %}
-    Behind The Scenes
+Media Content Page
 {% endblock %}
 
+
 {% block main_content %}
+<h2 id="content-header">{% block header %} {{ bts.title }} {% endblock %}</h2>
 
-    <h1>Behind The Scenes Posts</h1>
+<div id="main-content">
+    <div id="media-content">
+        {% if file_type == "video" %}
+            <video src="{{ bts.file.url }}" controls> </video>
+        {% elif file_type == "image" %}
+            <img src="{{ bts.file.url }}" alt="poster" id="media-content"  onclick="this.requestFullscreen()"/>
+        {% else %}
+            <a href="{{ bts.file.url }}" download> bad file type </a>
+        {% endif %}
 
-    {% if posts %}
-    <ul>
-        {% for post in posts %}
-        <li><a href="{% url 'GUFilmmakingApp:page' %}">{{ post.title }}</a> </li>
-        {% endfor %}
-    </ul>    
-    {% else %}
-        <li><strong>There are no Behind The Scenes posts</strong></li>
-    {% endif %}
-    
+        <div id="likes-and-views">
+            <div>
+                <p>{{ bts.likes }}</p> <img src="{% static "images/likes.png" %}" alt="GU Filmmaking Logo" id="likes">
+            </div>
+            <div>
+                <p>{{ bts.views }}</p> <img src="{% static "images/views.png" %}" alt="GU Filmmaking Logo" id="views">
+            </div>
+        </div>
+    </div>
 
+    <div id="bottom-content">
+        <div id="description-content">
+            <p id="author"> Author: {{ bts.author }} </p>
+            <p id="description"> {{ bts.description}} </p>
+        </div>
+
+        <div id="share-section">
+            <p>Share:</p>
+            <button id="Copy"
+                onclick="window.navigator.clipboard.writeText(window.location.href);this.innerText='Copied';"> Copy link
+                to clipboard</button>
+        </div>
+    </div>
+
+</div>
 
 {% endblock %}

@@ -42,7 +42,7 @@ class PosterForm(forms.ModelForm):
     image = forms.ImageField(validators=
                              [FileExtensionValidator(allowed_extensions=['png', 'jpg'])],
                              help_text="Please upload a png or jpg image file.")
-    thumbnail = image
+    
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     post_type = forms.CharField(widget=forms.HiddenInput(), initial='poster') 

@@ -17,7 +17,7 @@ Profile
     <div id="profile-pic-section">
         <img id="profile-pic" src="{{ profile.profileImage.url }}" alt="Profile Picture">
 
-        {% if user.is_authenticated and user == profile %}
+        {% if user.is_authenticated and user.username == profile.user.username %}
         <div id="profile-buttons">
             <input type="file" id="upload-button" accept="image/*">
             <button id="remove-button" onclick="">Remove Picture</button>
@@ -30,7 +30,7 @@ Profile
         <h2>Biography</h2>
         <p id="bio-content">{{ profile.bio }}</p>
 
-        {% if user.is_authenticated and user == profile %}
+        {% if user.is_authenticated and user.username == profile.user.username %}
         <button id="edit-bio-button" onclick="">Edit Biography</button>
         {% endif %}
 

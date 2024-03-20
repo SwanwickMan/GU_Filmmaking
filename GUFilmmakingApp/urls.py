@@ -36,6 +36,6 @@ urlpatterns = [
     path('add_movie/', views.add_movie, name='add_movie'),
     path('add_behind_the_scenes/', views.add_bts, name='add_behind_the_scenes'),
     path('add_post/', views.add_post, name='add_post'),
-    path('post_redirect/<slug:content_name_slug>', views.redirect_from_slug, name='redirect_from_slug'),
+    path('post_redirect/<slug:content_type_slug>/<slug:content_name_slug>', views.redirect_from_slug, name='redirect_from_slug'),
 
 ]

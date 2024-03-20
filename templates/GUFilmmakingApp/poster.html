@@ -8,20 +8,26 @@
 Media Content Page
 {% endblock %}
 
+{% block extra_js %}
+<script src="{% static 'scripts/update_likes.js' %}"></script>
+{% endblock %}
+
 
 {% block main_content %}
 <h2 id="content-header">{% block header %} {{ poster.title }} {% endblock %}</h2>
 
 <div id="main-content">
     <div id="media-content">
-        <img src="{{ poster.file.url }}" alt="poster" id="media-content"
-            onclick="this.requestFullscreen()" />
+        <img src="{{ poster.file.url }}" alt="poster" id="media-content" onclick="this.requestFullscreen()" />
         <div id="likes-and-views">
             <div>
-                <p>{{ poster.likes }}</p> <img src="{% static "images/likes.png" %}" alt="GU Filmmaking Logo" id="likes">
+                <p>{{ poster.likes }}</p>
+                <img id="likes-img" onclick="changeImage()" src=" {% static 'images/empty-like.png' %}" alt="Like"
+                    id="likes">
             </div>
             <div>
-                <p>{{ poster.views }}</p> <img src="{% static "images/views.png" %}" alt="GU Filmmaking Logo" id="views">
+                <p>{{ poster.views }}</p> <img src="{% static " images/views.png" %}" alt="GU Filmmaking Logo"
+                    id="views">
             </div>
         </div>
     </div>

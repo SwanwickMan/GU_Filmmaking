@@ -1,19 +1,30 @@
 {% extends "GUFilmmakingApp/base.html" %}
+{% load static %}
 {% block title %}
 Signup
 {% endblock %}
 
-{% block content %}
-<h2>New to Glasgow Filmmaking Society?</h2>
-{% if registered %}
-<strong>Thank you for registering!</strong>
-{% else %}
-<strong>register here!</strong><br />
-<form id="user_form" method="post" action="" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
-    <input type="submit" name="submit" value="Register" />
-</form>
-{% endif %}
+{% block extra_style_sheet %}
+<link rel="stylesheet" href="{% static 'style/signup.css' %}">
+{% endblock %}
+
+{% block main_content %}
+<div id="signup-container">
+    <div id="signup-box">
+        <h2>New to Glasgow Filmmaking Society?</h2>
+        {% if registered %}
+        <strong>Thank you for registering!</strong>
+        {% else %}
+        <strong>Register here!</strong><br />
+        <form id="user_form" method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <div id="submit-button">
+                <input type="submit" name="submit" value="Register" />
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

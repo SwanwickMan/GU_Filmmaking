@@ -28,5 +28,8 @@ Login
         </form>
         <a href="{% url 'social:begin' 'google-oauth2' %}" id="google-link">Login with Google</a>
     </div>
+    <div id="signup-button">
+        <a href="{% url 'GUFilmmakingApp:signup' %}" class="signup-link">Sign Up</a>
+    </div>
 </div>
 {% endblock %}

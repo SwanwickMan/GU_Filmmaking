@@ -7,7 +7,7 @@ from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from GUFilmmakingApp.models import Category, Post, UserProfile
+from GUFilmmakingApp.models import Post, UserProfile
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -68,14 +68,6 @@ def user_posts(request):
     response = render(request, 'user_posts.html', context=context_dict)
 
     return response
-
-
-def categories(request):
-    context_dict = {}
-    response = render(request, 'categories.html', context=context_dict)
-
-    return response
-
 
 def add_movie(request):
     form = MovieForm()

@@ -2,7 +2,6 @@
 {% load static %}
 {% load GUFilmmaking_template_tags %}
 
-
 {% block title %}
 Add Post
 {% endblock %}
@@ -12,9 +11,30 @@ Add Post
 {% endblock %}
 
 {% block main_content %}
-    <a href="{%  url 'GUFilmmakingApp:add_movie' %}">Post Movie</a>
-    <a href="{%  url 'GUFilmmakingApp:add_poster' %}">Post Poster</a>
-    <a href="{%  url 'GUFilmmakingApp:add_behind_the_scenes' %}">Post Behind The Scenes</a>
+<div id="main">
+    <div class="post-option">
+        <a href="{% url 'GUFilmmakingApp:add_movie' %}">
+            <div class="post-option-box">
+                <img src="{% static 'images/default_thumbnail.png' %}" alt="Post Movie Image">
+                <p>Post Movie</p>
+            </div>
+        </a>
+    </div>
+    <div class="post-option">
+        <a href="{% url 'GUFilmmakingApp:add_poster' %}">
+            <div class="post-option-box">
+                <img src="{% static 'images/poster_icon.png' %}" alt="Post Poster Image">
+                <p>Post Poster</p>
+            </div>
+        </a>
+    </div>
+    <div class="post-option">
+        <a href="{% url 'GUFilmmakingApp:add_behind_the_scenes' %}">
+            <div class="post-option-box">
+                <img src="{% static 'images/BTS_icon.png' %}" alt="Post Behind The Scenes Image">
+                <p>Post Behind The Scenes</p>
+            </div>
+        </a>
+    </div>
+</div>
 {% endblock %}
-{% load GUFilmmaking_template_tags %}
-    

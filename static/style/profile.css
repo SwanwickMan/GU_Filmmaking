@@ -53,3 +53,33 @@
     padding: 10px;
 
 }
+
+.profile-posts {
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid black;
+    width: 90%;
+    height: auto;
+}
+
+.posts {
+    margin: 20px;
+    width: 40%;
+}
+
+.post {
+    width: 100%;
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.post:hover{
+    border: 3px solid black;
+}
+
+.post img {
+    height: 30px;
+    width: auto;
+}

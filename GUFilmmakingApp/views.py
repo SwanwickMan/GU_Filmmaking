@@ -150,7 +150,7 @@ def add_bts(request):
     
     return render(request, 'GUFilmmakingApp/add_bts.html', {'form': form})
 
-
+@login_required
 def add_post(request):
     return render(request, 'GUFilmmakingApp/add_post.html')
 

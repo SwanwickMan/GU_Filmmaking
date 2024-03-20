@@ -1,0 +1,43 @@
+/* signup.css */
+
+/* Center the signup form */
+#signup-container {
+    width: 60%;
+    /* Adjust width as needed */
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Style the signup box */
+#signup-box {
+    margin-top: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    /* Adjust border radius for rounded edges */
+    padding: 20px;
+}
+
+/* Style the form elements */
+#user_form,
+#profile_form {
+    margin-bottom: 10px;
+}
+
+/* Style the submit button */
+#submit-button {
+    margin-top: 10px;
+}
+
+#user_form input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    /* Adjust border radius for rounded edges */
+    cursor: pointer;
+}
+
+#user_form input[type="submit"]:hover {
+    background-color: #45a049;
+}

@@ -41,30 +41,32 @@ Home
         <div class="posts">
             <h2>Most Liked Posts</h2>
             {% for post in most_liked_posts %}
-                <div class="post" onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
-                    <h3>{{ post.title}}</h3>
-                    <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
-                    <p>Description: {{ post.description }}</p>
-                    <p>Likes: {{ post.likes }}</p>
-                </div>
+            <div class="post"
+                onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
+                <h3>{{ post.title}}</h3>
+                <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
+                <p>Description: {{ post.description }}</p>
+                <p>Likes: {{ post.likes }}</p>
+            </div>
             {% endfor %}
         </div>
 
         <div class="posts">
             <h2>Most Viewed Posts</h2>
             {% for post in most_viewed_posts %}
-                <div class="post" onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
-                    <h3>{{ post.title }}</h3>
-                    <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
-                    <p>Description: {{ post.description }}</p>
-                    <p>Views: {{ post.views }}</p>
-                </div>
+            <div class="post"
+                onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
+                <h3>{{ post.title }}</h3>
+                <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
+                <p>Description: {{ post.description }}</p>
+                <p>Views: {{ post.views }}</p>
+            </div>
             {% endfor %}
         </div>
     </div>
 </div>
-    {% endblock %}
+{% endblock %}
 
-    {% block extra_js %}
-    <script src="{% static 'scripts/update_ajax.js' %}"></script>
-    {% endblock %}
+{% block extra_js %}
+<script src="{% static 'scripts/update_ajax.js' %}"></script>
+{% endblock %}

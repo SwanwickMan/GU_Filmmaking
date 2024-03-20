@@ -59,7 +59,7 @@
 
     <footer>
         <a href="{% url 'GUFilmmakingApp:index' %}">Home</a>
-        <a href="#">Users</a>
+        <a href="{% url 'GUFilmmakingApp:search' %}?search_for=Users">Users</a>
         <a href="{% url 'GUFilmmakingApp:redirect_to_user' user %}">Profile</a>
         <div id="support-us">
             <span>Support Us:</span>

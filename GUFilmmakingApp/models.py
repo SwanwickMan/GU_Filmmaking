@@ -61,7 +61,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
     userID = models.IntegerField()
     slug = models.SlugField(unique=True)
-    profileImage = models.ImageField()
+    profileImage = models.ImageField(default='/default_user_profile.jpg', upload_to="profileImage") #temp
     verified = models.BooleanField(default=False)
     bio = models.CharField(max_length=200)
     myPosts = models.ForeignKey(Post, related_name='posted_by', on_delete=models.CASCADE, blank=True, null=True)

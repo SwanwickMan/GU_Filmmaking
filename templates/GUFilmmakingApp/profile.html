@@ -19,28 +19,30 @@ Profile
 
         {% if user.is_authenticated and user.username == profile.user.username %}
         <div id="profile-buttons">
-            <input type="file" id="upload-button" accept="image/*">
-            <button id="remove-button" onclick="">Remove Picture</button>
+            <form method="post" action="{% url 'GUFilmmakingApp:upload_profile_pic' content_name_slug=profile.slug %}"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ profile_pic_form.as_p }}
+                <button type="submit">Upload Picture</button>
+            </form>
+
+            <div id="bio-section">
+                <form method="post" action="{% url 'GUFilmmakingApp:update_bio' content_name_slug=profile.slug %}">
+                    {% csrf_token %}
+                    {{ bio_form.as_p }}
+                    <button type="submit">Save Biography</button>
+                </form>
+            </div>
+            {% endif %}
+
         </div>
-        {% endif %}
 
     </div>
 
-    <div id="bio-section">
-        <h2>Biography</h2>
-        <p id="bio-content">{{ profile.bio }}</p>
-
-        {% if user.is_authenticated and user.username == profile.user.username %}
-        <button id="edit-bio-button" onclick="">Edit Biography</button>
-        {% endif %}
-
-    </div>
-</div>
-
-<div class="profile-posts">
-    <div class="posts">
-        <h2>Liked Posts</h2>
-        {% for post in liked_posts %}
+    <div class="profile-posts">
+        <div class="posts">
+            <h2>Liked Posts</h2>
+            {% for post in liked_posts %}
             <div class="post"
                 onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
                 <h3>{{ post.title}}</h3>
@@ -48,12 +50,12 @@ Profile
                 <p>Description: {{ post.description }}</p>
                 <p>Likes: {{ post.likes }}</p>
             </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
 
-    <div class="posts">
-        <h2>Posted Posts</h2>
-        {% for post in profile_posts %}
+        <div class="posts">
+            <h2>Posted Posts</h2>
+            {% for post in profile_posts %}
             <div class="post"
                 onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
                 <h3>{{ post.title }}</h3>
@@ -61,32 +63,10 @@ Profile
                 <p>Description: {{ post.description }}</p>
                 <p>Views: {{ post.views }}</p>
             </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-</div>
-
-<script>// Function to handle profile picture upload
-    document.getElementById('upload-button').addEventListener('change', function () {
-        var file = this.files[0];
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            document.getElementById('profile-pic').src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    });
-
-    // Function to handle profile picture removal
-    function removeProfilePicture() {
-        document.getElementById('profile-pic').src = ''; // Clearing the source
-    }
-
-    // Function to handle biography editing
-    function editBio() {
-        var newBio = prompt("Enter your new biography:");
-        if (newBio !== null) {
-            document.getElementById('bio-content').innerText = newBio;
-        }
-    }</script>
 
 
-{% endblock %}
+
+    {% endblock %}

@@ -77,3 +77,26 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password',)
+
+
+class ProfilePicForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('profileImage',)
+        help_texts = {
+            'profileImage': "Please upload a png or jpg image file."
+        }
+        widgets = {
+            'profileImage': forms.FileInput(attrs={'accept': 'image/png, image/jpeg'})
+        }
+
+class BioForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('bio',)
+        widgets = {
+            'bio': forms.Textarea(attrs={'rows': 4, 'cols': 40}),
+        }
+        help_texts = {
+            'bio': "Please enter a bio."
+        }

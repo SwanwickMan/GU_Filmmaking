@@ -38,4 +38,7 @@ urlpatterns = [
     path('add_post/', views.add_post, name='add_post'),
     path('post_redirect/<slug:content_type_slug>/<slug:content_name_slug>', views.redirect_from_slug, name='redirect_from_slug'),
     path('user_redirect/<slug:user_name_slug>/', views.get_user_profile, name='redirect_to_user'),
+    path('profile/<slug:content_name_slug>/upload_pic/', views.upload_profile_pic, name='upload_profile_pic'),
+    path('profile/<slug:content_name_slug>/update_bio/', views.update_bio, name='update_bio'),
+
 ]

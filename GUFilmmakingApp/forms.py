@@ -84,7 +84,7 @@ class ProfilePicForm(forms.ModelForm):
         model = UserProfile
         fields = ('profileImage',)
         help_texts = {
-            'profileImage': "Please upload a png or jpg image file."
+            'profileImage': "Accepted: png, jpg."
         }
         widgets = {
             'profileImage': forms.FileInput(attrs={'accept': 'image/png, image/jpeg'})
@@ -97,6 +97,4 @@ class BioForm(forms.ModelForm):
         widgets = {
             'bio': forms.Textarea(attrs={'rows': 4, 'cols': 40}),
         }
-        help_texts = {
-            'bio': "Please enter a bio."
-        }
+        

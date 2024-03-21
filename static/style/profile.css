@@ -1,57 +1,46 @@
-#profile-top-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+#username-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#profile-top-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+#left-section,
+#right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#profile-pic-container {
     margin-bottom: 20px;
 }
 
 #profile-pic {
-    width: 230px;
-    height: 230px;
+    min-width: 230px;
+    min-height: 230px;
     border: 1px solid #ccc;
-    display: flex;
-    align-items: right;
-    justify-content: center;
-    margin-left: 350px;
-    margin-top: 30px;
-}
-
-#profile-pic img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-#posts-bottom-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    justify-content: center;
-}
-
-#profile-buttons {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-    margin-right: 60px;
-}
-
-#liked-posts-section,
-#posted-posts-section {
-    margin: auto;
-    margin-top: 50px;
-    margin-bottom: 100px;
+    object-fit: cover;
+    border-color: black;
 }
 
 #bio-section {
-    margin-right: 100px;
-}
-
-#bio-content {
     border: 1px solid black;
     border-radius: 5px;
-    margin-right: 100px;
-    min-height: 150px;
     padding: 10px;
+    margin-bottom: 20px;
+    min-height: 150px;
+    width: 80%;
+}
 
+#pic-form-container,
+#bio-form-container {
+    width: 80%;
 }
 
 .profile-posts {
@@ -75,7 +64,7 @@
     cursor: pointer;
 }
 
-.post:hover{
+.post:hover {
     border: 3px solid black;
 }
 

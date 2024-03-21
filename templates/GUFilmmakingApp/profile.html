@@ -13,60 +13,68 @@ Profile
 <div id="username-section">
     <h1>username : {{ profile.user.username }}</h1>
 </div>
-<div id="profile-top-row">
-    <div id="profile-pic-section">
-        <img id="profile-pic" src="{{ profile.profileImage.url }}" alt="Profile Picture">
+
+<div id="profile-top-section">
+    <div id="left-section">
+        <div id="profile-pic-container">
+            <img id="profile-pic" src="{{ profile.profileImage.url }}" alt="Profile Picture">
+        </div>
 
         {% if user.is_authenticated and user.username == profile.user.username %}
-        <div id="profile-buttons">
+        <div id="pic-form-container">
             <form method="post" action="{% url 'GUFilmmakingApp:upload_profile_pic' content_name_slug=profile.slug %}"
                 enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ profile_pic_form.as_p }}
                 <button type="submit">Upload Picture</button>
             </form>
-
-            <div id="bio-section">
-                <form method="post" action="{% url 'GUFilmmakingApp:update_bio' content_name_slug=profile.slug %}">
-                    {% csrf_token %}
-                    {{ bio_form.as_p }}
-                    <button type="submit">Save Biography</button>
-                </form>
-            </div>
-            {% endif %}
-
         </div>
-
+        {% endif %}
     </div>
 
-    <div class="profile-posts">
-        <div class="posts">
-            <h2>Liked Posts</h2>
-            {% for post in liked_posts %}
-            <div class="post"
-                onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
-                <h3>{{ post.title}}</h3>
-                <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
-                <p>Description: {{ post.description }}</p>
-                <p>Likes: {{ post.likes }}</p>
-            </div>
-            {% endfor %}
+    <div id="right-section">
+        <div id="bio-section">
+            <p>{{ profile.bio }}</p>
         </div>
 
-        <div class="posts">
-            <h2>Posted Posts</h2>
-            {% for post in profile_posts %}
-            <div class="post"
-                onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
-                <h3>{{ post.title }}</h3>
-                <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
-                <p>Description: {{ post.description }}</p>
-                <p>Views: {{ post.views }}</p>
-            </div>
-            {% endfor %}
+        {% if user.is_authenticated and user.username == profile.user.username %}
+        <div id="bio-form-container">
+            <form method="post" action="{% url 'GUFilmmakingApp:update_bio' content_name_slug=profile.slug %}">
+                {% csrf_token %}
+                {{ bio_form.as_p }}
+                <button type="submit">Save Biography</button>
+            </form>
         </div>
+        {% endif %}
     </div>
+</div>
+
+<div class="profile-posts">
+    <div class="posts">
+        <h2>Liked Posts</h2>
+        {% for post in liked_posts %}
+        <div class="post"
+            onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
+            <h3>{{ post.title}}</h3>
+            <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
+            <p>Description: {{ post.description }}</p>
+            <p>Likes: {{ post.likes }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="posts">
+        <h2>Posted Posts</h2>
+        {% for post in profile_posts %}
+        <div class="post"
+            onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
+            <h3>{{ post.title }}</h3>
+            <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
+            <p>Description: {{ post.description }}</p>
+            <p>Views: {{ post.views }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 
-
-    {% endblock %}
+{% endblock %}

@@ -140,5 +140,5 @@ MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATIC_ROOT = "faketesturl/"
+STATIC_ROOT = STATIC_URL
 STATICFILES_DIRS = [STATIC_DIR, ]

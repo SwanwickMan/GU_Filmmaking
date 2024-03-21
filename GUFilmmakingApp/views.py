@@ -70,14 +70,15 @@ def user_posts(request):
 
     return response
 
+
 def add_movie(request):
     form = MovieForm()
 
     if request.method == 'POST':
-        form = MovieForm(request.POST, request.FILES)
+        form = MovieForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             form.save(commit=True)
-            return redirect(reverse('GUFilmmakingApp:home'))
+            return redirect(reverse('GUFilmmakingApp:index'))
         else:
             print(form.errors)
 

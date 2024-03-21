@@ -17,10 +17,16 @@ Media Content Page
         <video src="{{ movie.file.url }}" width="320" height="240" controls> </video>
         <div id="likes-and-views">
             <div>
-                <p>{{ movie.likes }}</p> <img src="{% static "images/likes.png" %}" alt="GU Filmmaking Logo" id="likes">
+                <img id="likes-img-{{ movie.id }}"
+                    src="{% if is_liked %}{% static 'images/likes.png' %}{% else %}{% static 'images/empty_like.png' %}{% endif %}"
+                    onclick="likePost({{ movie.id }}, '{% url 'GUFilmmakingApp:like_post' 0 %}')" alt="Like">
+                <p id="likes-count-{{ movie.id }}">{{ movie.likes }}</p>
+
             </div>
             <div>
-                <p>{{ movie.views }}</p> <img src="{% static "images/views.png" %}" alt="GU Filmmaking Logo" id="views">
+                <p>{{ movie.views }}</p> <img src="{% static " images/views.png" %}" alt="GU Filmmaking Logo"
+                    id="views">
+
             </div>
         </div>
     </div>
@@ -41,4 +47,48 @@ Media Content Page
 
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+
+    function likePost(postId) {
+        fetch('{% url "GUFilmmakingApp:like_post" 0 %}'.replace('0', postId), {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('likes-count-' + postId).innerText = data.likes;
+                var img = document.getElementById('likes-img-' + postId);
+                var fileName = img.src.split("/").pop();
+                if (data.liked) {
+                    img.src = '{% static "images/likes.png" %}';
+                } else {
+                    img.src = '{% static "images/empty_like.png" %}';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+</script>
 {% endblock %}

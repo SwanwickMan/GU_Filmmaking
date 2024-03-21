@@ -40,5 +40,6 @@ urlpatterns = [
     path('user_redirect/<slug:user_name_slug>/', views.get_user_profile, name='redirect_to_user'),
     path('profile/<slug:content_name_slug>/upload_pic/', views.upload_profile_pic, name='upload_profile_pic'),
     path('profile/<slug:content_name_slug>/update_bio/', views.update_bio, name='update_bio'),
+    path('like_post/<int:post_id>/', views.like_post, name='like_post'),
 
 ]

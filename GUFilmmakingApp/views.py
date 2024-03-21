@@ -12,7 +12,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 def index(request):
@@ -102,8 +102,14 @@ def poster(request, content_name_slug):
         search_results = search_results.get(slug=content_name_slug)
     except Post.DoesNotExist:
         return redirect("GUFilmmakingApp:index")
+    
+    is_liked = False
+    if request.user.is_authenticated:
+        user_profile = request.user.userprofile
+        is_liked = search_results in user_profile.myLikes.all()
 
-    context_dict = {"poster": search_results}
+    context_dict = {"poster": search_results,
+                    "is_liked": is_liked}
     response = render(request, 'GUFilmmakingApp/poster.html', context=context_dict)
 
     return response
@@ -115,8 +121,14 @@ def movie(request, content_name_slug):
         search_results = search_results.get(slug=content_name_slug)
     except Post.DoesNotExist:
         return redirect("GUFilmmakingApp:index")
+    
+    is_liked = False
+    if request.user.is_authenticated:
+        user_profile = request.user.userprofile
+        is_liked = search_results in user_profile.myLikes.all()
 
-    context_dict = {"movie": search_results}
+    context_dict = {"movie": search_results,
+                    "is_liked": is_liked}
     response = render(request, 'GUFilmmakingApp/movie.html', context=context_dict)
 
     return response
@@ -128,8 +140,13 @@ def behind_the_scenes(request, content_name_slug):
         search_results = search_results.get(slug=content_name_slug)
     except Post.DoesNotExist:
         return redirect("GUFilmmakingApp:index")
+    
+    is_liked = False
+    if request.user.is_authenticated:
+        user_profile = request.user.userprofile
+        is_liked = search_results in user_profile.myLikes.all()
 
-    context_dict = {"bts": search_results, "file_type": get_file_extension(search_results)}
+    context_dict = {"bts": search_results, "file_type": get_file_extension(search_results), "is_liked": is_liked}
 
     response = render(request, 'GUFilmmakingApp/behind_the_scenes.html', context=context_dict)
 
@@ -352,3 +369,23 @@ def update_bio(request, content_name_slug):
     else:
         form = BioForm(initial={'bio': request.user.userprofile.bio})
     return render(request, 'profile.html', {'bio_form': form})
+
+@login_required
+def like_post(request, post_id):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, id=post_id)
+        user_profile = request.user.userprofile
+
+        # Check if the post is already liked by the user
+        if post in user_profile.myLikes.all():
+            user_profile.myLikes.remove(post)
+            post.likes -= 1
+            post.save()
+        else:
+            user_profile.myLikes.add(post)
+            post.likes += 1
+            post.save()
+        
+        return JsonResponse({'likes': post.likes, 'liked': post in user_profile.myLikes.all()})
+    else:
+        return HttpResponse(status=405)  # Method Not Allowed

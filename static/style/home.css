@@ -47,11 +47,16 @@
     cursor: pointer;
 }
 
-.post:hover{
+.post:hover {
     border: 3px solid black;
 }
 
 .post img {
     height: 30px;
     width: auto;
+}
+
+.thumbnail {
+    width: 40px;
+    height: auto;
 }

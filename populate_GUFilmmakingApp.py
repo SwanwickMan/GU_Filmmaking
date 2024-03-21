@@ -73,8 +73,10 @@ def add_post(title, media, description, thumbnail, author, post_type, views=0, l
     p = Post.objects.get_or_create(title=title, author=author)[0]
     p.description = description
     p.thumbnail = thumbnail
-    p.views = random.randint(0,100)
-    p.likes = random.randint(0,100)
+
+    numArr = (random.randint(0, 100), random.randint(0, 100))
+    p.views = max(numArr)
+    p.likes = min(numArr)
     p.post_type = post_type
     p.file = media
     p.save()

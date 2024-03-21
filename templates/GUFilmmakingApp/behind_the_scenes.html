@@ -30,7 +30,7 @@ Media Content Page
                 <p id="likes-count-{{ bts.id }}">{{ bts.likes }}</p>
             </div>
             <div>
-                <p id="views-count-{{ bts.id }}">Views: {{ bts.views }}</p>
+                <p id="views-count-{{ bts.id }}">{{ bts.views }}</p>
                 <img src="{% static "images/views.png" %}" alt="Views logo" id="views">
             </div>
         </div>
@@ -103,7 +103,7 @@ Media Content Page
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                $('#views-count-' + postId).text("Views: " + data.views);
+                $('#views-count-' + postId).text(data.views);
             },
             error: function (xhr, status, error) {
                 console.error('Error updating views:', error);

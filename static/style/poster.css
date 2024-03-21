@@ -49,6 +49,7 @@
 
 #likes-and-views img{
     height: 30px;
+    width: auto;
 }
 
 #likes-and-views p{

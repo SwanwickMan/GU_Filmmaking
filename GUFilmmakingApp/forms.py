@@ -42,7 +42,7 @@ class PosterForm(forms.ModelForm):
     title = forms.CharField(max_length=Post.POST_MAX_LENGTH,
                             help_text="Please enter the poster's title.")
     description = forms.CharField(help_text="Please enter a description.")
-    image = forms.ImageField(validators=
+    file = forms.FileField(required = True, validators=
                              [FileExtensionValidator(allowed_extensions=['png', 'jpg'])],
                              help_text="Please upload a png or jpg image file.")
     thumbnail = forms.ImageField(required=False, help_text="Optional: Upload a thumbnail image")
@@ -53,7 +53,7 @@ class PosterForm(forms.ModelForm):
     class Meta:
         # associate the form with the Poster model
         model = Post
-        fields = ('title', 'description', 'image', 'post_type', 'thumbnail')
+        fields = ('title', 'description', 'file', 'post_type', 'thumbnail')
 
 
 class BTSForm(forms.ModelForm):
@@ -62,7 +62,7 @@ class BTSForm(forms.ModelForm):
     description = forms.CharField(help_text="Please enter a description.")
     thumbnail = forms.ImageField(required=False, help_text="Optional: Upload a thumbnail image")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    file = forms.FileField()
+    file = forms.FileField(required=True, help_text="Please upload a file")
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     post_type = forms.CharField(widget=forms.HiddenInput(), initial='bts')
 

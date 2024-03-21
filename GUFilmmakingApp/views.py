@@ -83,8 +83,10 @@ def add_movie(request):
     if request.method == 'POST':
         form = MovieForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save(commit=True)
-            return redirect(reverse('GUFilmmakingApp:home'))
+            post = form.save(commit=False)
+            post.author_id = UserProfile.objects.get(user=request.user).userID
+            post.save()
+            return redirect(reverse('GUFilmmakingApp:index'))
         else:
             print(form.errors)
 
@@ -135,12 +137,14 @@ def add_poster(request):
     form = PosterForm()
 
     if request.method == 'POST':
-        form = PosterForm(request.POST)
+        form = PosterForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save(commit=True)
-            return redirect(reverse('GUFilmmakingApp:posters'))
+            post = form.save(commit=False)
+            post.author_id = UserProfile.objects.get(user=request.user).userID
+            post.save()
+            return redirect(reverse('GUFilmmakingApp:index'))
         else:
-            print(form.errors)
+            print(post.errors)
     
     return render(request, 'GUFilmmakingApp/add_poster.html', {'form': form})
 
@@ -151,8 +155,10 @@ def add_bts(request):
     if request.method == 'POST':
         form = BTSForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save(commit=True)
-            return redirect(reverse('GUFilmmakingApp:behind_the_scenes'))
+            post = form.save(commit=False)
+            post.author_id = UserProfile.objects.get(user=request.user).userID
+            post.save()
+            return redirect(reverse('GUFilmmakingApp:index'))
         else:
             print(form.errors)
     

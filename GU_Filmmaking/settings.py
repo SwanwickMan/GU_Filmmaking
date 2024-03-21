@@ -140,5 +140,5 @@ MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATIC_ROOT = STATIC_URL
+STATIC_ROOT = 'static/'
 STATICFILES_DIRS = [STATIC_DIR, ]

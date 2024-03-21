@@ -8,9 +8,8 @@
 Media Content Page
 {% endblock %}
 
-{% block extra_js %}
-<script src="{% static 'scripts/update_likes.js' %}"></script>
-{% endblock %}
+
+
 
 
 {% block main_content %}
@@ -21,11 +20,13 @@ Media Content Page
         <img src="{{ poster.file.url }}" alt="poster" id="media-content" onclick="this.requestFullscreen()" />
         <div id="likes-and-views">
             <div>
-                <p>{{ poster.likes }}</p>
-                <img id="likes-img" onclick="changeImage()" src="{% static 'images/empty_like.png' %}" alt="Like">
+                <p id="likes-count-{{ poster.id }}">{{ poster.likes }}</p>
+                <img id="likes-img-{{ poster.id }}"
+                    src="{% if is_liked %}{% static 'images/likes.png' %}{% else %}{% static 'images/empty_like.png' %}{% endif %}"
+                    onclick="likePost({{ poster.id }})" alt="Like">
             </div>
             <div>
-                <p>{{ poster.views }}</p> <img src="{% static "images/views.png" %}" alt="GU Filmmaking Logo"
+                <p>{{ poster.views }}</p> <img src="{% static " images/views.png" %}" alt="GU Filmmaking Logo"
                     id="views">
             </div>
         </div>
@@ -47,4 +48,45 @@ Media Content Page
 
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function likePost(postId) {
+        fetch('{% url "GUFilmmakingApp:like_post" 0 %}'.replace('0', postId), {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('likes-count-' + postId).innerText = data.likes;
+                var img = document.getElementById('likes-img-' + postId);
+                var fileName = img.src.split("/").pop();
+                if (data.liked) {
+                    img.src = '{% static "images/likes.png" %}';
+                } else {
+                    img.src = '{% static "images/empty_like.png" %}';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
 {% endblock %}

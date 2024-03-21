@@ -54,8 +54,8 @@ Profile
         <h2>Liked Posts</h2>
         {% for post in liked_posts %}
         <div class="post"
-            onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
-            <h3>{{ post.title}}</h3>
+            onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug %}'" <h3>{{
+            post.title}}</h3>
             <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
             <p>Description: {{ post.description }}</p>
             <p>Likes: {{ post.likes }}</p>

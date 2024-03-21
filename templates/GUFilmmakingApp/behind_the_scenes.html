@@ -15,19 +15,22 @@ Media Content Page
 <div id="main-content">
     <div id="media-content">
         {% if file_type == "video" %}
-            <video src="{{ bts.file.url }}" controls> </video>
+        <video src="{{ bts.file.url }}" controls> </video>
         {% elif file_type == "image" %}
-            <img src="{{ bts.file.url }}" alt="poster" id="media-content"  onclick="this.requestFullscreen()"/>
+        <img src="{{ bts.file.url }}" alt="poster" id="media-content" onclick="this.requestFullscreen()" />
         {% else %}
-            <a href="{{ bts.file.url }}" download> bad file type </a>
+        <a href="{{ bts.file.url }}" download> bad file type </a>
         {% endif %}
 
         <div id="likes-and-views">
             <div>
-                <p>{{ bts.likes }}</p> <img src="{% static "images/likes.png" %}" alt="GU Filmmaking Logo" id="likes">
+                <img id="likes-img-{{ bts.id }}"
+                    src="{% if is_liked %}{% static 'images/likes.png' %}{% else %}{% static 'images/empty_like.png' %}{% endif %}"
+                    onclick="likePost({{ bts.id }}, '{% url 'GUFilmmakingApp:like_post' 0 %}')" alt="Like">
+                <p id="likes-count-{{ bts.id }}">{{ bts.likes }}</p>
             </div>
             <div>
-                <p>{{ bts.views }}</p> <img src="{% static "images/views.png" %}" alt="GU Filmmaking Logo" id="views">
+                <p>{{ bts.views }}</p> <img src="{% static " images/views.png" %}" alt="GU Filmmaking Logo" id="views">
             </div>
         </div>
     </div>
@@ -48,4 +51,48 @@ Media Content Page
 
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+
+    function likePost(postId) {
+        fetch('{% url "GUFilmmakingApp:like_post" 0 %}'.replace('0', postId), {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('likes-count-' + postId).innerText = data.likes;
+                var img = document.getElementById('likes-img-' + postId);
+                var fileName = img.src.split("/").pop();
+                if (data.liked) {
+                    img.src = '{% static "images/likes.png" %}';
+                } else {
+                    img.src = '{% static "images/empty_like.png" %}';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+</script>
 {% endblock %}

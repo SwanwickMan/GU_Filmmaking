@@ -11,7 +11,7 @@ from GUFilmmakingApp.models import Post, UserProfile
 
 def populate(author):
 
-    default_thumbnail = settings.MEDIA_DIR + '/thumbnails/default_thumbnail.jpg'
+    default_thumbnail = settings.MEDIA_DIR + '/thumbnails/default_thumbnail.png'
 
     movies_longer = [
         {'title': 'Circa 2008', 'filepath': settings.MEDIA_DIR + '/circa2008Movie.mp4', 'description' : 'Suspense & Thriller', 'thumbnail' : settings.MEDIA_DIR + '/thumbnails/CircaPoster.jpg'},
@@ -20,7 +20,7 @@ def populate(author):
     ]
 
     shorter_movies = [
-        {'title': 'FourPlay', 'filepath' : settings.MEDIA_DIR + '/FourPlayMovie.mp4', 'description' : 'Romance', 'thumbnail' : settings.MEDIA_DIR + 'media/thumbnails/fourPlay_thumbnail.jpg'},
+        {'title': 'FourPlay', 'filepath' : settings.MEDIA_DIR + '/FourPlayMovie.mp4', 'description' : 'Romance', 'thumbnail' : settings.MEDIA_DIR + '/thumbnails/fourPlay_thumbnail.jpg'},
         {'title': 'Do You Believe In Santa Claus?', 'filepath': settings.MEDIA_DIR + '/SantaFilm.mp4','description': 'Satire & Comedy'}
 
     ]
@@ -33,7 +33,7 @@ def populate(author):
     ]
 
     behind_the_scenes = [
-        {'title': "tiktok1", 'filepath' : settings.MEDIA_DIR + '/bts.mp4', 'description' : 'Our First TikTok!', 'description': 'A day on set', 'thumbnail' : settings.MEDIA_DIR + 'thumbnails/tiktok_thumbnail.jpg' },
+        {'title': "tiktok1", 'filepath' : settings.MEDIA_DIR + '/bts.mp4', 'description' : 'Our First TikTok!', 'description': 'A day on set', 'thumbnail' : settings.MEDIA_DIR + '/thumbnails/tiktok_thumbnail.jpg' },
         {'title': 'FourPlay Party Photos', 'filepath' : settings.MEDIA_DIR + '/FourPlayBTS.jpg', 'description' : 'BTS Party Scene Fourplay 2023'},
         {'title': 'tiktok2', 'filepath': settings.MEDIA_DIR + '/guFilmTiktok.mp4', 'description': 'Our Second TikTok!', 'description': 'behind the scenes on our shoots'},
         {'title': 'Santa Claus Shoot Photos', 'filepath': settings.MEDIA_DIR + '/bts.jpg', 'description': 'BTS on DYBISC 2024 first shoot'}

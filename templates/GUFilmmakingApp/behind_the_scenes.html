@@ -30,7 +30,8 @@ Media Content Page
                 <p id="likes-count-{{ bts.id }}">{{ bts.likes }}</p>
             </div>
             <div>
-                <p>{{ bts.views }}</p> <img src="{% static " images/views.png" %}" alt="views" id="views">
+                <p id="views-count-{{ bts.id }}">Views: {{ bts.views }}</p>
+                <img src="{% static " images/views.png" %}" alt="views" id="views">
             </div>
         </div>
     </div>
@@ -93,6 +94,24 @@ Media Content Page
         }
         return cookieValue;
     }
+
+    function updatePageViews(postId, viewsUrl) {
+        $.ajax({
+            url: viewsUrl.replace('0', postId),
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $('#views-count-' + postId).text("Views: " + data.views);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error updating views:', error);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        updatePageViews({{ bts.id }}, "{% url 'GUFilmmakingApp:update_views' 0 %}");
+    });
 
 </script>
 {% endblock %}

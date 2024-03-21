@@ -388,4 +388,14 @@ def like_post(request, post_id):
         
         return JsonResponse({'likes': post.likes, 'liked': post in user_profile.myLikes.all()})
     else:
-        return HttpResponse(status=405)  # Method Not Allowed
+        return HttpResponse(status=405) 
+    
+def update_views(request, post_id):
+    if request.method == 'GET':
+        post = get_object_or_404(Post, id=post_id)
+        post.views += 1
+        post.save()
+        return JsonResponse({'views': post.views})
+
+    
+

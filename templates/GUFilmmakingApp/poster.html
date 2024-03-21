@@ -26,7 +26,8 @@ Media Content Page
                     onclick="likePost({{ poster.id }})" alt="Like">
             </div>
             <div>
-                <p>{{ poster.views }}</p> <img src="{% static " images/views.png" %}" alt="views" id="views">
+                <p id="views-count-{{ poster.id }}">Views: {{ poster.views }}</p>
+                <img src="{% static " images/views.png" %}" alt="views" id="views">
             </div>
         </div>
     </div>
@@ -87,5 +88,24 @@ Media Content Page
         }
         return cookieValue;
     }
+
+    function updatePageViews(postId, viewsUrl) {
+        $.ajax({
+            url: viewsUrl.replace('0', postId),
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $('#views-count-' + postId).text("Views: " + data.views);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error updating views:', error);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        updatePageViews({{ poster.id }}, "{% url 'GUFilmmakingApp:update_views' 0 %}");
+    });
+
 </script>
 {% endblock %}

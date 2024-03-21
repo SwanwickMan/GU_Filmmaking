@@ -89,10 +89,19 @@ class SearchViewTests(TestCase):
 
 class ProfileViewTests(TestCase):
     def test_profile(self):
+
         user = User.objects.create_user(username='filmmaking_populate_user', email='example@email.com',password='example_password123')
         user_profile = UserProfile.objects.create(user=user, userID=123, profileImage=settings.MEDIA_DIR + '/profilePhoto.jpg',
                                                    verified=True, bio='Example User Bio')
         self.client.login(username="filmmaking_populate_user", password="example_password123")
+
+        movie = Post.objects.get_or_create(author=user_profile)[0]
+        movie.title = "my movie"
+        movie.post_type = "longer_movie"
+        movie.description = "description"
+        movie.thumbnail = settings.MEDIA_DIR + '/profilePhoto.jpg'
+        movie.file = settings.MEDIA_DIR + '/FourPlayMovie.mp4'
+        movie.save()
 
         url = reverse("GUFilmmakingApp:profile", kwargs={"content_name_slug" : user_profile.slug})
 
@@ -100,5 +109,7 @@ class ProfileViewTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "filmmaking_populate_user")
+        self.assertEqual(response.context["profile_posts"].values()[0]["title"], "my movie")
+
 
     

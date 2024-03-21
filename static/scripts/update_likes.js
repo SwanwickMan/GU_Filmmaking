@@ -1,23 +1,26 @@
 function likePost(postId, likeUrl) {
-    fetch(likeUrl.replace('0', postId), {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': getCookie('csrftoken'),
-            'Content-Type': 'application/json'
-        },
-    })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('likes-count-' + postId).innerText = data.likes;
-            var img = document.getElementById('likes-img-' + postId);
+    $.ajax({
+        url: likeUrl.replace('0', postId),
+        type: 'POST',
+        data: JSON.stringify({ 'post_id': postId }),
+        headers: { 'X-CSRFToken': getCookie('csrftoken') },
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (data) {
+            $('#likes-count-' + postId).text(data.likes);
+            var img = $('#likes-img-' + postId);
             if (data.liked) {
-                img.src = '/static/images/likes.png';  // Adjust path as needed
+                img.attr('src', '/static/images/likes.png');  // Adjust path as needed
             } else {
-                img.src = '/static/images/empty_like.png';  // Adjust path as needed
+                img.attr('src', '/static/images/empty_like.png');  // Adjust path as needed
             }
-        })
-        .catch(error => console.error('Error:', error));
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
 }
+
 
 
 function getCookie(name) {

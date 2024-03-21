@@ -29,14 +29,6 @@ class MovieForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)  # Extract user from kwargs
         super(MovieForm, self).__init__(*args, **kwargs)
 
-    def save(self, commit=True):
-        instance = super(MovieForm, self).save(commit=False)
-        if self.user:
-            instance.author = UserProfile.objects.get(user=self.user)  # Set the author to the current user
-        if commit:
-            instance.save()
-        return instance
-
 
 class PosterForm(forms.ModelForm):
     title = forms.CharField(max_length=Post.POST_MAX_LENGTH,
@@ -89,6 +81,7 @@ class ProfilePicForm(forms.ModelForm):
         widgets = {
             'profileImage': forms.FileInput(attrs={'accept': 'image/png, image/jpeg'})
         }
+
 
 class BioForm(forms.ModelForm):
     class Meta:

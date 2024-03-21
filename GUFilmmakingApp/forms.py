@@ -10,12 +10,16 @@ POST_TYPE_CHOICES = (
 
 
 class MovieForm(forms.ModelForm):
-    title = forms.CharField(max_length=Post.POST_MAX_LENGTH,
+    title = forms.CharField(required=True,
+                            max_length=Post.POST_MAX_LENGTH,
                             help_text="Please enter the movie's title.")
     description = forms.CharField(help_text="Please enter a description.")
-    file = forms.FileField(required=True, help_text="Please enter an mp4 video.", )
+    file = forms.FileField(required=True,
+                           validators=[FileExtensionValidator(allowed_extensions=['mp4'])],
+                           help_text="Please enter an mp4 video.", )
     thumbnail = forms.ImageField(required=True, help_text="Optional: Upload a thumbnail image")
-    post_type = forms.ChoiceField(choices=POST_TYPE_CHOICES, widget=forms.RadioSelect, initial='longer_movie', help_text="Please select movie type")
+    post_type = forms.ChoiceField(choices=POST_TYPE_CHOICES, widget=forms.RadioSelect,
+                                  initial='longer_movie', help_text="Please select movie type")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0, required=False)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0, required=False)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -29,22 +33,15 @@ class MovieForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)  # Extract user from kwargs
         super(MovieForm, self).__init__(*args, **kwargs)
 
-    def save(self, commit=True):
-        instance = super(MovieForm, self).save(commit=False)
-        if self.user:
-            instance.author = UserProfile.objects.get(user=self.user)  # Set the author to the current user
-        if commit:
-            instance.save()
-        return instance
-
 
 class PosterForm(forms.ModelForm):
-    title = forms.CharField(max_length=Post.POST_MAX_LENGTH,
+    title = forms.CharField(required=True,
+                            max_length=Post.POST_MAX_LENGTH,
                             help_text="Please enter the poster's title.")
     description = forms.CharField(help_text="Please enter a description.")
-    file = forms.FileField(required = True, validators=
-                             [FileExtensionValidator(allowed_extensions=['png', 'jpg'])],
-                             help_text="Please upload a png or jpg image file.")
+    file = forms.FileField(required=True,
+                           validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg'])],
+                           help_text="Please upload a png or jpg image file.")
     thumbnail = forms.ImageField(required=False, help_text="Optional: Upload a thumbnail image")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
@@ -57,12 +54,15 @@ class PosterForm(forms.ModelForm):
 
 
 class BTSForm(forms.ModelForm):
-    title = forms.CharField(max_length=Post.POST_MAX_LENGTH,
+    title = forms.CharField(required=True,
+                            max_length=Post.POST_MAX_LENGTH,
                             help_text="Please enter the title.")
     description = forms.CharField(help_text="Please enter a description.")
-    thumbnail = forms.ImageField(required=False, help_text="Optional: Upload a thumbnail image")
+    thumbnail = forms.ImageField(required=True, help_text="Optional: Upload a thumbnail image")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    file = forms.FileField(required=True, help_text="Please upload a file")
+    file = forms.FileField(required=True,
+                           validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg','mp4'])],
+                           help_text="Please upload a png or jpg image file.")
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     post_type = forms.CharField(widget=forms.HiddenInput(), initial='bts')
 
@@ -89,6 +89,7 @@ class ProfilePicForm(forms.ModelForm):
         widgets = {
             'profileImage': forms.FileInput(attrs={'accept': 'image/png, image/jpeg'})
         }
+
 
 class BioForm(forms.ModelForm):
     class Meta:

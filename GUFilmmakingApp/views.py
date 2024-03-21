@@ -14,7 +14,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 
 
-
 # Create your views here.
 def index(request):
     most_liked_posts = Post.objects.all().order_by('-likes')[:3]
@@ -51,16 +50,20 @@ def search(request):
 def profile(request, content_name_slug):
     try:
         user_profile = UserProfile.objects.get(slug=content_name_slug)
+        profile_posts = Post.objects.filter(author=user_profile)
+        liked_posts = user_profile.myLikes.all()
+
     except UserProfile.DoesNotExist:
         return redirect("GUFilmmakingApp:index")
     
     profile_pic_form = ProfilePicForm(instance=user_profile)
     bio_form = BioForm(initial={'bio': user_profile.bio})
 
-
     context_dict = {"profile": user_profile,
                     "profile_pic_form": profile_pic_form,
-                    "bio_form": bio_form}
+                    "bio_form": bio_form,
+                    "profile_posts" : profile_posts,
+                    "liked_posts" : liked_posts}
     return render(request, 'GUFilmmakingApp/profile.html', context=context_dict)
 
 
@@ -84,7 +87,7 @@ def add_movie(request):
         form = MovieForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author_id = UserProfile.objects.get(user=request.user).userID
+            post.author = UserProfile.objects.get(user=request.user)
             post.save()
             return redirect(reverse('GUFilmmakingApp:index'))
         else:
@@ -140,11 +143,11 @@ def add_poster(request):
         form = PosterForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author_id = UserProfile.objects.get(user=request.user).userID
+            post.author = UserProfile.objects.get(user=request.user)
             post.save()
             return redirect(reverse('GUFilmmakingApp:index'))
         else:
-            print(post.errors)
+            print(form.errors)
     
     return render(request, 'GUFilmmakingApp/add_poster.html', {'form': form})
 
@@ -156,13 +159,14 @@ def add_bts(request):
         form = BTSForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author_id = UserProfile.objects.get(user=request.user).userID
+            post.author = UserProfile.objects.get(user=request.user)
             post.save()
             return redirect(reverse('GUFilmmakingApp:index'))
         else:
             print(form.errors)
     
     return render(request, 'GUFilmmakingApp/add_bts.html', {'form': form})
+
 
 @login_required
 def add_post(request):

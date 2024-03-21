@@ -3,7 +3,20 @@ from django.template.defaultfilters import slugify
 from django.core.validators import FileExtensionValidator, MinValueValidator
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
+from django.utils.deconstruct import deconstructible
 
+
+@deconstructible
+class PathAndRename(object):
+    def __init__(self, sub_path):
+        self.path = sub_path  
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]
+        filename = '{}.{}'.format(uuid.uuid4(), ext)
+        return os.path.join(self.path, filename)
+    
 
 class Post(models.Model):
     POST_MAX_LENGTH = 200
@@ -16,11 +29,12 @@ class Post(models.Model):
 
     author = models.ForeignKey('GUFilmmakingApp.UserProfile', on_delete=models.CASCADE)
     post_type = models.CharField(max_length=20, choices=POST_TYPES)
-    file = models.FileField(upload_to='files/', blank=True, null=True)
+    file = models.FileField(upload_to=PathAndRename('content'), null=False)
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
-    thumbnail = models.ImageField(upload_to='media/thumbnails/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
+    thumbnail = models.ImageField(upload_to=PathAndRename('thumbnails'),
+                                  validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
                                   blank=True, null=False)
     views = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     likes = models.IntegerField(default=0, validators=[MinValueValidator(0)])
@@ -47,7 +61,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
     userID = models.IntegerField()
     slug = models.SlugField(unique=True)
-    profileImage = models.ImageField()
+    profileImage = models.ImageField(default='/default_user_profile.jpg', upload_to="profileImage") #temp
     verified = models.BooleanField(default=False)
     bio = models.CharField(max_length=200)
     myPosts = models.ForeignKey(Post, related_name='posted_by', on_delete=models.CASCADE, blank=True, null=True)

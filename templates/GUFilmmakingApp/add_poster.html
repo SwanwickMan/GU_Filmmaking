@@ -9,6 +9,9 @@ Add a Poster
 <link rel="stylesheet" href="{% static 'style/add_post_form.css' %}">
 {% endblock %}
 
+
+
+
 {% block main_content %}
 <h1>Add a Poster</h1>
 
@@ -22,6 +25,7 @@ Add a Poster
         {% for field in form.visible_fields %}
         {{ field.errors }}
         {{ field.help_text }}
+        <br>
         {{ field }}
         {% endfor %}
 

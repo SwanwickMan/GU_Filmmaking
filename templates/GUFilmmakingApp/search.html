@@ -50,8 +50,8 @@
     </form>
 
     <div class="search-results-section">
+        <h2>Search Results:</h2>
         {% if type == "post" %}
-            <h2>Most Liked Posts</h2>
             {% for result in search_results %}
                 <div class="result" onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' result.slug  %}'">
                     <h3>{{ result.title}}</h3>
@@ -63,7 +63,6 @@
         {% endif %}
 
         {% if type == "user" %}
-            <h2>Most Liked Users</h2>
             {% for result in search_results %}
                 <div class="result" onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'profile' result.slug  %}'">
                     <h3>{{ result.user}}</h3>

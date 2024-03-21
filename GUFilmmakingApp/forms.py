@@ -1,38 +1,41 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
-from GUFilmmakingApp.models import Post
+from GUFilmmakingApp.models import Post, UserProfile
 
-CAT_YEAR_CHOICES = [
-    ("a", "2022-23"),
-    ("b", "2023-24")
-]
-
-CAT_MOVIE_CHOICES = [
-    ("a", "Longer 2022-23"),
-    ("b", "Longer 2023-24"),
-    ("c", "Shorter 2022-23"),
-    ("d", "Shorter 2023-24")
-]
+POST_TYPE_CHOICES = (
+        ('longer_movie', 'Longer Movie'),
+        ('shorter_movie', 'Shorter Movie'),
+    )
 
 
 class MovieForm(forms.ModelForm):
     title = forms.CharField(max_length=Post.POST_MAX_LENGTH,
                             help_text="Please enter the movie's title.")
     description = forms.CharField(help_text="Please enter a description.")
-    video = forms.FileField(validators=
-    [FileExtensionValidator(allowed_extensions=['mp4'])], help_text="Please enter an mp4 video.")
-    thumbnail = forms.ImageField(required=False, help_text="Optional: Upload a thumbnail image")
-    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    post_type = forms.CharField(widget=forms.HiddenInput(), initial='movie')
-    # left slug in comment idk what part will be slugged
-    # slug = forms.CharField(widget=forms.HiddenInput(), required=False)
+    file = forms.FileField(required=True, help_text="Please enter an mp4 video.", )
+    thumbnail = forms.ImageField(required=True, help_text="Optional: Upload a thumbnail image")
+    post_type = forms.ChoiceField(choices=POST_TYPE_CHOICES, widget=forms.RadioSelect, initial='longer_movie', help_text="Please select movie type")
+    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0, required=False)
+    likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0, required=False)
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         # associate the form with the Movie model
         model = Post
-        fields = ('title', 'description', 'video', 'post_type', 'thumbnail')
+        fields = ('title', 'description', 'file', 'thumbnail', 'post_type')
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)  # Extract user from kwargs
+        super(MovieForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super(MovieForm, self).save(commit=False)
+        if self.user:
+            instance.author = UserProfile.objects.get(user=self.user)  # Set the author to the current user
+        if commit:
+            instance.save()
+        return instance
 
 
 class PosterForm(forms.ModelForm):
@@ -42,7 +45,7 @@ class PosterForm(forms.ModelForm):
     image = forms.ImageField(validators=
                              [FileExtensionValidator(allowed_extensions=['png', 'jpg'])],
                              help_text="Please upload a png or jpg image file.")
-    thumbnail = image
+    thumbnail = forms.ImageField(required=False, help_text="Optional: Upload a thumbnail image")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     post_type = forms.CharField(widget=forms.HiddenInput(), initial='poster') 
@@ -74,3 +77,24 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password',)
+
+
+class ProfilePicForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('profileImage',)
+        help_texts = {
+            'profileImage': "Accepted: png, jpg."
+        }
+        widgets = {
+            'profileImage': forms.FileInput(attrs={'accept': 'image/png, image/jpeg'})
+        }
+
+class BioForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('bio',)
+        widgets = {
+            'bio': forms.Textarea(attrs={'rows': 4, 'cols': 40}),
+        }
+        

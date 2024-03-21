@@ -21,6 +21,7 @@ Add a Behind The Scenes
 
         {% for field in form.visible_fields %}
         {{ field.errors }}
+        <br>
         {{ field.help_text }}
         {{ field }}
         {% endfor %}

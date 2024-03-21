@@ -16,6 +16,10 @@ header {
     /* White text color */
 }
 
+body{
+    background-color: #CBC3E3;
+}
+
 /* Navigation links */
 #navigation-links a {
     color: #fff;

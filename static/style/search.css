@@ -35,13 +35,14 @@
   display: flex; /* Use flexbox */
   justify-content: space-evenly; /* Distribute items evenly along the main axis */
   align-items: center; /* Align items vertically in the center */
-  width: 100%;
-
+  width: 80%;
   padding: 0 18px;
-  background-color: white;
+  background-color: #CBC3E3;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .radio-options {

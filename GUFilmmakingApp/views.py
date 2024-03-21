@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Q
-from GUFilmmakingApp.forms import PosterForm, MovieForm, BTSForm, UserForm
+from GUFilmmakingApp.forms import PosterForm, MovieForm, BTSForm, UserForm, ProfilePicForm, BioForm
 from django.shortcuts import redirect
 from django.urls import reverse
 from datetime import datetime
@@ -11,6 +11,8 @@ from GUFilmmakingApp.models import Post, UserProfile
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+
 
 
 # Create your views here.
@@ -51,7 +53,14 @@ def profile(request, content_name_slug):
         user_profile = UserProfile.objects.get(slug=content_name_slug)
     except UserProfile.DoesNotExist:
         return redirect("GUFilmmakingApp:index")
-    context_dict = {"profile": user_profile}
+    
+    profile_pic_form = ProfilePicForm(instance=user_profile)
+    bio_form = BioForm(initial={'bio': user_profile.bio})
+
+
+    context_dict = {"profile": user_profile,
+                    "profile_pic_form": profile_pic_form,
+                    "bio_form": bio_form}
     return render(request, 'GUFilmmakingApp/profile.html', context=context_dict)
 
 
@@ -292,3 +301,44 @@ def search_for_posts(search_term, search_for,sort_by):
 
 def search_for_users(search_term):
     return UserProfile.objects.filter(user__username__icontains=search_term)
+
+
+def upload_profile_pic(request, content_name_slug):
+    try:
+        user_profile = UserProfile.objects.get(slug=content_name_slug)
+    except UserProfile.DoesNotExist:
+        return redirect("GUFilmmakingApp:index")
+    
+    if request.method == "POST":
+        form = ProfilePicForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid():
+            profile_pic = form.cleaned_data['profileImage']
+            profile = request.user.userprofile
+            profile.profileImage = profile_pic
+            profile.save()
+            return redirect('GUFilmmakingApp:profile', content_name_slug=content_name_slug)  # Redirect to the profile page
+        else:
+            print(form.errors)
+    else:
+        form = ProfilePicForm()
+    return render(request, 'profile.html', {'profile_pic_form': form})
+
+def update_bio(request, content_name_slug):
+    try:
+        # Retrieve the user profile based on the slug
+        user_profile = UserProfile.objects.get(slug=content_name_slug)
+    except UserProfile.DoesNotExist:
+        # Redirect to a suitable page if the profile does not exist
+        return redirect("GUFilmmakingApp:index")
+
+    if request.method == 'POST':
+        form = BioForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            bio = form.cleaned_data['bio']
+            profile = request.user.userprofile
+            profile.bio = bio
+            profile.save()
+            return redirect('GUFilmmakingApp:profile', content_name_slug=content_name_slug)  # Redirect to the profile page
+    else:
+        form = BioForm(initial={'bio': request.user.userprofile.bio})
+    return render(request, 'profile.html', {'bio_form': form})

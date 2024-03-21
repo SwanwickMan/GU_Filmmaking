@@ -61,7 +61,9 @@ def profile(request, content_name_slug):
 
     context_dict = {"profile": user_profile,
                     "profile_pic_form": profile_pic_form,
-                    "bio_form": bio_form}
+                    "bio_form": bio_form,
+                    "profile_posts" : profile_posts,
+                    "liked_posts" : liked_posts}
     return render(request, 'GUFilmmakingApp/profile.html', context=context_dict)
 
 

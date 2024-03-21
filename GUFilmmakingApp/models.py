@@ -30,12 +30,12 @@ class Post(models.Model):
     author = models.ForeignKey('GUFilmmakingApp.UserProfile', on_delete=models.CASCADE)
     post_type = models.CharField(max_length=20, choices=POST_TYPES)
     file = models.FileField(upload_to=PathAndRename('content'), null=False)
-    title = models.CharField(max_length=200)
+    title = models.CharField(unique=True, max_length=200, null=False)
     slug = models.SlugField(unique=True)
     description = models.TextField()
     thumbnail = models.ImageField(upload_to=PathAndRename('thumbnails'),
                                   validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
-                                  blank=True, null=False)
+                                  null=False)
     views = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     likes = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     

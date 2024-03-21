@@ -15,23 +15,47 @@ def movie_set_up():
 
         movie = Post.objects.get_or_create(author=user_profile)[0]
         movie.title = "my movie"
-        movie.post_type = "Longer Movie"
+        movie.post_type = "longer_movie"
         movie.description = "description"
+        movie.thumbnail = settings.MEDIA_DIR + '/profilePhoto.jpg'
+        movie.file = settings.MEDIA_DIR + '/FourPlayMovie.mp4'
         movie.save()
         return movie
+
+def bts_set_up():
+        user = User.objects.create_user(username='filmmaking_populate_user', email='example@email.com',password='example_password123')
+        user_profile = UserProfile.objects.create(user=user, userID=123, profileImage=settings.MEDIA_DIR + '/profilePhoto.jpg', 
+                                                  verified=True, bio='Example User Bio')
+
+        bts = Post.objects.get_or_create(author=user_profile)[0]
+        bts.title = "my bts"
+        bts.post_type = "bts"
+        bts.description = "description"
+        bts.thumbnail = settings.MEDIA_DIR + '/profilePhoto.jpg'
+        bts.file = settings.MEDIA_DIR + '/FourPlayMovie.mp4'
+        bts.save()
+        return bts
+
+def poster_set_up():
+        user = User.objects.create_user(username='filmmaking_populate_user', email='example@email.com',password='example_password123')
+        user_profile = UserProfile.objects.create(user=user, userID=123, profileImage=settings.MEDIA_DIR + '/profilePhoto.jpg', 
+                                                  verified=True, bio='Example User Bio')
+
+        poster = Post.objects.get_or_create(author=user_profile)[0]
+        poster.title = "my poster"
+        poster.post_type = "poster"
+        poster.description = "description"
+        poster.thumbnail = settings.MEDIA_DIR + '/profilePhoto.jpg'
+        poster.file = settings.MEDIA_DIR + '/profilePhoto.jpg'
+        poster.save()
+        return poster
 
 class PostMethodTests(TestCase):
     
     def test_Post_views_and_likes_positive(self):
-        def add_cat(name):
-            #c = Category.objects.get_or_create(name=name)[0]
-            c.save()
-            return c
-        
-        categories = [add_cat(c) for c in ("2022-23", "2023-24")]
         user = User.objects.create_user(username='filmmaking_populate_user', email='example@email.com',password='example_password123')
         user_profile = UserProfile.objects.create(user=user, userID=123, profileImage=settings.MEDIA_DIR + '/profilePhoto.jpg', verified=True, bio='Example User Bio')
-        tester = Post.objects.get_or_create(title='test', author=user_profile, category=categories[1])[0]
+        tester = Post.objects.get_or_create(title='test', author=user_profile)[0]
         tester.views = -1
         tester.likes = -1
         tester.year = "2023-24"
@@ -41,7 +65,7 @@ class PostMethodTests(TestCase):
         self.assertEqual((tester.likes>=0), True)
 
 class BtsViewTests(TestCase):
-    def test_redirect_bts_posts(self):
+    def test_redirect_bad_bts_posts(self):
         request = self.client.get('behind_the_scenes')
         response = behind_the_scenes(request, 'false-slug')
         response.client = Client()
@@ -49,34 +73,55 @@ class BtsViewTests(TestCase):
         self.assertRedirects(response, '/GUFilmmakingApp/', status_code=302, 
         target_status_code=200, fetch_redirect_response=True)
 
-class MoviesViewTests(TestCase):
-    def test_redirect_movie_post(self):
-        movie = movie_set_up()
+    def test_display_bts_post(self):
+        bts = bts_set_up()
+        url = reverse('GUFilmmakingApp:behind_the_scenes', kwargs={'content_name_slug':bts.slug})
+        response = self.client.get(url)
 
-        request = self.client.get('post_redirect/slug:<content_name_slug>')
-        response = redirect_from_slug(request, movie.slug)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "my bts")
+
+class MoviesViewTests(TestCase):
+    def test_redirect_bad_movie_posts(self):
+        request = self.client.get(reverse('GUFilmmakingApp:movies', kwargs={'content_name_slug':"bad-slug"}))
+        response = movie(request, 'false-slug')
         response.client = Client()
 
-        self.assertRedirects(response, '/GUFilmmakingApp/category/movies/my-movie/', status_code=302,
-                             target_status_code=200, fetch_redirect_response=True)
+        self.assertRedirects(response, '/GUFilmmakingApp/', status_code=302, 
+        target_status_code=200, fetch_redirect_response=True)
 
     def test_display_movie_post(self):
         movie = movie_set_up()
-        print(Post.objects.get(slug=movie.slug))
-        #request = self.client.get('categories/movies/my-movie')
-        response = self.client.get(reverse('GUFilmmakingApp:movies', kwargs={'content_name_slug':movie.slug}))
+        url = reverse('GUFilmmakingApp:movies', kwargs={'content_name_slug':movie.slug})
+        response = self.client.get(url)
 
-        self.assertRedirects(response, '/GUFilmmakingApp/category/movies/my-movie/', status_code=302,
-                             target_status_code=200, fetch_redirect_response=True)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'my movie')
-        self.assertContains(response, 'description')
+        self.assertContains(response, "my movie")
+
+class PosterViewTests(TestCase):
+    def test_redirect_bad_poster_posts(self):
+        request = self.client.get(reverse('GUFilmmakingApp:posters', kwargs={'content_name_slug':"bad-slug"}))
+        response = poster(request, "bad-slug")
+        response.client = Client()
+
+        self.assertRedirects(response, '/GUFilmmakingApp/', status_code=302, 
+        target_status_code=200, fetch_redirect_response=True)
+    
+    def test_display_poster_post(self):
+        poster = poster_set_up()
+        url = reverse('GUFilmmakingApp:posters', kwargs={'content_name_slug':poster.slug})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "my poster")
+    
+
+    
         
 
 class SearchViewTests(TestCase):
     def test_no_posts(self):
         number_of_posts = len(Post.objects.all())
-        print(number_of_posts)
 
         url = reverse('GUFilmmakingApp:search') + '?search='
 
@@ -94,13 +139,40 @@ class SearchViewTests(TestCase):
 
         # Assert the number of search results
         self.assertEqual(len(search_results), number_of_posts)
+
+    def test_search_post(self):
+        movie = movie_set_up()
+
+        url = reverse('GUFilmmakingApp:search') + '?search=my&search_for=longer_movie'
+        response = self.client.get(url)
+        self.assertIn('search_results', response.context)
+        search_results = response.context['search_results']
+        result = search_results.values()
+        self.assertEqual(result[0]["title"], "my movie")
+
 class ProfileViewTests(TestCase):
     def test_profile(self):
+
         user = User.objects.create_user(username='filmmaking_populate_user', email='example@email.com',password='example_password123')
         user_profile = UserProfile.objects.create(user=user, userID=123, profileImage=settings.MEDIA_DIR + '/profilePhoto.jpg',
                                                    verified=True, bio='Example User Bio')
         self.client.login(username="filmmaking_populate_user", password="example_password123")
 
-        response = self.client.get(reverse("GUFilmmakingApp:profile"))
+        movie = Post.objects.get_or_create(author=user_profile)[0]
+        movie.title = "my movie"
+        movie.post_type = "longer_movie"
+        movie.description = "description"
+        movie.thumbnail = settings.MEDIA_DIR + '/profilePhoto.jpg'
+        movie.file = settings.MEDIA_DIR + '/FourPlayMovie.mp4'
+        movie.save()
+
+        url = reverse("GUFilmmakingApp:profile", kwargs={"content_name_slug" : user_profile.slug})
+
+        response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "filmmaking_populate_user")
+        self.assertEqual(response.context["profile_posts"].values()[0]["title"], "my movie")
+
+
+    

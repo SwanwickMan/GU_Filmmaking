@@ -16,7 +16,7 @@ Add a Poster
 <h1>Add a Poster</h1>
 
 <div>
-    <form id="form" method="post" action="/GUFilmmakingApp/add_poster/">
+    <form id="form" method="post" enctype="multipart/form-data" action="{% url 'GUFilmmakingApp:add_poster' %}">
         {% csrf_token %}
         {% for hidden in form.hidden_fields %}
         {{ hidden }}
@@ -33,5 +33,4 @@ Add a Poster
     </form>
 </div>
 
-</html>
 {% endblock %}

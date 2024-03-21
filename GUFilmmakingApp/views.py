@@ -77,6 +77,8 @@ def user_posts(request):
 
     return response
 
+
+@login_required
 def add_movie(request):
     form = MovieForm()
 
@@ -84,7 +86,7 @@ def add_movie(request):
         form = MovieForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author_id = UserProfile.objects.get(user=request.user).userID
+            post.author = UserProfile.objects.get(user=request.user)
             post.save()
             return redirect(reverse('GUFilmmakingApp:index'))
         else:
@@ -133,6 +135,7 @@ def behind_the_scenes(request, content_name_slug):
     return response
 
 
+@login_required
 def add_poster(request):
     form = PosterForm()
 
@@ -140,15 +143,16 @@ def add_poster(request):
         form = PosterForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author_id = UserProfile.objects.get(user=request.user).userID
+            post.author = UserProfile.objects.get(user=request.user)
             post.save()
             return redirect(reverse('GUFilmmakingApp:index'))
         else:
-            print(post.errors)
+            print(form.errors)
     
     return render(request, 'GUFilmmakingApp/add_poster.html', {'form': form})
 
 
+@login_required
 def add_bts(request):
     form = BTSForm()
 
@@ -156,13 +160,14 @@ def add_bts(request):
         form = BTSForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author_id = UserProfile.objects.get(user=request.user).userID
+            post.author = UserProfile.objects.get(user=request.user)
             post.save()
             return redirect(reverse('GUFilmmakingApp:index'))
         else:
             print(form.errors)
     
     return render(request, 'GUFilmmakingApp/add_bts.html', {'form': form})
+
 
 @login_required
 def add_post(request):

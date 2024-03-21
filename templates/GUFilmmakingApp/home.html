@@ -44,7 +44,7 @@ Home
             <div class="post"
                 onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
                 <h3>{{ post.title}}</h3>
-                <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
+                <img class="thumbnail" src=" {{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
                 <p>Description: {{ post.description }}</p>
                 <p>Likes: {{ post.likes }}</p>
             </div>
@@ -57,7 +57,7 @@ Home
             <div class="post"
                 onclick="window.location.href = '{% url 'GUFilmmakingApp:redirect_from_slug' 'post' post.slug  %}'">
                 <h3>{{ post.title }}</h3>
-                <img src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
+                <img class="thumbnail" src="{{ post.thumbnail.url }}" alt="Thumbnail for {{ post.title }}">
                 <p>Description: {{ post.description }}</p>
                 <p>Views: {{ post.views }}</p>
             </div>

@@ -62,12 +62,8 @@ def profile(request, content_name_slug):
     context_dict = {"profile": user_profile,
                     "profile_pic_form": profile_pic_form,
                     "bio_form": bio_form,
-                    "profile_posts": profile_posts,
-                    "liked_posts": liked_posts,
-                    }
-
-    print(user_profile.myLikes.values())
-
+                    "profile_posts" : profile_posts,
+                    "liked_posts" : liked_posts}
     return render(request, 'GUFilmmakingApp/profile.html', context=context_dict)
 
 
@@ -84,8 +80,6 @@ def user_posts(request):
 
     return response
 
-
-@login_required
 def add_movie(request):
     form = MovieForm()
 
@@ -142,7 +136,6 @@ def behind_the_scenes(request, content_name_slug):
     return response
 
 
-@login_required
 def add_poster(request):
     form = PosterForm()
 
@@ -159,7 +152,6 @@ def add_poster(request):
     return render(request, 'GUFilmmakingApp/add_poster.html', {'form': form})
 
 
-@login_required
 def add_bts(request):
     form = BTSForm()
 

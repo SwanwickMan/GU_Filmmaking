@@ -3,6 +3,18 @@
     margin-top: 20px;
 }
 
+#authenticated-section {
+    text-align: center;
+    display: flex;
+    /* Enables Flexbox */
+    align-items: center;
+    /* Aligns items vertically in the center */
+    justify-content: center;
+    /* Centers items horizontally */
+    margin-top: 10px;
+}
+
+
 #profile-top-section {
     display: flex;
     justify-content: space-between;

@@ -15,19 +15,23 @@ Media Content Page
 <div id="main-content">
     <div id="media-content">
         {% if file_type == "video" %}
-            <video src="{{ bts.file.url }}" controls> </video>
+        <video src="{{ bts.file.url }}" controls> </video>
         {% elif file_type == "image" %}
-            <img src="{{ bts.file.url }}" alt="poster" id="media-content"  onclick="this.requestFullscreen()"/>
+        <img src="{{ bts.file.url }}" alt="poster" id="media-content" onclick="this.requestFullscreen()" />
         {% else %}
-            <a href="{{ bts.file.url }}" download> bad file type </a>
+        <a href="{{ bts.file.url }}" download> bad file type </a>
         {% endif %}
 
         <div id="likes-and-views">
             <div>
-                <p>{{ bts.likes }}</p> <img src="{% static "images/likes.png" %}" alt="GU Filmmaking Logo" id="likes">
+                <img id="likes-img-{{ bts.id }}"
+                    src="{% if is_liked %}{% static 'images/likes.png' %}{% else %}{% static 'images/empty_like.png' %}{% endif %}"
+                    onclick="likePost({{ bts.id }}, '{% url 'GUFilmmakingApp:like_post' 0 %}')" alt="Like">
+                <p id="likes-count-{{ bts.id }}">{{ bts.likes }}</p>
             </div>
             <div>
-                <p>{{ bts.views }}</p> <img src="{% static "images/views.png" %}" alt="GU Filmmaking Logo" id="views">
+                <p id="views-count-{{ bts.id }}">{{ bts.views }}</p>
+                <img src="{% static "images/views.png" %}" alt="Views logo" id="views">
             </div>
         </div>
     </div>
@@ -48,4 +52,68 @@ Media Content Page
 
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function likePost(postId) {
+        $.ajax({
+            url: '{% url "GUFilmmakingApp:like_post" 0 %}'.replace('0', postId),
+            type: 'POST',
+            data: JSON.stringify({ 'post_id': postId }),
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json'
+            },
+            dataType: 'json',
+            success: function (data) {
+                $('#likes-count-' + postId).text(data.likes);
+                var img = $('#likes-img-' + postId);
+                if (data.liked) {
+                    img.attr('src', '{% static "images/likes.png" %}');
+                } else {
+                    img.attr('src', '{% static "images/empty_like.png" %}');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+
+    function updatePageViews(postId, viewsUrl) {
+        $.ajax({
+            url: viewsUrl.replace('0', postId),
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $('#views-count-' + postId).text(data.views);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error updating views:', error);
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        updatePageViews({{ bts.id }}, "{% url 'GUFilmmakingApp:update_views' 0 %}");
+    });
+
+</script>
 {% endblock %}

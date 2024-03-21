@@ -11,32 +11,32 @@ from GUFilmmakingApp.models import Post, UserProfile
 
 def populate(author):
 
-    default_thumbnail = settings.MEDIA_DIR + '/thumbnails/default_thumbnail.png'
+    default_thumbnail = '/thumbnails/default_thumbnail.png'
 
     movies_longer = [
-        {'title': 'Circa 2008', 'filepath': settings.MEDIA_DIR + '/circa2008Movie.mp4', 'description' : 'Suspense & Thriller', 'thumbnail' : settings.MEDIA_DIR + '/thumbnails/CircaPoster.jpg'},
-        {'title': 'Jamie Learns the Sellotape Technique', 'filepath': settings.MEDIA_DIR + '/jamieLearnsTheSellotapeTechniqueMovie.mp4', 'description': 'Comedy', 'thumbnail' : settings.MEDIA_DIR + '/thumbnails/SellotapePoster.jpg'}
+        {'title': 'Circa 2008', 'filepath': '/circa2008Movie.mp4', 'description' : 'Suspense & Thriller', 'thumbnail' : '/thumbnails/CircaPoster.jpg'},
+        {'title': 'Jamie Learns the Sellotape Technique', 'filepath': '/jamieLearnsTheSellotapeTechniqueMovie.mp4', 'description': 'Comedy', 'thumbnail' : '/thumbnails/SellotapePoster.jpg'}
 
     ]
 
     shorter_movies = [
-        {'title': 'FourPlay', 'filepath' : settings.MEDIA_DIR + '/FourPlayMovie.mp4', 'description' : 'Romance', 'thumbnail' : settings.MEDIA_DIR + '/thumbnails/fourPlay_thumbnail.jpg'},
-        {'title': 'Do You Believe In Santa Claus?', 'filepath': settings.MEDIA_DIR + '/SantaFilm.mp4','description': 'Satire & Comedy'}
+        {'title': 'FourPlay', 'filepath' : '/FourPlayMovie.mp4', 'description' : 'Romance', 'thumbnail' : '/thumbnails/fourPlay_thumbnail.jpg'},
+        {'title': 'Do You Believe In Santa Claus?', 'filepath': '/SantaFilm.mp4','description': 'Satire & Comedy'}
 
     ]
 
     posters = [
-        {'title': 'Circa 2008 Poster', 'filepath' : settings.MEDIA_DIR + '/poster2022-2023.jpg', 'description' : 'Our beautiful poster'},
-        {'title': 'FourPlay Poster', 'filepath' : settings.MEDIA_DIR + '/FourPlayPoster.jpg', 'description': 'cool kids poster!'},
-        {'title': 'Fortune Cookie', 'filepath': settings.MEDIA_DIR + '/poster2023-2024.jpg','description': 'so proud of this beautiful poster!'},
-        {'title': 'Do You Believe In Santa Claus? Poster', 'filepath': settings.MEDIA_DIR + '/BYBISCposter.jpg','description': 'Cool Movie Poster'}
+        {'title': 'Circa 2008 Poster', 'filepath' : '/poster2022-2023.jpg', 'description' : 'Our beautiful poster'},
+        {'title': 'FourPlay Poster', 'filepath' : '/FourPlayPoster.jpg', 'description': 'cool kids poster!'},
+        {'title': 'Fortune Cookie', 'filepath': '/poster2023-2024.jpg','description': 'so proud of this beautiful poster!'},
+        {'title': 'Do You Believe In Santa Claus? Poster', 'filepath': '/BYBISCposter.jpg','description': 'Cool Movie Poster'}
     ]
 
     behind_the_scenes = [
-        {'title': "tiktok1", 'filepath' : settings.MEDIA_DIR + '/bts.mp4', 'description' : 'Our First TikTok!', 'description': 'A day on set', 'thumbnail' : settings.MEDIA_DIR + '/thumbnails/tiktok_thumbnail.jpg' },
-        {'title': 'FourPlay Party Photos', 'filepath' : settings.MEDIA_DIR + '/FourPlayBTS.jpg', 'description' : 'BTS Party Scene Fourplay 2023'},
-        {'title': 'tiktok2', 'filepath': settings.MEDIA_DIR + '/guFilmTiktok.mp4', 'description': 'Our Second TikTok!', 'description': 'behind the scenes on our shoots'},
-        {'title': 'Santa Claus Shoot Photos', 'filepath': settings.MEDIA_DIR + '/bts.jpg', 'description': 'BTS on DYBISC 2024 first shoot'}
+        {'title': "tiktok1", 'filepath' : '/bts.mp4', 'description' : 'Our First TikTok!', 'description': 'A day on set', 'thumbnail' : '/thumbnails/tiktok_thumbnail.jpg' },
+        {'title': 'FourPlay Party Photos', 'filepath' : '/FourPlayBTS.jpg', 'description' : 'BTS Party Scene Fourplay 2023'},
+        {'title': 'tiktok2', 'filepath': '/guFilmTiktok.mp4', 'description': 'Our Second TikTok!', 'description': 'behind the scenes on our shoots'},
+        {'title': 'Santa Claus Shoot Photos', 'filepath': '/bts.jpg', 'description': 'BTS on DYBISC 2024 first shoot'}
     ]
 
 
@@ -51,20 +51,20 @@ def populate(author):
 
 
     for data in movies_longer:
-        add_post(data['title'], data['filepath'], data['description'], data.get("thumbnail", default_thumbnail),  author, "longer_movie")
+        add_post(data['title'], data['filepath'], data['description'], data.get("thumbnail"),  author, "longer_movie")
 
     for data in shorter_movies:
-        add_post(data['title'], data['filepath'], data['description'], data.get("thumbnail", default_thumbnail),  author, "shorter_movie")
+        add_post(data['title'], data['filepath'], data['description'], data.get("thumbnail"),  author, "shorter_movie")
 
     for data in posters:
-        add_post(data['title'], data['filepath'], data['description'], data.get("thumbnail", default_thumbnail),  author, "poster")
+        add_post(data['title'], data['filepath'], data['description'], data.get("thumbnail"),  author, "poster")
 
     for data in behind_the_scenes:
-        add_post(data['title'], data['filepath'], data['description'], data.get("thumbnail", default_thumbnail),  author, "bts")
+        add_post(data['title'], data['filepath'], data['description'], data.get("thumbnail"),  author, "bts")
 
     for user_data in users:
         user = User.objects.create_user(username=user_data['username'], email=user_data['email'], password=user_data['password'])
-        user_profile = UserProfile.objects.create(user=user, userID=user_data['userID'], profileImage=settings.MEDIA_DIR + user_data['filepath'], bio=user_data['bio'])
+        user_profile = UserProfile.objects.create(user=user, userID=user_data['userID'], profileImage=user_data['filepath'], bio=user_data['bio'])
         user_profile.save()
 
 
@@ -73,8 +73,10 @@ def add_post(title, media, description, thumbnail, author, post_type, views=0, l
     p = Post.objects.get_or_create(title=title, author=author)[0]
     p.description = description
     p.thumbnail = thumbnail
-    p.views = random.randint(0,100)
-    p.likes = random.randint(0,100)
+
+    numArr = (random.randint(0, 100), random.randint(0, 100))
+    p.views = max(numArr)
+    p.likes = min(numArr)
     p.post_type = post_type
     p.file = media
     p.save()
@@ -90,7 +92,7 @@ if __name__ == '__main__':
     Post.objects.all().delete()
 
     user = User.objects.create_user(username='filmmaking_populate_user', email='example@email.com',password='example_password123')
-    user_profile = UserProfile.objects.create(user=user, userID=123, profileImage=settings.MEDIA_DIR + '/profilePhoto.jpg', verified=True, bio='Example User Bio')
+    user_profile = UserProfile.objects.create(user=user, userID=123, profileImage='/profilePhoto.jpg', verified=True, bio='Example User Bio')
     populate(author=user_profile)
 
     # temporary superuser

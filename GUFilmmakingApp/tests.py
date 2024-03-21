@@ -22,6 +22,34 @@ def movie_set_up():
         movie.save()
         return movie
 
+def bts_set_up():
+        user = User.objects.create_user(username='filmmaking_populate_user', email='example@email.com',password='example_password123')
+        user_profile = UserProfile.objects.create(user=user, userID=123, profileImage=settings.MEDIA_DIR + '/profilePhoto.jpg', 
+                                                  verified=True, bio='Example User Bio')
+
+        bts = Post.objects.get_or_create(author=user_profile)[0]
+        bts.title = "my bts"
+        bts.post_type = "bts"
+        bts.description = "description"
+        bts.thumbnail = settings.MEDIA_DIR + '/profilePhoto.jpg'
+        bts.file = settings.MEDIA_DIR + '/FourPlayMovie.mp4'
+        bts.save()
+        return bts
+
+def poster_set_up():
+        user = User.objects.create_user(username='filmmaking_populate_user', email='example@email.com',password='example_password123')
+        user_profile = UserProfile.objects.create(user=user, userID=123, profileImage=settings.MEDIA_DIR + '/profilePhoto.jpg', 
+                                                  verified=True, bio='Example User Bio')
+
+        poster = Post.objects.get_or_create(author=user_profile)[0]
+        poster.title = "my poster"
+        poster.post_type = "poster"
+        poster.description = "description"
+        poster.thumbnail = settings.MEDIA_DIR + '/profilePhoto.jpg'
+        poster.file = settings.MEDIA_DIR + '/profilePhoto.jpg'
+        poster.save()
+        return poster
+
 class PostMethodTests(TestCase):
     
     def test_Post_views_and_likes_positive(self):
@@ -37,7 +65,7 @@ class PostMethodTests(TestCase):
         self.assertEqual((tester.likes>=0), True)
 
 class BtsViewTests(TestCase):
-    def test_redirect_bts_posts(self):
+    def test_redirect_bad_bts_posts(self):
         request = self.client.get('behind_the_scenes')
         response = behind_the_scenes(request, 'false-slug')
         response.client = Client()
@@ -45,15 +73,50 @@ class BtsViewTests(TestCase):
         self.assertRedirects(response, '/GUFilmmakingApp/', status_code=302, 
         target_status_code=200, fetch_redirect_response=True)
 
+    def test_display_bts_post(self):
+        bts = bts_set_up()
+        url = reverse('GUFilmmakingApp:behind_the_scenes', kwargs={'content_name_slug':bts.slug})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "my bts")
+
 class MoviesViewTests(TestCase):
+    def test_redirect_bad_movie_posts(self):
+        request = self.client.get(reverse('GUFilmmakingApp:movies', kwargs={'content_name_slug':"bad-slug"}))
+        response = movie(request, 'false-slug')
+        response.client = Client()
+
+        self.assertRedirects(response, '/GUFilmmakingApp/', status_code=302, 
+        target_status_code=200, fetch_redirect_response=True)
+
     def test_display_movie_post(self):
         movie = movie_set_up()
-        #request = self.client.get('categories/movies/my-movie')
         url = reverse('GUFilmmakingApp:movies', kwargs={'content_name_slug':movie.slug})
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "my movie")
+
+class PosterViewTests(TestCase):
+    def test_redirect_bad_poster_posts(self):
+        request = self.client.get(reverse('GUFilmmakingApp:posters', kwargs={'content_name_slug':"bad-slug"}))
+        response = poster(request, "bad-slug")
+        response.client = Client()
+
+        self.assertRedirects(response, '/GUFilmmakingApp/', status_code=302, 
+        target_status_code=200, fetch_redirect_response=True)
+    
+    def test_display_poster_post(self):
+        poster = poster_set_up()
+        url = reverse('GUFilmmakingApp:posters', kwargs={'content_name_slug':poster.slug})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "my poster")
+    
+
+    
         
 
 class SearchViewTests(TestCase):

@@ -11,6 +11,8 @@ from GUFilmmakingApp.models import Post, UserProfile
 
 def populate(author):
 
+    default_thumbnail = settings.MEDIA_DIR + '/thumbnails/default_thumbnail.jpg'
+
     movies_longer = [
         {'title': 'Circa 2008', 'filepath': settings.MEDIA_DIR + '/circa2008Movie.mp4', 'description' : 'Suspense & Thriller', 'thumbnail' : settings.MEDIA_DIR + '/thumbnails/CircaPoster.jpg'},
         {'title': 'Jamie Learns the Sellotape Technique', 'filepath': settings.MEDIA_DIR + '/jamieLearnsTheSellotapeTechniqueMovie.mp4', 'description': 'Comedy', 'thumbnail' : settings.MEDIA_DIR + '/thumbnails/SellotapePoster.jpg'}
@@ -49,16 +51,16 @@ def populate(author):
 
 
     for data in movies_longer:
-        add_post(data['title'], data['filepath'], data['description'], "2023-24", author, "longer_movie")
+        add_post(data['title'], data['filepath'], data['description'], data.get("thumbnail", default_thumbnail),  author, "longer_movie")
 
     for data in shorter_movies:
-        add_post(data['title'], data['filepath'], data['description'], "2023-24", author, "shorter_movie")
+        add_post(data['title'], data['filepath'], data['description'], data.get("thumbnail", default_thumbnail),  author, "shorter_movie")
 
     for data in posters:
-        add_post(data['title'], data['filepath'], data['description'], "2023-24", author, "poster")
+        add_post(data['title'], data['filepath'], data['description'], data.get("thumbnail", default_thumbnail),  author, "poster")
 
     for data in behind_the_scenes:
-        add_post(data['title'], data['filepath'], data['description'], "2023-24", author, "bts")
+        add_post(data['title'], data['filepath'], data['description'], data.get("thumbnail", default_thumbnail),  author, "bts")
 
     for user_data in users:
         user = User.objects.create_user(username=user_data['username'], email=user_data['email'], password=user_data['password'])

@@ -14,7 +14,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 
 
-
 # Create your views here.
 def index(request):
     most_liked_posts = Post.objects.all().order_by('-likes')[:3]
@@ -52,6 +51,7 @@ def profile(request, content_name_slug):
     try:
         user_profile = UserProfile.objects.get(slug=content_name_slug)
         profile_posts = Post.objects.filter(author=user_profile)
+        liked_posts = user_profile.myLikes.all()
 
     except UserProfile.DoesNotExist:
         return redirect("GUFilmmakingApp:index")
@@ -63,8 +63,11 @@ def profile(request, content_name_slug):
                     "profile_pic_form": profile_pic_form,
                     "bio_form": bio_form,
                     "profile_posts": profile_posts,
-                    "liked_posts": user_profile.myLikes.values()
+                    "liked_posts": liked_posts,
                     }
+
+    print(user_profile.myLikes.values())
+
     return render(request, 'GUFilmmakingApp/profile.html', context=context_dict)
 
 

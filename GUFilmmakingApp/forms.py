@@ -58,7 +58,7 @@ class BTSForm(forms.ModelForm):
                             max_length=Post.POST_MAX_LENGTH,
                             help_text="Please enter the title.")
     description = forms.CharField(help_text="Please enter a description.")
-    thumbnail = forms.ImageField(required=True, help_text="Optional: Upload a thumbnail image")
+    thumbnail = forms.ImageField(required=True, help_text="Upload a thumbnail image")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     file = forms.FileField(required=True,
                            validators=[FileExtensionValidator(allowed_extensions=['png', 'jpg', 'jpeg','mp4'])],

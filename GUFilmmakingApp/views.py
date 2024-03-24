@@ -306,7 +306,11 @@ def redirect_from_slug(request, content_type_slug, content_name_slug):
 # another helper view to get user page
 @login_required
 def get_user_profile(request, user_name_slug):
-    current_profile = UserProfile.objects.get(user__username=user_name_slug)
+    try:
+        current_profile = UserProfile.objects.get(user__username=user_name_slug)
+    except UserProfile.DoesNotExist:
+        user = User.objects.get(username=user_name_slug)
+        current_profile = UserProfile.objects.create(user=user, userID=0)
     url = reverse('GUFilmmakingApp:profile', kwargs={'content_name_slug': current_profile.slug})
     return redirect(url)
 

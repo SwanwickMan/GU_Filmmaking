@@ -54,6 +54,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 ]
 
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '745510145538-onl53ncb809varo6lbh2q0e5mq41flt7.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         # For each OAuth based provider, either add a ``SocialApp``
@@ -61,8 +65,13 @@ SOCIALACCOUNT_PROVIDERS = {
         # credentials, or list them here:
         'SCOPE': [
             'email'
-        ]
-        #"AUTH_PARAMS": {"access_type" : "online"}
+        ],
+        "AUTH_PARAMS": {"access_type": "online"},
+        "OAUTH_PKCE_ENABLED": True,
+        'APP': {
+            'client_id': SOCIAL_AUTH_GOOGLE_OAUTH2_KEY,
+            'secret': SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET,
+        }
     }
 }
 
@@ -71,9 +80,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '745510145538-onl53ncb809varo6lbh2q0e5mq41flt7.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

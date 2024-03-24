@@ -9,6 +9,7 @@ Login
 <link rel="stylesheet" href="{% static 'style/login.css' %}">
 
 {% endblock %}
+{% load socialaccount %}
 
 
 {% block main_content %}
@@ -26,7 +27,7 @@ Login
                 <input type="submit" value="submit" />
             </div>
         </form>
-        <a href="{% url 'social:begin' 'google-oauth2' %}" id="google-link">Login with Google</a>
+        <a href=" {% provider_login_url 'google' %}?next=/">Login with Google</a>
     </div>
     <div id="signup-button">
         <a href="{% url 'GUFilmmakingApp:signup' %}" class="signup-link">Sign Up</a>

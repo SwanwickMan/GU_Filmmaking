@@ -35,6 +35,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Application definition
 
+SITE_ID = 1
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,12 +45,31 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #edited here (Manav)
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    #'django.contrib.sites',
     'social_django',
     "GUFilmmakingApp.apps.GUFilmmakingAppConfig",
+    'allauth.socialaccount.providers.google',
 ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'SCOPE': [
+            'email'
+        ]
+        #"AUTH_PARAMS": {"access_type" : "online"}
+    }
+}
+
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '745510145538-onl53ncb809varo6lbh2q0e5mq41flt7.apps.googleusercontent.com'
@@ -62,6 +83,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'GU_Filmmaking.urls'
